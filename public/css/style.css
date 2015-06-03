@@ -49,11 +49,11 @@ h5{
 
 .d3-tip {
   opacity: 0;
-  line-height: 1;
-  font-size: 10px;
+  line-height: 1.3;
+  font-size: 12px;
   font-weight: 300;
-  padding: 10px;
-  background: rgba(0, 0, 0, 0.8);
+  padding: 6px;
+  background: rgba(0, 0, 0, 1);
   color: #fff;
   border-radius: 2px;
   max-width: 150px;
@@ -62,7 +62,7 @@ h5{
 }
 
 /* Creates a small triangle extender for the tooltip */
-.d3-tip:after {
+/*.d3-tip:after {
 
   box-sizing: border-box;
   display: inline;
@@ -77,11 +77,10 @@ h5{
   text-align: center;
   pointer-events: none;
 
-}
+}*/
 
 /* Style northward tooltips differently */
 .d3-tip.n:after {
-
   margin: -1px 0 0 0;
   top: 100%;
   left: 0;
@@ -141,11 +140,37 @@ svg line.link-related {
   stroke-dasharray : 5px, 10px;*/
 }
 
-svg line.link-faded {
+/*svg line.link-faded {
+  stroke-opacity: .025;
+}*/
+
+svg .link-faded path{
   stroke-opacity: .025;
 }
 
+svg .link-faded line{
+  stroke-opacity: .025;
+}
+
+svg path.link-personal{
+  fill: #4D4D4C;
+  opacity: 0.65;
+}
+
+svg path.link-influence{
+  fill: #B4B5B4;
+  opacity: 0.65;
+}
+
+svg path.link-related{
+  fill: #C9CFD4;
+  opacity: 0.65;
+}
+
 /*svg line.link-personal*/
+svg .link.link-faded path {
+  opacity: .025;
+}
 
 svg path{
   cursor: pointer;

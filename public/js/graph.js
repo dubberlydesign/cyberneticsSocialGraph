@@ -6,14 +6,13 @@ var cache = {},
   openNode = {},
   displayed = [],
   linksCreated = {},
-  linksDistanceDict = {}; //helps me to track the distance with all nodes
+  linksDistanceDict = {};
 
 var linkAux = "";
 
 
 var force = d3.layout.force()
   .charge(function(d, i) { return i ? -2000 : 0; })
-  // .chargeDistance(2000)
   .gravity(.01)
   .friction(.3)
   .linkStrength(0.6)
@@ -129,59 +128,40 @@ function update(nodes, links){
     .links(links)
     .start();
 
-
     var link = svg.selectAll('.link')
       .data(links)
-      .enter()
-      .append('line')
-      .attr('class', function(d){
-        return 'link-' + d.linkType;
-      })
-      .on('mouseover', function(d){
-        //making sure to don't display an empty tooltip
+      .enter().append('g').attr('class','link');
 
-        if( d.linkInfo != undefined && d.linkInfo != "" ){
-          var _this = this;
-          d.tooltip = d3.tip().offset(function(){
+      link.append('line')
+        .attr('class', function(d){
+          return 'link-' + d.linkType;
+        });
 
-            var factor = d.source.x
+      link.append("svg:path")
+        .attr("d", d3.svg.symbol()
+          .size(50)
+          // .type('triangle-down'))
+          .type('circle'))
+        .attr('class', function(d){
+          return 'link-' + d.linkType;
+        })
+        .classed('hasInfo', function(d){ return  !(d.linkInfo != undefined && d.linkInfo != ""); })
+        .on('mouseover', linkNodeOver)
+        .on('mouseout', function(d){
 
-            // var left = d.source.x - d.target.x;
-            // var top = d.source.y - d.target.y;
+          link.classed('link-faded', false);
 
-            var left = 0,
-              top = 0;
+          d3.selectAll('path')
+            .classed('node-faded', false);
 
-            if( d.source.y > d.target.y){
-              left = d.source.x - d.target.x;
-              top = d.source.y - d.target.y;
-            }else{
-              left = d.target.x - d.source.x;
-              top = d.target.y - d.source.y;
-            }
+          d3.selectAll('text')
+            .classed('text-faded', false);
 
-            // top = d.source.y > d.target ?  (top/2) *-1 : (top/2);
-            // left = (left/2) *-1;
-            // top = (top/2) *-1;
+          $('.d3-tip').remove();
+        });
 
-            left = (left/2);
-            top = (top/2);
 
-            // top = d.source.y > d.target ?  (top/2) *-1 : (top/2);
-
-            return [top, 0];
-            // return [(_this.getBBox().height/2) + 15, 0];
-          }).attr('class', 'd3-tip')
-            .html( d.linkInfo );
-          svg.call(d.tooltip);
-          d.tooltip.show();
-        }
-
-      })
-      .on('mouseout', function(d){
-        $('.d3-tip').remove();
-      });
-
+      svg.selectAll('.hasInfo').remove();
 
     var node = svg.selectAll('.node')
       .data(nodes)
@@ -196,29 +176,7 @@ function update(nodes, links){
         var notFaded = {};
 
         link.classed('link-faded', function(l){
-          var left = 0;
-          var top = 0;
           if(d === l.source || d === l.target){
-
-
-            if(d === l.source){
-              left = l.source.x - l.target.x;
-              top = l.source.y - l.target.y;
-            }else{
-              left = l.target.x - l.source.x;
-              top = l.target.y - l.source.y;
-            }
-
-            top = (top/2) *-1;
-            left = (left/2) *-1;
-
-
-            if( l.linkInfo != undefined && l.linkInfo != "" ){
-              l.tooltip = d3.tip().attr('class', 'd3-tip').offset([top, left])
-                .html( l.linkInfo );
-              svg.call(l.tooltip);
-              l.tooltip.show();
-            }
 
             notFaded[l.source.name] = l.source.name;
             notFaded[l.target.name] = l.target.name;
@@ -255,8 +213,7 @@ function update(nodes, links){
           d3.selectAll('text')
             .classed('text-faded', false);
 
-      })
-      .call(force.drag);
+      }).call(force.drag);
 
     node.append("svg:path")
       .attr("d", d3.svg.symbol()
@@ -271,7 +228,6 @@ function update(nodes, links){
         .type(function(d){
           return prioritySymbol(d.type);
         }))
-      // .classed('node-person', function(d){ return parseInt(d.type) < 10})
       .classed('node-publication', function(d){ return parseInt(d.type) == 12})
       .classed('node-other', function(d){ return parseInt(d.type) == 11})
       .attr('fill', function(d){
@@ -298,14 +254,62 @@ function update(nodes, links){
 
         return "translate(" + d.x + "," + d.y + ")"; });
 
-      link.attr("x1", function(d) {
+      link.selectAll('line').attr("x1", function(d) {
          return Math.min(width-10, d.source.x); })
         .attr("y1", function(d) { return Math.min(height-10, d.source.y); })
         .attr("x2", function(d) { return Math.min(width-10, d.target.x); })
         .attr("y2", function(d) { return Math.min(height-10, d.target.y); });
 
+      link.selectAll('path').attr('transform', function(d){
+        var x = (d.source.x + d.target.x)/2;
+        var y = (d.source.y + d.target.y)/2;
 
+        return "translate(" + x + "," + y+ ')';
+      });
     });
+}
+
+
+function linkNodeOver(d, p){ //path
+
+
+  $('.d3-tip').remove();
+
+  var notFaded = {};
+  notFaded[d.source.name] = d.source.name;
+  notFaded[d.target.name] = d.target.name;
+
+
+  svg.selectAll('g')
+    .classed('link-faded', function(l){
+      if(l === d)
+        return false;
+      else
+        return true;
+    });
+
+  d3.selectAll('path')
+    .classed('node-faded', function(nd){
+      var condition = !(nd.name in notFaded) && parseInt(nd.type) < 10
+        || !(nd.name in notFaded) && parseInt(nd.type) == 12
+        || !(nd.name in notFaded) && parseInt(nd.type) == 11;
+
+        return condition;
+    });
+
+  d3.selectAll('text')
+    .classed('text-faded', function(nd){
+      return !(nd.name in notFaded);
+    });
+
+
+  if( d.linkInfo != undefined && d.linkInfo != "" ){
+    d.tooltip = d3.tip().attr('class', 'd3-tip')
+      .html( d.linkInfo );
+    svg.call(d.tooltip);
+    d.tooltip.show();
+  }
+
 }
 
 
