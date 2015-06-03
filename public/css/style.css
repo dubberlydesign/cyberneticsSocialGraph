@@ -1,0 +1,167 @@
+body{
+  width: 100%;
+  height: 100%;
+  font-family: 'Open Sans', sans-serif;
+  overflow: hidden;
+  margin: 0;
+}
+html{
+  width: 100%;
+  height: 100%;
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+}
+
+.info {
+  z-index: 100;
+  margin-left: 15px;
+  margin-top: 15px;
+  position: absolute;
+}
+
+h3{
+  line-height: 26px;
+}
+
+
+h5{
+  font-weight: 300;
+  margin:0;
+  margin-top: 5px;
+}
+
+#graph{
+  z-indez: -10;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  top: 0;
+  position: absolute;
+  display: none;
+}
+
+.node {
+  stroke: #fff;
+  stroke-width: 1px;
+  cursor: pointer;
+}
+
+.d3-tip {
+  opacity: 0;
+  line-height: 1;
+  font-size: 10px;
+  font-weight: 300;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+  max-width: 150px;
+  pointer-events: none;
+  -webkit-transition: opacity 300ms ease-in-out 300ms;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  font-size: 10px;
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+  pointer-events: none;
+
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+  font-size: 10px;
+  font-weight: 300;
+  pointer-events: none;
+}
+
+/*.node ~ text {*/
+svg text {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #1A1919;
+  /*pointer-events: none;*/
+  text-anchor: middle;
+  cursor:pointer;
+  stroke: white;
+  text-shadow: -1px 1px 2px white;
+  pointer-events: none;
+  -webkit-transition: all .35s ease;
+  -moz-transition: all .35s ease;
+  -o-transition: all .35s ease;
+  transition: all .35s ease;
+}
+
+
+svg line, svg path, svg text {
+  stroke-opacity: 0.25;
+  stroke-width: 2px !important;
+  -webkit-transition: all .35s ease;
+  -moz-transition: all .35s ease;
+  -o-transition: all .35s ease;
+  transition: all .35s ease;
+}
+
+
+svg line {
+  stroke-opacity: 0.5;
+  stroke-width: 2px !important;
+}
+
+svg line.link-personal {
+  stroke: #4D4D4C;
+}
+
+svg line.link-influence {
+  stroke: #B4B5B4;
+  stroke-linecap : round;
+  stroke-dasharray : 5px, 10px;
+}
+
+
+svg line.link-related {
+  stroke: #C9CFD4; /*#f1f1f1;*/
+  /*stroke-linecap : round;
+  stroke-dasharray : 5px, 10px;*/
+}
+
+svg line.link-faded {
+  stroke-opacity: .025;
+}
+
+/*svg line.link-personal*/
+
+svg path{
+  cursor: pointer;
+}
+
+svg path.node-faded{
+  opacity: 0.45;
+}
+
+svg path.node-person{ fill: #f39c12; }
+svg path.node-person-faded{ fill: #FBE0B7; }
+
+svg path.node-publication{ fill: #bdc3c7; }
+svg path.node-publication-faded{ fill: #EAECED; }
+
+svg path.node-other{ fill: #95a5a6; }
+svg path.node-other-faded{ fill: #DEE3E3; }
+
+svg text.text-faded{ opacity: .1; }
