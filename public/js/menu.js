@@ -32,13 +32,13 @@ $(".nav a").on("click", function(){
 });
 
 function clearMenu(){
-
+  
 }
-
 
 function filter(all){
   console.log(all);
   var nodesAux = [];
+  var rootAux = [];
 
   var activeList = {};
 
@@ -60,9 +60,20 @@ function filter(all){
         "type" : converted.nodes[i].type,
         "symbol": converted.nodes[i].symbol
       });
+
+    if(all)
+      rootAux.push(converted.nodes[i].name);
   }
 
 
   filterActive = true;
-  update(nodesAux, []);
+  converted.root = rootAux;
+  if(!all)
+    update(nodesAux, []);
+  else{
+    startGraph(converted, captions);
+  }
+
+  // update(nodesAux, all ? converted.links : []);
+
 }

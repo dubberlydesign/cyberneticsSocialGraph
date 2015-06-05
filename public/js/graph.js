@@ -39,6 +39,12 @@ var svg = d3.select("#graph").append('svg')
 
 function startGraph(graphData, captions){
 
+  svg.selectAll('g').remove();
+  svg.selectAll('.link-related').remove();
+  svg.selectAll('.link-personal').remove();
+  svg.selectAll('.link-influence').remove();
+
+
   //making the data available for the entire js
   cache = graphData;
   cacheCaptions = captions;
@@ -48,6 +54,7 @@ function startGraph(graphData, captions){
     graphData.root[i].y = height / 2;
     // displayed[displayed.length] = openNode[graphData.root[i]] = graphData.root[i]; //this node is going to be displayed and opened
     displayed[displayed.length] = graphData.root[i];
+    openNode[graphData.root[i]] = graphData.root[i];
   }
   //generating the graph
   createGraph(cache.nodes, cache.links);
@@ -137,8 +144,10 @@ function update(nodes, links){
     .gravity(function(d, i) {
       if(!filterActive)
         return 0.01;
-      else
+      else{
         return 0.1;
+      }
+
     })
     .nodes(nodes)
     .links(links)
@@ -147,7 +156,12 @@ function update(nodes, links){
     //forcing
   if(filterActive){
     force
-      .charge(-800)
+      .charge(function(d){
+        if(all)
+          return -300;
+        else
+          return -800;
+      })
       .gravity(0.1)
       .nodes(nodes)
       .links(links)
@@ -381,7 +395,7 @@ function click(obj, data){
         refreshOpenedNodes();
       }
 
-      createGraph(cache.nodes, cache.links);
+      createGraph(converted.nodes, converted.links);
 
     });
 
