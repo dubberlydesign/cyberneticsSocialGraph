@@ -187,6 +187,7 @@ function update(nodes, links){
     })
     .classed('hasInfo', function(d){ return  !(d.linkInfo != undefined && d.linkInfo != ""); })
     .on('mouseover', linkNodeOver)
+    .on('click', clickNodeInfo)
     .on('mouseout', function(d){
 
       link.classed('link-faded', false);
@@ -197,7 +198,10 @@ function update(nodes, links){
       d3.selectAll('text')
         .classed('text-faded', false);
 
-      $('.d3-tip').remove();
+      if(d.tooltip != undefined)
+        d.tooltip.destroy();
+        
+      // $('.d3-tip').remove();
     });
 
 
@@ -213,7 +217,7 @@ function update(nodes, links){
       if(filterActive)
         return;
 
-      $('.d3-tip').remove();
+      // d.tooltip.remove();
 
       var notFaded = {};
 
@@ -243,9 +247,11 @@ function update(nodes, links){
         });
 
     })
-    .on('mouseout', function(){
+    .on('mouseout', function(d){
 
-      $('.d3-tip').remove();
+      // $('.d3-tip').remove();
+      if(d.tooltip != undefined)
+        d.tooltip.destroy();
 
       link.classed('link-faded', false);
 
@@ -315,7 +321,7 @@ function update(nodes, links){
 function linkNodeOver(d, p){ //path
 
 
-  $('.d3-tip').remove();
+  // $('.d3-tip').remove();
 
   var notFaded = {};
   notFaded[d.source.name] = d.source.name;
@@ -398,8 +404,10 @@ function click(obj, data){
       createGraph(converted.nodes, converted.links);
 
     });
+}
 
-
+function clickNodeInfo(){
+  alert("hey!");
 }
 
 //refresht the nodes that are being displayed on the graph
