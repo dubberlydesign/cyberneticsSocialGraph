@@ -1,9 +1,9 @@
 var priorityColors = {
-  "0" : "#1A1919",
-  "1" : "#00A4D8",
-  "2" : "#d39c12",
-  "3" : "#DF5E33",
-  "4" : "#902E7C",
+  "0" : "#171616",
+  "1" : "#00A3D9",
+  "2" : "#00984B",
+  "3" : "#E15D32",
+  "4" : "#993366",
   "5" : "#f39c12",
   "6" : "#f39c12",
   "7" : "#f39c12",
@@ -63,6 +63,17 @@ var depthDistances = {
 };
 
 
+var menuOptions = {
+  "designers": 1,
+  "design-theorists": 2,
+  "computers-pioneer": 3,
+  "counter-culture": 4,
+  "institution": 11,
+  "publication": 12
+};
+
+
+
 function priorityColor(key){
   return priorityColors[key];
 }
@@ -80,4 +91,8 @@ function depthDistance(key){
   // return Math.floor(Math.random() * (depthDistances[key] +31)) + depthDistances[key];
   // return depthDistances[key] * 1.5; //Normal
   return depthDistances[key]; //ClickRandom
+}
+
+function menuDict(key){
+  return menuOptions[key];
 }

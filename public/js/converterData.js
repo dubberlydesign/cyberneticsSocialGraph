@@ -3,23 +3,25 @@ var width = window.innerWidth,
 
 var captions = {};
 
+var converted = {
+  "root": [
+    "\"Behavior, Purpose, and Teology\""
+    // "Gordon Pask",
+    // "Stewart Brand",
+    // "Cedric Price",
+    // "Norbert Wiener",
+    // "Marshall McLuhan",
+    // "Julian Bigelow"
+  ],
+  "nodes" : [],
+  "links" : []
+};
+
+var nameAux = "";
+
 $.getJSON( 'public/json/data.json', function(data){
 
-  var converted = {
-    "root": [
-      "\"Behavior, Purpose, and Teology\""
-      // "Gordon Pask",
-      // "Stewart Brand",
-      // "Cedric Price",
-      // "Norbert Wiener",
-      // "Marshall McLuhan",
-      // "Julian Bigelow"
-    ],
-    "nodes" : [],
-    "links" : []
-  };
 
-  var nameAux = "";
 
   //creating all nodes
   for(var i=0; i < data.length; i++){
