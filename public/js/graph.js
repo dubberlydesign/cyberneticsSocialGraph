@@ -36,6 +36,12 @@ var svg = d3.select("#graph").append('svg')
   .attr('width', width)
   .attr('height', height);
 
+function resize() {
+  width = window.innerWidth, height = window.innerHeight;
+  svg.attr("width", width).attr("height", height);
+  force.size([width, height]).resume();
+}
+
 
 function startGraph(graphData, captions){
 
@@ -200,7 +206,7 @@ function update(nodes, links){
 
       if(d.tooltip != undefined)
         d.tooltip.destroy();
-        
+
       // $('.d3-tip').remove();
     });
 
@@ -292,6 +298,9 @@ function update(nodes, links){
       return d.name;
     }).style("cursor", "pointer")
     .attr("text-anchor", "middle");
+
+  resize();
+  d3.select(window).on('resize', resize);
 
   force.on('tick', function(event){
 
