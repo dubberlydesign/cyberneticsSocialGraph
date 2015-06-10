@@ -373,14 +373,17 @@ function linkNodeOver(d, p){ //path
 
 
 function click(obj, data){
+
+  if(d3.event.altKey){
+    data.fixed = !data.fixed;
+    d3.select(obj).classed("fixed", data.fixed);
+    return;
+  } else if (!data.fixed) {
+    d3.select(obj).classed("fixed", true);
+    data.fixed = true;
+  }
+
   if (d3.event.defaultPrevented) return;
-
-
-    if(d3.event.altKey){
-      data.fixed = !data.fixed;
-      d3.select(obj).classed("fixed", data.fixed);
-      return;
-    }
 
     clearMenu();
 
@@ -388,7 +391,7 @@ function click(obj, data){
 
       linksCreated = {}; //update the links
 
-      data.fixed = !checkNodeOpened(d.name);
+      // data.fixed = !checkNodeOpened(d.name);
       d3.select(obj).classed("fixed", data.fixed);
 
       if(!checkNodeOpened(d.name)){
