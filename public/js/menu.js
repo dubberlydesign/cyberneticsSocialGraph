@@ -1,17 +1,18 @@
 var active = {};
+var openNodeCache = null;
 
 $(".nav a").on("click", function(){
   //  $(".nav").find(".active").removeClass("active");
 
-  var all = false;
+  console.log(openNode);
 
-  if($(this).attr('id') == "all"){
-    all = true;
-    active = {};
-    $(".nav").find(".active").removeClass("active");
-  }else{
-    $("#all").parent().removeClass("active");
+  if(openNodeCache == null){
+    openNodeCache = $.extend( {}, openNode);
   }
+
+  console.log(displayed);
+
+  var all = false;
 
   if($(this).parent().hasClass('active')){
     delete active[$(this).attr('id')]; //removing element from the active list
@@ -20,13 +21,37 @@ $(".nav a").on("click", function(){
   } else{
     $(this).parent().addClass("active");
     active[$(this).attr('id')] = $(this).attr('id');
+
+
+    if($(this).attr('id') == "all"){
+      all = true;
+      active = {};
+      $(".nav").find(".active").removeClass("active");
+      $(this).parent().addClass("active");
+    }else{
+      $("#all").parent().removeClass("active");
+    }
   }
 
   if($(".active").length == 0){
+
+    console.log(openNodeCache);
+    var rootAux = [];
+    for(open in openNodeCache)
+      rootAux.push(open);
+
+    openNodeCache = null;
+
+    openNode = {};
+    displayed = [];
+    linksCreated = {};
+    linksDistanceDict = {};
+
+    converted.root = rootAux;
+
     startGraph(converted, captions); //start everything again with the main root
     return;
   }
-
 
   filter(all);
 });

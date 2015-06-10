@@ -5,7 +5,7 @@ var captions = {};
 
 var converted = {
   "root": [
-    "\"Behavior, Purpose, and Teology\""
+    "\"Behavior, Purpose, and Teleology\""
     // "Gordon Pask",
     // "Stewart Brand",
     // "Cedric Price",
@@ -13,8 +13,8 @@ var converted = {
     // "Marshall McLuhan",
     // "Julian Bigelow"
   ],
-  "_root": [
-    "\"Behavior, Purpose, and Teology\""
+  "rootCache": [
+    "\"Behavior, Purpose, and Teleology\""
   ],
   "nodes" : [],
   "links" : []
