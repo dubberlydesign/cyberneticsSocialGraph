@@ -334,6 +334,10 @@ body {
   max-width: 100%;
 }
 
+ul.nav.navmenu-nav{
+  margin-top: 75px;
+}
+
 @media (min-width: 1px) {
   .navbar-toggle {
     display: block !important;
@@ -348,7 +352,7 @@ body {
     padding-top: 0;
   }
   .navbar {
-    display: none !important; /* IE8 fix */
+    /*display: none !important; /* IE8 fix */*/
   }
 }
 
@@ -357,26 +361,34 @@ ul.nav.navmenu-nav{
   padding-right: 15px;
 }*/
 
+.navbar a {
+  color: #171616 !important;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  display: block;
+  text-align: left;
+  margin-left: 55px !important;
+}
+
 @media (max-width: 1279px){
   ul.nav.navmenu-nav{
     margin-top: 25px;
-  }
-
-  .navbar a {
-    color: #171616 !important;
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 300;
-    display: block;
-    text-align: left;
-    margin-left: 55px !important;
   }
 
 }
 
 @media (max-width: 649px){
   a.navbar-brand{
-    padding-top: 5px;
-    /*font-size: 16px;*/
-    /*line-height: .9;*/
+    /*padding-top: 5px;*/
+    font-size: 16px;
+    line-height: .95;
+  }
+}
+
+@media (max-width: 640px){
+  a.navbar-brand{
+    /*padding-top: 5px;*/
+    font-size: 14px;
+    line-height: .95;
   }
 }
