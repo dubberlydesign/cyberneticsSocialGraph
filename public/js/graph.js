@@ -359,6 +359,8 @@ function linkNodeOver(d, p){ //path
       return !(nd.name in notFaded);
     });
 
+  if(d.tooltip_click != undefined)
+    return;
 
   if( d.linkInfo != undefined && d.linkInfo != "" ){
     d.tooltip = d3.tip().attr('class', 'd3-tip')
@@ -415,8 +417,23 @@ function click(obj, data){
     });
 }
 
-function clickNodeInfo(){
-  alert("hey!");
+function clickNodeInfo(d){
+
+  // clickNodeInfo
+
+  if(d.tooltip_click != undefined){
+    d.tooltip_click.destroy(); //removing tooltip
+    d.tooltip_click = undefined;
+  }
+    
+  else if(d.tooltip_click != ''){
+    d.tooltip_click = d3.tip().attr('class', 'd3-tip')
+      .html( d.linkInfo );
+    svg.call(d.tooltip_click);
+    d.tooltip_click.show();
+  }
+
+  // alert("hey!");
 }
 
 //refresht the nodes that are being displayed on the graph
