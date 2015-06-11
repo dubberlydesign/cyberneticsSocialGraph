@@ -101,7 +101,7 @@ svg text {
   cursor:pointer;
   stroke: white;
   text-shadow: -1px 1px 2px white;
-  pointer-events: none;
+  /*pointer-events: none;*/
   -webkit-transition: all .35s ease;
   -moz-transition: all .35s ease;
   -o-transition: all .35s ease;

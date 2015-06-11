@@ -12,6 +12,11 @@ var linkAux = "";
 
 var filterActive = false;
 
+var scaleAux = 1;
+
+var spacebar = false;
+window.addEventListener( 'keydown', function(event) { if (event.keyCode === 32) { spacebar = true; }});
+window.addEventListener( 'keyup', function(event) { if (event.keyCode === 32) { spacebar = false; }});
 
 var force = d3.layout.force()
   .charge(function(d, i) {
@@ -31,10 +36,31 @@ var force = d3.layout.force()
   } )
   .size([width, height]);
 
+var zoom = d3.behavior.zoom().scaleExtent([1,1]).on('zoom', function() {
+  // console.log(spacebar);
+  if (d3.event.defaultPrevented) return; // ignore drag
+
+  // console.log(d3.event.sourceEvent);
+
+  try {
+    if((d3.event != null || d3.event.sourceEvent != null) && !spacebar){
+      return;
+    }
+
+    svg.attr("transform", "translate(" + d3.event.translate.join(',') + ")");
+  }
+  catch(err) {
+  }
+  
+
+});
 
 var svg = d3.select("#graph").append('svg')
   .attr('width', width)
-  .attr('height', height);
+  .attr('height', height)
+  .call(zoom)
+  .append('g')
+  .attr('id', 'container ');
 
 function resize() {
   width = window.innerWidth, height = window.innerHeight;
@@ -45,7 +71,6 @@ function resize() {
 
 function startGraph(graphData, captions){
 
-  svg.selectAll('g').remove();
   svg.selectAll('.link-related').remove();
   svg.selectAll('.link-personal').remove();
   svg.selectAll('.link-influence').remove();
@@ -206,8 +231,6 @@ function update(nodes, links){
 
       if(d.tooltip != undefined)
         d.tooltip.destroy();
-
-      // $('.d3-tip').remove();
     });
 
 
@@ -215,7 +238,7 @@ function update(nodes, links){
 
   var node = svg.selectAll('.node')
     .data(nodes)
-    .enter().append('g')
+    .enter().append('g').attr('class', 'graph-node')
     .on('click', function(d){
       click(this, d);
     })
@@ -297,25 +320,30 @@ function update(nodes, links){
     .text(function(d){
       return d.name;
     }).style("cursor", "pointer")
-    .attr("text-anchor", "middle");
+    .attr("text-anchor", "middle")
+    .on("click", clickTextNode);
 
-  resize();
-  d3.select(window).on('resize', resize);
+  // resize();
+  // d3.select(window).on('resize', resize);
 
   force.on('tick', function(event){
 
     node.attr("transform", function(d) {
 
-      d.x = Math.max(10, Math.min(width-10, d.x));
-      d.y = Math.max(30, Math.min(height-10, d.y));
+      // d.x = Math.max(10, Math.min(width-10, d.x));
+      // d.y = Math.max(30, Math.min(height-10, d.y));
 
       return "translate(" + d.x + "," + d.y + ")"; });
 
     link.selectAll('line').attr("x1", function(d) {
-       return Math.min(width-10, d.source.x); })
-      .attr("y1", function(d) { return Math.min(height-10, d.source.y); })
-      .attr("x2", function(d) { return Math.min(width-10, d.target.x); })
-      .attr("y2", function(d) { return Math.min(height-10, d.target.y); });
+       return d.source.x; })
+      .attr("y1", function(d) { return d.source.y; })
+      .attr("x2", function(d) { return d.target.x; })
+      .attr("y2", function(d) { return d.target.y; });
+      //  return Math.min(width-10, d.source.x); })
+      // .attr("y1", function(d) { return Math.min(height-10, d.source.y); })
+      // .attr("x2", function(d) { return Math.min(width-10, d.target.x); })
+      // .attr("y2", function(d) { return Math.min(height-10, d.target.y); });
 
     link.selectAll('path').attr('transform', function(d){
       var x = (d.source.x + d.target.x)/2;
@@ -324,6 +352,8 @@ function update(nodes, links){
       return "translate(" + x + "," + y+ ')';
     });
   });
+
+
 }
 
 
@@ -374,6 +404,8 @@ function linkNodeOver(d, p){ //path
 
 function click(obj, data){
 
+
+
   if(d3.event.altKey){
     data.fixed = !data.fixed;
     d3.select(obj).classed("fixed", data.fixed);
@@ -383,7 +415,11 @@ function click(obj, data){
     data.fixed = true;
   }
 
-  if (d3.event.defaultPrevented) return;
+  console.log(d3.event);
+  console.log(d3.event.target.nodeName);
+
+  // if (d3.event.target.nodeName) return;
+  if (d3.event.defaultPrevented || d3.event.target.nodeName == 'text') return;
 
     clearMenu();
 
@@ -437,6 +473,11 @@ function clickNodeInfo(d){
   }
 
   // alert("hey!");
+}
+
+function clickTextNode(d){
+  console.log('text');
+  // console.log(this);
 }
 
 //refresht the nodes that are being displayed on the graph
