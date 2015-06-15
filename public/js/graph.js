@@ -32,8 +32,7 @@ var force = d3.layout.force()
     })
     .size([w, h]);
 
-var default_node_color = "#ccc";
-var default_link_color = "#888";
+var spacebar = false;
 var nominal_base_node_size = 8;
 var nominal_text_size = 10;
 var max_text_size = 24;
@@ -45,12 +44,12 @@ var zoom = d3.behavior.zoom().scaleExtent([min_zoom, max_zoom])
 var g = svg.append("g").classed('graph-container', true);
 svg.style("cursor", "move");
 
-var spacebar = false;
 window.addEventListener('keydown', function(event) {
     if (event.keyCode === 32) {
         spacebar = true;
     }
 });
+
 window.addEventListener('keyup', function(event) {
     if (event.keyCode === 32) {
         spacebar = false;
@@ -62,7 +61,6 @@ var nodePath = null;
 var link = null;
 var text = null;
 
-// d3.json("public/json/graph.json", function(error, graph) {
 function createGraph(graph){
     // console.log(graph);
 
