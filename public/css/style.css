@@ -31,7 +31,7 @@ h5{
   margin-top: 5px;
 }
 
-#graph{
+#graph, svg{
   padding: 0;
   width: 100%;
   height: 100%;
@@ -141,6 +141,10 @@ svg line.link-related {
   stroke-dasharray : 5px, 10px;*/
 }
 
+svg line.line-faded{
+  opacity: 0.06;
+}
+
 /*svg line.link-faded {
   stroke-opacity: .025;
 }*/
@@ -177,8 +181,12 @@ svg path{
   cursor: pointer;
 }
 
-svg path.node-faded{
+svg line.path-faded{
   opacity: 0.45;
+}
+
+svg path.node-faded{
+  opacity: 0.35 !important;
 }
 
 svg path.node-person{ fill: #f39c12; }
@@ -190,7 +198,7 @@ svg path.node-publication-faded{ fill: #EAECED; }
 svg path.node-other{ fill: #95a5a6; }
 svg path.node-other-faded{ fill: #DEE3E3; }
 
-svg text.text-faded{ opacity: .1; }
+svg text.text-faded{ opacity: .1 !important; }
 
 
 /*Navbar*/

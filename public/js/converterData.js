@@ -3,6 +3,8 @@ var width = window.innerWidth,
 
 var captions = {};
 
+var positionCache = {};
+
 var converted = {
   "root": [
     "\"Behavior, Purpose, and Teleology\""
@@ -32,11 +34,13 @@ $.getJSON( 'public/json/data.json', function(data){
     if(nameAux != data[i].name){
       //it's a different node, add to the node
       nameAux = data[i].name;
+      // positionCache[data[i].name] = i; 
 
       var node = {
         "name" :data[i].name,
         "type" : data[i].type,
-        "symbol": data[i].symbol
+        "symbol": data[i].symbol,
+        "score" : Math.random()
       };
 
       if (converted['root'].indexOf( node.name ) !== -1) {
@@ -61,6 +65,7 @@ $.getJSON( 'public/json/data.json', function(data){
       captions[linkAux] = "";
     }
     captions[linkAux] = data[i].linkInfo == "" ? captions[linkAux] : data[i].linkInfo;
+    linkInfo = captions[linkAux];
 
     converted.links.push({
       "source" : source,
@@ -70,12 +75,28 @@ $.getJSON( 'public/json/data.json', function(data){
       "depth": data[i].depth
     });
   }
+
+  // console.log(positionCache);
+  // console.log(converted.links);
+
   startGraph(converted, captions);
+
+  // createGraph({
+  //   "graph": [],
+  //   "links": converted.links,
+  //   "nodes": converted.nodes,
+  //   "directed": false,
+  //   "multigraph": false
+  // });
 
 });
 
 
 function findPosition(name, array){
+
+  if(name in positionCache){
+    return positionCache[name];
+  }
 
   var position = 0;
   var i = 0;
@@ -84,6 +105,8 @@ function findPosition(name, array){
     if(array[i].name == name){
       position = i;
       i = array.length;
+
+      positionCache[name] = position; //saving into the cache
     }
 
     i++;

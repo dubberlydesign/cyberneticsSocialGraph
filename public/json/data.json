@@ -177,6 +177,7 @@
 {"name":"Jim Bagnall","type":"1","depth":"1","linkTo":"Soft Systems","linkType":"related","linkInfo":"","symbol":"circle"},
 {"name":"Jim Bagnall","type":"1","depth":"3","linkTo":"Horst Rittel","linkType":"personal","linkInfo":"Bagnall and Koberg were students of Rittel at UC Berkeley.","symbol":"circle"},
 {"name":"Jim Bagnall","type":"1","depth":"3","linkTo":"Christopher Alexander","linkType":"personal","linkInfo":"Bagnall and Koberg were students of Alexander at UC Berkeley.","symbol":"circle"},
+{"name":"Jim Blinn","type":"3","depth":"1","linkTo":"University of Utah","linkType":"related","linkInfo":"","symbol":""},
 {"name":"John Plunkett","type":"1","depth":"1","linkTo":"WiRed","linkType":"related","linkInfo":"","symbol":"circle"},
 {"name":"John Plunkett","type":"1","depth":"4","linkTo":"Lou Danziger","linkType":"personal","linkInfo":"","symbol":"circle"},
 {"name":"John Rheinfrank","type":"1","depth":"3","linkTo":"Terry Winograd","linkType":"personal","linkInfo":"","symbol":"circle"},

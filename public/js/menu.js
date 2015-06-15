@@ -1,18 +1,17 @@
 var active = {};
 var openNodeCache = null;
 
+var activeFilters = null;
+
 $(".nav a").on("click", function(){
   //  $(".nav").find(".active").removeClass("active");
-
-  console.log(openNode);
 
   if(openNodeCache == null){
     openNodeCache = $.extend( {}, openNode);
   }
 
-  console.log(displayed);
-
   var all = false;
+  openNode = {};
 
   if($(this).parent().hasClass('active')){
     delete active[$(this).attr('id')]; //removing element from the active list
@@ -43,62 +42,137 @@ $(".nav a").on("click", function(){
     openNodeCache = null;
 
     openNode = {};
-    displayed = [];
     linksCreated = {};
     linksDistanceDict = {};
 
     converted.root = rootAux;
+    activeFilters = null;
 
-    startGraph(converted, captions); //start everything again with the main root
+    startGraph(converted, captions); //start everything again with the main root / previous stage
     return;
   }
 
   filter(all);
 });
 
-function clearMenu(){
-  
-}
 
 function filter(all){
-  console.log(all);
-  var nodesAux = [];
-  var rootAux = [];
 
-  var activeList = {};
+    if(all){
 
-  for( act in active){
-    // console.log(act);
-    activeList[menuDict(act)] = menuDict(act);
+        if(node != null) node.remove();
+        if(link != null) link.remove();
+        if(text != null) text.remove();
+
+        var rootAux = [];
+
+        for(var i = 0; i < converted.nodes.length; i++){
+            rootAux.push(converted.nodes[i].name);
+        }
+
+        converted.root = rootAux.slice();
+
+        startGraph(converted, captions); //start everything again with the main root / previous stage
+
+        // createGraph({
+        //     "graph": [],
+        //     "links": converted.links,
+        //     "nodes": converted.nodes,
+        //     "directed": true,
+        //     "multigraph": true
+        // });  
+        return;
+    }
+
+    var nodesAux = [];
+    var linksAux = [];
+    var linkAux = "";
+
+    activeFilters = {};
+    var nodesDisplayed = {};
+    var linksCreated = {};
+
+    console.log("------");
+    for(act in active) activeFilters[menuDict(act)] = menuDict(act);
+
+    // console.log(activeFilters);
+
+    for(var i = 0; i < converted.nodes.length; i++){
+        if(converted.nodes[i].type in activeFilters || all){
+            nodesAux.push({
+                "name" : converted.nodes[i].name,
+                "type" : converted.nodes[i].type,
+                "symbol" : converted.nodes[i].symbol
+            });
+            nodesDisplayed[converted.nodes[i].name] = converted.nodes[i].name;
+        }
+    }
+
+    for(n in nodesDisplayed){
+        //checking link by link from the original data
+        for(var j = 0; j < cache.links.length; j++){
+
+          //creating the format for the dictionary
+          // <name>-<name>
+            linkAux = cache.links[j].source > cache.links[j].target ?
+                cache.nodes[cache.links[j].target].name + "-" + cache.nodes[cache.links[j].source].name:
+                cache.nodes[cache.links[j].source].name + "-" + cache.nodes[cache.links[j].target].name;
+
+            if(!(linkAux in linksCreated) && (cache.nodes[cache.links[j].target].name in nodesDisplayed && cache.nodes[cache.links[j].source].name in nodesDisplayed)){
+                console.log("********", cache.nodes[cache.links[j].source].name , cache.nodes[cache.links[j].target].name);
+                // console.log( + " --> " + checkLinkPosition(cache.nodes[cache.links[j].target].name, nodesAux));
+                linksAux.push({
+                    "source": checkLinkPosition(cache.nodes[cache.links[j].source].name, nodesAux),
+                    "target": checkLinkPosition(cache.nodes[cache.links[j].target].name, nodesAux),
+                    "linkType": cache.links[j].linkType,
+                    "linkInfo": cacheCaptions[linkAux],
+                    "depth": cache.links[j].depth
+                });
+
+                linksCreated[linkAux] =  linkAux;
+            }
+                
+        }
+    }
+
+    console.log(linksAux);
+    console.log(nodesAux);
+    // console.log(nodesDisplayed);
+
+    if(node != null) node.remove();
+    if(link != null) link.remove();
+    if(text != null) text.remove();
+
+    createGraph({
+        "graph": [],
+        "links": linksAux,
+        "nodes": nodesAux,
+        "directed": true,
+        "multigraph": true
+    });   
+
+
+}
+
+function checkLinkPosition(name, array){
+  var position = 0;
+  var i = 0;
+  var achou = false;
+
+  while(i < array.length){
+    // console.log(name, array[i].name);
+    if(array[i].name == name){
+      position = i;
+      i = array.length;
+      achou = true;
+      // console.log(position);
+    }
+
+    i++;
   }
 
-  openNode = {};
-  displayed = [];
-  linksCreated = {};
-  linksDistanceDict = {};
+  // if(!achou)
+  //   console.log('nao achou');
 
-  for(var i = 0; i < converted.nodes.length; i++){
-
-    if(converted.nodes[i].type in activeList || all)
-      nodesAux.push({
-        "name" :converted.nodes[i].name,
-        "type" : converted.nodes[i].type,
-        "symbol": converted.nodes[i].symbol
-      });
-
-    if(all)
-      rootAux.push(converted.nodes[i].name);
-  }
-
-
-  filterActive = true;
-  converted.root = rootAux;
-  if(!all)
-    update(nodesAux, []);
-  else{
-    startGraph(converted, captions);
-  }
-
-  // update(nodesAux, all ? converted.links : []);
-
+  return position;
 }
