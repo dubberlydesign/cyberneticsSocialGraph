@@ -110,6 +110,11 @@ function createGraph(graph){
         // .on('mouseover', linkNodeOver)
         .on('mouseover', function(d){
 
+            if($(".active").length > 0){
+                $(".nav").find(".active").removeClass("active");
+                activeFilters = null;
+            }
+
             svg.selectAll('g').classed('link-faded', function(l){
                 if(d3.select(this).classed('graph-container'))
                     return false;

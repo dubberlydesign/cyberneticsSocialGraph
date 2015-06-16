@@ -6,12 +6,7 @@ var activeFilters = null;
 $(".nav a").on("click", function(){
   //  $(".nav").find(".active").removeClass("active");
 
-  if(openNodeCache == null){
-    openNodeCache = $.extend( {}, openNode);
-  }
-
-  var all = false;
-  openNode = {};
+  
 
   if($(this).parent().hasClass('active')){
     delete active[$(this).attr('id')]; //removing element from the active list
@@ -23,37 +18,75 @@ $(".nav a").on("click", function(){
 
 
     if($(this).attr('id') == "all"){
-      all = true;
-      active = {};
-      $(".nav").find(".active").removeClass("active");
-      $(this).parent().addClass("active");
+        if(openNodeCache == null){
+            openNodeCache = $.extend( {}, openNode);
+        }
+
+        var all = false;
+        openNode = {};
+
+        all = true;
+        active = {};
+        $(".nav").find(".active").removeClass("active");
+        $(this).parent().addClass("active");
+
+        filter(all);
+        return;
     }else{
-      $("#all").parent().removeClass("active");
+        $("#all").parent().removeClass("active");
     }
   }
 
   if($(".active").length == 0){
+    // d3.selectAll('path').classed('node-faded', function(d){
+    //     console.log("***", d);
+    //     return false;
+    // });
+    // d3.selectAll('g').classed('link-faded', false);
+    // d3.selectAll('text').classed('text-faded', false);
 
-    console.log(openNodeCache);
-    var rootAux = [];
-    for(open in openNodeCache)
-      rootAux.push(open);
+        svg.selectAll('g').classed('link-faded', false);
+        svg.selectAll('text').classed('text-faded', false);
+        svg.selectAll('path').classed('node-faded', false);
 
-    openNodeCache = null;
-
-    openNode = {};
-    linksCreated = {};
-    linksDistanceDict = {};
-
-    converted.root = rootAux;
-    activeFilters = null;
-
-    startGraph(converted, captions); //start everything again with the main root / previous stage
-    return;
+        return;
   }
 
-  filter(all);
+  displayFilters()
 });
+
+
+function displayFilters(){
+
+    activeFilters = {};
+    for(var act in active)
+        activeFilters[menuDict(act)] = menuDict(act);
+
+    d3.selectAll('path').classed('node-faded', function(d){
+        // console.log(d.type);
+        if(parseInt(d.type) in activeFilters){ return false; }
+        else{ return true; }
+    });
+
+    d3.selectAll('g').classed('link-faded', function(l){
+
+        if(d3.select(this).classed('graph-container') || !d3.select(this).classed('link') 
+            || (parseInt(l.source.type) in activeFilters && parseInt(l.target.type) in activeFilters))
+            return false;
+        else
+            return true;
+    });
+
+
+    d3.selectAll('text').classed('text-faded', function(t){
+        console.log(t);
+        // console.log((parseInt(t.source.type) in activeFilters && parseInt(t.target.type) in activeFilters));
+        if(parseInt(t.type) in activeFilters)
+            return false;
+        else
+            return true;
+    });
+}
 
 
 function filter(all){
@@ -72,15 +105,7 @@ function filter(all){
 
         converted.root = rootAux.slice();
 
-        startGraph(converted, captions); //start everything again with the main root / previous stage
-
-        // createGraph({
-        //     "graph": [],
-        //     "links": converted.links,
-        //     "nodes": converted.nodes,
-        //     "directed": true,
-        //     "multigraph": true
-        // });  
+        startGraph(converted, captions); 
         return;
     }
 
@@ -92,7 +117,6 @@ function filter(all){
     var nodesDisplayed = {};
     var linksCreated = {};
 
-    console.log("------");
     for(act in active) activeFilters[menuDict(act)] = menuDict(act);
 
     // console.log(activeFilters);
@@ -134,10 +158,6 @@ function filter(all){
                 
         }
     }
-
-    console.log(linksAux);
-    console.log(nodesAux);
-    // console.log(nodesDisplayed);
 
     if(node != null) node.remove();
     if(link != null) link.remove();
