@@ -32,6 +32,7 @@ var force = d3.layout.force()
     })
     .size([w, h]);
 
+var currentScale = 0;
 var spacebar = false;
 var nominal_base_node_size = 8;
 var nominal_text_size = 10;
@@ -268,6 +269,15 @@ function createGraph(graph){
 
     zoom.on("zoom", function() {
 
+        if(d3.event.scale > 0.5 && d3.event.scale < 1.8){
+            $('.zoom-btn').prop('disabled', false);
+        }else{
+            
+            if ( d3.event.scale > 0.5) { $('.zoom-in').prop('disabled', true); }
+            else { $('.zoom-out').prop('disabled', true); }
+
+        }
+
         clearTooltips(true);
 
         var base_radius = nominal_base_node_size;
@@ -303,6 +313,15 @@ function createGraph(graph){
     force.on("tick", function() {
 
         node.attr("transform", function(d) {
+
+            if(graphLaunched && d.name == converted.root[0]){
+
+                d.x = (window.innerWidth / 2  * zoom.scale());
+                d.y = (window.innerHeight / 2 * zoom.scale());
+
+                graphLaunched = false;
+            }
+
             return "translate(" + d.x + "," + d.y + ")";
         });
         text.attr("transform", function(d) {
@@ -330,6 +349,11 @@ function createGraph(graph){
             });
 
         link.selectAll('path').attr('transform', function(d){
+
+            // if(d.tooltip_link != undefined){
+            //     console.log('hey!');
+            // }
+
             var x = (d.source.x + d.target.x)/2;
             var y = (d.source.y + d.target.y)/2;
             return "translate(" + x + "," + y+ ')';

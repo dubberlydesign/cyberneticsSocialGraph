@@ -38,13 +38,6 @@ $(".nav a").on("click", function(){
   }
 
   if($(".active").length == 0){
-    // d3.selectAll('path').classed('node-faded', function(d){
-    //     console.log("***", d);
-    //     return false;
-    // });
-    // d3.selectAll('g').classed('link-faded', false);
-    // d3.selectAll('text').classed('text-faded', false);
-
         svg.selectAll('g').classed('link-faded', false);
         svg.selectAll('text').classed('text-faded', false);
         svg.selectAll('path').classed('node-faded', false);

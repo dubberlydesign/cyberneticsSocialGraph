@@ -6,6 +6,8 @@ var captions = {};
 var positionCache = {};
 var wikipediaID = {};
 
+var graphLaunched = true;
+
 var converted = {
   "root": [
     "\"Behavior, Purpose, and Teleology\""
