@@ -4,16 +4,11 @@ var width = window.innerWidth,
 var captions = {};
 
 var positionCache = {};
+var wikipediaID = {};
 
 var converted = {
   "root": [
     "\"Behavior, Purpose, and Teleology\""
-    // "Gordon Pask",
-    // "Stewart Brand",
-    // "Cedric Price",
-    // "Norbert Wiener",
-    // "Marshall McLuhan",
-    // "Julian Bigelow"
   ],
   "rootCache": [
     "\"Behavior, Purpose, and Teleology\""
@@ -64,6 +59,12 @@ $.getJSON( 'public/json/data.json', function(data){
     if(!(linkAux in captions)){
       captions[linkAux] = "";
     }
+
+    if(data[i].wikipediaID != undefined && data[i].wikipediaID != "" && !(data[i].wikipediaID in wikipediaID)){
+      wikipediaID[data[i].name] = data[i].wikipediaID;
+    }
+
+
     captions[linkAux] = data[i].linkInfo == "" ? captions[linkAux] : data[i].linkInfo;
     linkInfo = captions[linkAux];
 
@@ -75,19 +76,8 @@ $.getJSON( 'public/json/data.json', function(data){
       "depth": data[i].depth
     });
   }
-
-  // console.log(positionCache);
-  // console.log(converted.links);
-
+  
   startGraph(converted, captions);
-
-  // createGraph({
-  //   "graph": [],
-  //   "links": converted.links,
-  //   "nodes": converted.nodes,
-  //   "directed": false,
-  //   "multigraph": false
-  // });
 
 });
 

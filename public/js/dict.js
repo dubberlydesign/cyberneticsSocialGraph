@@ -72,6 +72,16 @@ var menuOptions = {
   "publication": 12
 };
 
+var typeNodes = {
+  "0": "person",
+  "1": "designers",
+  "2": "design-theorists",
+  "3": "computers-pioneer",
+  "4": "counter-culture",
+  "11": "institution",
+  "12": "publication"
+};
+
 
 
 function priorityColor(key){
@@ -95,4 +105,8 @@ function depthDistance(key){
 
 function menuDict(key){
   return menuOptions[key];
+}
+
+function typeNode(key){
+  return typeNodes[key];
 }

@@ -4,11 +4,11 @@ var h = window.innerHeight;
 var focus_node = null,
     highlight_node = null;
 
+var nodeTooltipCounter = [];
+
 linksDistanceDict = {};
 
 var text_center = true;
-
-var highlight_trans = 0.1;
 
 var size = d3.scale.pow().exponent(1)
     .domain([1, 100])
@@ -37,23 +37,21 @@ var nominal_base_node_size = 8;
 var nominal_text_size = 10;
 var max_text_size = 24;
 var max_base_node_size = 36;
-var min_zoom = 0.55;
-var max_zoom = 1.6; //7 
+var min_zoom = 0.5;
+var max_zoom = 1.8; //7 
 var svg = d3.select("body").append("svg");
-var zoom = d3.behavior.zoom().scaleExtent([min_zoom, max_zoom])
+var zoom = d3.behavior.zoom().scaleExtent([min_zoom, max_zoom]).on('zoomend', function(){
+
+});
 var g = svg.append("g").classed('graph-container', true);
 svg.style("cursor", "move");
 
 window.addEventListener('keydown', function(event) {
-    if (event.keyCode === 32) {
-        spacebar = true;
-    }
+    if (event.keyCode === 32) { spacebar = true; }
 });
 
 window.addEventListener('keyup', function(event) {
-    if (event.keyCode === 32) {
-        spacebar = false;
-    }
+    if (event.keyCode === 32) { spacebar = false; }
 });
 
 var node = null;
@@ -62,13 +60,11 @@ var link = null;
 var text = null;
 
 function createGraph(graph){
-    // console.log(graph);
 
     var linkedByIndex = {};
-    // console.log(graph.nodes);
-    // console.log(graph.links);
+    nodeTooltipCounter = [];
+    
     graph.links.forEach(function(d) {
-        // console.log(d.source + ', ' + d.target );
         linkedByIndex[d.source + "," + d.target] = true;
     });
 
@@ -106,7 +102,7 @@ function createGraph(graph){
         .attr('class', function(d){
           return 'link-' + d.linkType;
         })
-        .on('mousedown', seeNodeInfo)
+        .on('mousedown', seeLinkInfo)
         // .on('mouseover', linkNodeOver)
         .on('mouseover', function(d){
 
@@ -131,7 +127,7 @@ function createGraph(graph){
                 else return true;
             });
 
-            if(d.tooltip_click != undefined) return;
+            if(d.tooltip_link != undefined) return;
 
             if( d.linkInfo != undefined && d.linkInfo != "" ){
                 d.tooltip = d3.tip().attr('class', 'd3-tip')
@@ -196,7 +192,14 @@ function createGraph(graph){
         .classed('node-name', true)
         .attr("dy", function(d){ if(d.name in openNode) { return "2.25em" } else { return "1.55em"; } })
         .style("font-size", nominal_text_size + "px")
-        // .style("text-anchor", "middle");
+        .on("click", seeNodeInfo)
+        .on("mouseover", function(d){
+            if(d.name in wikipediaID)
+                d3.select(this).classed('text-link', true);
+        })
+        .on("mouseout", function(d){
+            d3.select(this).classed('text-link', false);    
+        });
 
     if (text_center)
         text.text(function(d) {
@@ -241,6 +244,13 @@ function createGraph(graph){
 
         })
         .on("mousedown", function(d) {
+            // clearTooltips(false);
+
+            if(d.tooltip_node != undefined){
+                d.tooltip_node.destroy();
+                d.tooltip_node = undefined;   
+            }
+
             d3.event.stopPropagation();
             if (spacebar) {
                 d.fixed = false;
@@ -257,6 +267,8 @@ function createGraph(graph){
         });
 
     zoom.on("zoom", function() {
+
+        clearTooltips(true);
 
         var base_radius = nominal_base_node_size;
         if (nominal_base_node_size * zoom.scale() > max_base_node_size) base_radius = max_base_node_size / zoom.scale();
@@ -279,6 +291,8 @@ function createGraph(graph){
 
         g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
     });
+
+    // zoom.on('zoomend', functio(){ });
 
     svg.call(zoom);
 
@@ -387,21 +401,13 @@ function formatGraph(nodes, links){
 
           if(links[j].source == position){
             //checking if the node wasn't listed before
-            // console.log(nodes[links[j].target].name);
             if(!(nodes[links[j].target].name in nodesDict)){
               //checking to see if the person is an entity different from a person
               nodesDisplayed[nodesDisplayed.length] = nodes[links[j].target];
-              // displayednodes[links[j].target].name
               nodesDict[nodes[links[j].target].name] = nodes[links[j].target].name;
             }
           }
         }
-    }
-
-    if(activeFilters != null){
-        console.log('clickando com o filtro ativo');
-    }else{
-        console.log('clickando com o filtro INATIVO');
     }
 
     //creating links
@@ -451,31 +457,102 @@ function formatGraph(nodes, links){
 }
 
 //this function enables the user to open the tooltip and keep it there. 
-function seeNodeInfo(d){
-    if(d.tooltip_click != undefined){
-        d.tooltip_click.destroy(); //removing tooltip
-        d.tooltip_click = undefined;
-    } else if(d.tooltip_click != ''){
-        
-        d.tooltip_click = d3.tip().attr('class', 'd3-tip')
+function seeLinkInfo(d){
+    if(d.tooltip_link != undefined){
+        force.resume();
+        d.tooltip_link.destroy(); //removing tooltip
+        d.tooltip_link = undefined;
+    } else if(d.tooltip_link != ''){
+        force.stop();
+        d.tooltip_link = d3.tip().attr('class', 'd3-tip')
           .html( d.linkInfo );
 
-        svg.call(d.tooltip_click);
-        d.tooltip_click.show();
+        svg.call(d.tooltip_link);
+        d.tooltip_link.show();
+    }
+}
+
+function seeNodeInfo(d){
+    if(d.fixed != true){ //d.fixed mights be undefined 
+        d.fixed = true;
+    }
+
+    if(!(d.name in wikipediaID))
+        return;
+
+    if(d.tooltip_node != undefined){
+        nodeTooltipCounter.pop();
+        if(nodeTooltipCounter.length == 0)
+            force.resume();    
+        
+        
+        d.tooltip_node.destroy(); //removing tooltip
+        d.tooltip_node = undefined;
+    } else if(d.tooltip_node != ''){
+        
+
+        var thumbsize = 219; // px width 
+        var charSize = 200; // number of chars
+
+        var url = "https://en.wikipedia.org/w/api.php?action=query&prop=pageimages|extracts&format=json&exintro=&explaintext=";
+        url += "&pithumbsize="+ thumbsize;
+        // url += "&exchars=" + charSize;
+        url += "&titles=" + wikipediaID[d.name];
+
+        var target = this;
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            crossDomain: true,
+            dataType: 'jsonp',
+            success: function(data) {
+                var values;
+                for(var key in data.query.pages) 
+                    values = data.query.pages[key];
+                var html = "";
+
+                if(values.thumbnail != undefined && (values.thumbnail.source != undefined ||  values.thumbnail.source != ""))
+                    html += "<img src=" + values.thumbnail.source +" class='img-node' />";
+
+                html += "<h4>" + values.title + "</h4>";
+                html += "<h6>"+  (values.extract.length > 200 ? (values.extract.slice(0,200) + "...") : values.extract)   +"</h6>";
+                html += "<hr>";
+                html += "<h6><a href='https://en.wikipedia.org/wiki/" + wikipediaID[d.name] + " ' target='_blank' class='info-link'>Source: Wikipedia. Read more" +"</a></h6>";
+
+
+                d.tooltip_node = d3.tip().attr('class', 'd3-tip-node ')
+                .offset([0, 5])
+                .direction('e')
+                .html( html );
+
+                force.stop();
+                nodeTooltipCounter.push("");
+                svg.call(d.tooltip_node);
+                d.tooltip_node.show(target);
+
+
+            },
+            error: function(e) {
+
+            }
+        });
+
+
     }
 }
 
 
 function clickNode(obj, data){
+
+
     if (d3.event.defaultPrevented || d3.event.target.nodeName == 'text') return;
 
+    clearTooltips(true);
+
     if(!(obj.name in openNode)){
-        console.log('open');
         openNode[obj.name] = obj.name;
     }else{
-        delete openNode[obj.name];
-        console.log('close');
-
         delete openNode[obj.name];
 
         if(Object.keys(openNode).length == 0)
@@ -486,9 +563,6 @@ function clickNode(obj, data){
 }
 
 function linkNodeOver(d, p){ //path
-
-
-  // $('.d3-tip').remove();
 
   var notFaded = {};
   notFaded[d.source.name] = d.source.name;
@@ -517,7 +591,7 @@ function linkNodeOver(d, p){ //path
       return !(nd.name in notFaded);
     });
 
-  if(d.tooltip_click != undefined)
+  if(d.tooltip_link != undefined)
     return;
 
   if( d.linkInfo != undefined && d.linkInfo != "" ){
@@ -530,6 +604,30 @@ function linkNodeOver(d, p){ //path
 }
 
 //graph functions
+
+function clearTooltips( event ){
+
+    nodeTooltipCounter = [];
+
+    svg.selectAll('g').classed('link-faded', false);
+    svg.selectAll('text').classed('text-faded', false);
+    svg.selectAll('path').classed('node-faded', false);
+
+    d3.selectAll('path').each(function(d){
+
+
+        if( d.tooltip_link != undefined){
+            d.tooltip_link.destroy();
+            d.tooltip_link = undefined;
+        }
+            
+        if( d.tooltip_node != undefined){
+            d.tooltip_node.destroy();
+            d.tooltip_node = undefined;
+        }
+
+    });
+}
 
 function checkLinkPosition(name, array){
   var position = 0;
