@@ -24,6 +24,9 @@ function zoomed() {
 }
 
 function zoomClick(zoomIn, obj) {
+
+	clearTooltips(true);
+
     var direction = 1,
 	    factor = 0.2,
 	    target_zoom = 1,

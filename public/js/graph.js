@@ -350,9 +350,10 @@ function createGraph(graph){
 
         link.selectAll('path').attr('transform', function(d){
 
-            // if(d.tooltip_link != undefined){
-            //     console.log('hey!');
-            // }
+            if(d.tooltip_link != undefined){
+                d.tooltip_link.destroy();
+                d.tooltip_link = undefined;
+            }
 
             var x = (d.source.x + d.target.x)/2;
             var y = (d.source.y + d.target.y)/2;

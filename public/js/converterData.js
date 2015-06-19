@@ -31,7 +31,6 @@ $.getJSON( 'public/json/data.json', function(data){
     if(nameAux != data[i].name){
       //it's a different node, add to the node
       nameAux = data[i].name;
-      // positionCache[data[i].name] = i; 
 
       var node = {
         "name" :data[i].name,
