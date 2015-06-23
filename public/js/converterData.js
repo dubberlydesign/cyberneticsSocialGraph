@@ -36,7 +36,7 @@ $.getJSON( 'public/json/data.json', function(data){
         "name" :data[i].name,
         "type" : data[i].type,
         "symbol": data[i].symbol,
-        "score" : Math.random()
+        "linkRange": Math.floor(Math.random() * 201) - 100
       };
 
       if (converted['root'].indexOf( node.name ) !== -1) {

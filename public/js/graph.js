@@ -44,6 +44,9 @@ var svg = d3.select("body").append("svg");
 var zoom = d3.behavior.zoom().scaleExtent([min_zoom, max_zoom]).on('zoomend', function(){
 
 });
+
+
+
 var g = svg.append("g").classed('graph-container', true);
 svg.style("cursor", "move");
 
@@ -186,10 +189,7 @@ function createGraph(graph){
         .attr('fill', function(d){ return priorityColor(d.type); })
         .on("click", clickNode);
 
-
-    text = g.selectAll(".text")
-        .data(graph.nodes)
-        .enter().append("text")
+    text = node.append("text")
         .classed('node-name', true)
         .attr("dy", function(d){ if(d.name in openNode) { return "2.25em" } else { return "1.55em"; } })
         .style("font-size", nominal_text_size + "px")
@@ -214,6 +214,34 @@ function createGraph(graph){
         .text(function(d) {
             return '\u2002' + d.name;
         });
+
+    // text = g.selectAll(".text")
+    //     .data(graph.nodes)
+    //     .enter().append("text")
+    //     .classed('node-name', true)
+    //     .attr("dy", function(d){ if(d.name in openNode) { return "2.25em" } else { return "1.55em"; } })
+    //     .style("font-size", nominal_text_size + "px")
+    //     .on("click", seeNodeInfo)
+    //     .on("mouseover", function(d){
+    //         if(d.name in wikipediaID)
+    //             d3.select(this).classed('text-link', true);
+    //     })
+    //     .on("mouseout", function(d){
+    //         d3.select(this).classed('text-link', false);    
+    //     });
+
+    // if (text_center)
+    //     text.text(function(d) {
+    //         return d.name;
+    //     })
+    //     .style("text-anchor", "middle");
+    // else
+    //     text.attr("dx", function(d) {
+    //         return (size(d.size) || nominal_base_node_size);
+    //     })
+    //     .text(function(d) {
+    //         return '\u2002' + d.name;
+    //     });
 
     node.on("mouseover", function(d) {
             var notFaded = {};
@@ -322,31 +350,88 @@ function createGraph(graph){
                 graphLaunched = false;
             }
 
+            if(d.name in openNode){
+
+                d.fixed = true;
+
+                // console.log(openNodePositions);
+                /*
+                Here I'll make all the nodes being positioned based on theirselfs and not related to the 
+                window.
+
+                */
+
+                if(Object.keys(openNodePositions).length === 0){ openNodePositions[d.name] = d;}
+                else{
+                    console.log(openNodePositions);
+
+                    var obj = openNodePositions[Object.keys(openNodePositions)[0]];
+                    console.log(obj);
+
+                    if(d.name != obj.name){
+                        console.log(d.linkRange);
+                        // return "translate(" + d.x + "," + (obj.y + d.linkRange) + ")";                                    
+                        d.y = (obj.y + d.linkRange);
+                    }
+
+                    if(!(d.name in openNodePositions)) { openNodePositions[d.name] = d;}
+
+                }
+            }
+
             return "translate(" + d.x + "," + d.y + ")";
         });
-        text.attr("transform", function(d) {
-            return "translate(" + d.x + "," + d.y + ")";
-        });
+        // text.attr("transform", function(d) {
+        //     return "translate(" + d.x + "," + d.y + ")";
+        // });
 
         link.selectAll('line').attr("x1", function(d) {
                 return d.source.x;
             })
             .attr("y1", function(d) {
+
+                // if(d.source.name in openNode){
+                //     if(Object.keys(openNodePositions).length !== 0){
+                //         console.log(openNodePositions);
+
+                //         var obj = openNodePositions[Object.keys(openNodePositions)[0]];
+                //         console.log(obj);
+
+                //         if(d.target.name != obj.name){
+                //             return obj.y;
+                //         }
+
+                //     }
+                // }
+
                 return d.source.y;
             })
             .attr("x2", function(d) {
                 return d.target.x;
             })
             .attr("y2", function(d) {
+                // if(d.target.name in openNode){
+                //     if(Object.keys(openNodePositions).length !== 0){
+                //         console.log(openNodePositions);
+
+                //         var obj = openNodePositions[Object.keys(openNodePositions)[0]];
+                //         console.log(obj);
+
+                //         if(d.target.name != obj.name){
+                //             return obj.y;
+                //         }
+
+                //     }
+                // }
                 return d.target.y;
             });
 
-        node.attr("cx", function(d) {
-                return d.x;
-            })
-            .attr("cy", function(d) {
-                return d.y;
-            });
+        // node.attr("cx", function(d) {
+        //         return d.x;
+        //     })
+        //     .attr("cy", function(d) {
+        //         return d.y;
+        //     });
 
         link.selectAll('path').attr('transform', function(d){
 
@@ -357,6 +442,26 @@ function createGraph(graph){
 
             var x = (d.source.x + d.target.x)/2;
             var y = (d.source.y + d.target.y)/2;
+
+            // if(d.source.name in openNode){
+
+            //     if(Object.keys(openNodePositions).length === 0){ openNodePositions[d.source.name] = d;}
+            //     else{
+            //         console.log(openNodePositions);
+
+            //         var obj = openNodePositions[Object.keys(openNodePositions)[0]];
+            //         console.log(obj);
+
+            //         if(d.source.name != obj.name){
+            //             return "translate(" + x + "," + obj.y + ")";                                    
+            //         }
+
+            //         if(!(d.source.name in openNodePositions)) { openNodePositions[d.source.name] = d;}
+
+            //     }
+
+            // }
+
             return "translate(" + x + "," + y+ ')';
         });
 
@@ -385,7 +490,8 @@ function createGraph(graph){
 
 var cache = null, 
     cacheCaptions = null,
-    openNode = {};  //nodes that are being displayed and opened (showing all it's children)
+    openNode = {}, 
+    openNodePositions = {};  //nodes that are being displayed and opened (showing all it's children)
 
 var filterActive = false; //Menu's filter
 
@@ -400,6 +506,7 @@ function startGraph(graphData, captions){
 
     for(var i = 0; i < graphData.root.length; i++){
         openNode[graphData.root[i]] = graphData.root[i];
+        // openNode[graphData.root[i]] = graphData.root[i];
     }
 
     formatGraph(cache.nodes, cache.links);  
@@ -579,6 +686,7 @@ function clickNode(obj, data){
         openNode[obj.name] = obj.name;
     }else{
         delete openNode[obj.name];
+        delete openNodePositions[obj.name];
 
         if(Object.keys(openNode).length == 0)
             openNode[obj.name] = obj.name;
