@@ -367,6 +367,7 @@ function createGraph(graph){
                 else{
 
                     var obj = openNodePositions[Object.keys(openNodePositions)[0]];
+                    obj.fixed = true;
 
                     if(d.name != obj.name){
                         var id = shortPath[0].replace(/\ /g, '').replace(/\"/g, '').replace(/\,/g, '');
