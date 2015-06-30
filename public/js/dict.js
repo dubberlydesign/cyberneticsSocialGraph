@@ -100,7 +100,9 @@ function depthDistance(key){
 
   // return Math.floor(Math.random() * (depthDistances[key] +31)) + depthDistances[key];
   // return depthDistances[key] * 1.5; //Normal
-  return depthDistances[key]; //ClickRandom
+
+  // Math.floor(Math.random() * (depthDistances[key] +11)) + depthDistances[key]
+  return 135; //ClickRandom
 }
 
 function menuDict(key){

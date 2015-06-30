@@ -20,6 +20,8 @@ var converted = {
 };
 
 var nameAux = "";
+var map = {};
+var dijkstra = {};
 
 $.getJSON( 'public/json/data.json', function(data){
 
@@ -31,12 +33,14 @@ $.getJSON( 'public/json/data.json', function(data){
     if(nameAux != data[i].name){
       //it's a different node, add to the node
       nameAux = data[i].name;
+      map[nameAux] = {};
 
       var node = {
         "name" :data[i].name,
         "type" : data[i].type,
         "symbol": data[i].symbol,
-        "linkRange": Math.floor(Math.random() * 201) - 100
+        "linkRange": 0, //Math.floor(Math.random() * 201) - 100
+        "id" : data[i].name.replace(" ", "")
       };
 
       if (converted['root'].indexOf( node.name ) !== -1) {
@@ -46,6 +50,8 @@ $.getJSON( 'public/json/data.json', function(data){
 
       converted.nodes.push(node);
     }
+
+    map[nameAux][data[i].linkTo] = 10; //some nodes have too many childrens 
   }
 
   for(var i = 0; i < data.length; i++){

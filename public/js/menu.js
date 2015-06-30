@@ -11,7 +11,17 @@ $(".nav a").on("click", function(){
   if($(this).parent().hasClass('active')){
     delete active[$(this).attr('id')]; //removing element from the active list
 
+    if($(this).attr('id') ==  "all"){
+        openNode = $.extend( {}, openNodeCache ); //making a copy
+        openNodeCache = null;
+
+        converted.root = converted.rootCache;
+
+        startGraph(converted, captions);
+    }
+
     $(this).parent().removeClass("active");
+
   } else{
     $(this).parent().addClass("active");
     active[$(this).attr('id')] = $(this).attr('id');
@@ -20,20 +30,19 @@ $(".nav a").on("click", function(){
     if($(this).attr('id') == "all"){
         if(openNodeCache == null){
             openNodeCache = $.extend( {}, openNode);
+
+            console.log(openNodeCache);
         }
 
-        var all = false;
         openNode = {};
+        clickEvent = false;
 
-        all = true;
         active = {};
         $(".nav").find(".active").removeClass("active");
         $(this).parent().addClass("active");
 
-        filter(all);
+        filterAll();
         return;
-    }else{
-        $("#all").parent().removeClass("active");
     }
   }
 
@@ -55,6 +64,17 @@ function displayFilters(){
     for(var act in active)
         activeFilters[menuDict(act)] = menuDict(act);
 
+    if(Object.keys(activeFilters).length == 0){
+        //undo the previous filter
+
+        d3.selectAll('path').classed('node-faded', false);
+        d3.selectAll('g').classed('link-faded', false);
+        d3.selectAll('text').classed('text-faded', false);
+
+
+         return; 
+    } //don't  apply the filter
+
     d3.selectAll('path').classed('node-faded', function(d){
         // console.log(d.type);
         if(parseInt(d.type) in activeFilters){ return false; }
@@ -72,8 +92,6 @@ function displayFilters(){
 
 
     d3.selectAll('text').classed('text-faded', function(t){
-        console.log(t);
-        // console.log((parseInt(t.source.type) in activeFilters && parseInt(t.target.type) in activeFilters));
         if(parseInt(t.type) in activeFilters)
             return false;
         else
@@ -82,88 +100,22 @@ function displayFilters(){
 }
 
 
-function filter(all){
-
-    if(all){
-
-        if(node != null) node.remove();
-        if(link != null) link.remove();
-        if(text != null) text.remove();
-
-        var rootAux = [];
-
-        for(var i = 0; i < converted.nodes.length; i++){
-            rootAux.push(converted.nodes[i].name);
-        }
-
-        converted.root = rootAux.slice();
-
-        startGraph(converted, captions); 
-        return;
-    }
-
-    var nodesAux = [];
-    var linksAux = [];
-    var linkAux = "";
-
-    activeFilters = {};
-    var nodesDisplayed = {};
-    var linksCreated = {};
-
-    for(act in active) activeFilters[menuDict(act)] = menuDict(act);
-
-    // console.log(activeFilters);
-
-    for(var i = 0; i < converted.nodes.length; i++){
-        if(converted.nodes[i].type in activeFilters || all){
-            nodesAux.push({
-                "name" : converted.nodes[i].name,
-                "type" : converted.nodes[i].type,
-                "symbol" : converted.nodes[i].symbol
-            });
-            nodesDisplayed[converted.nodes[i].name] = converted.nodes[i].name;
-        }
-    }
-
-    for(n in nodesDisplayed){
-        //checking link by link from the original data
-        for(var j = 0; j < cache.links.length; j++){
-
-          //creating the format for the dictionary
-          // <name>-<name>
-            linkAux = cache.links[j].source > cache.links[j].target ?
-                cache.nodes[cache.links[j].target].name + "-" + cache.nodes[cache.links[j].source].name:
-                cache.nodes[cache.links[j].source].name + "-" + cache.nodes[cache.links[j].target].name;
-
-            if(!(linkAux in linksCreated) && (cache.nodes[cache.links[j].target].name in nodesDisplayed && cache.nodes[cache.links[j].source].name in nodesDisplayed)){
-                console.log("********", cache.nodes[cache.links[j].source].name , cache.nodes[cache.links[j].target].name);
-                // console.log( + " --> " + checkLinkPosition(cache.nodes[cache.links[j].target].name, nodesAux));
-                linksAux.push({
-                    "source": checkLinkPosition(cache.nodes[cache.links[j].source].name, nodesAux),
-                    "target": checkLinkPosition(cache.nodes[cache.links[j].target].name, nodesAux),
-                    "linkType": cache.links[j].linkType,
-                    "linkInfo": cacheCaptions[linkAux],
-                    "depth": cache.links[j].depth
-                });
-
-                linksCreated[linkAux] =  linkAux;
-            }
-                
-        }
-    }
+function filterAll(){
 
     if(node != null) node.remove();
     if(link != null) link.remove();
     if(text != null) text.remove();
 
-    createGraph({
-        "graph": [],
-        "links": linksAux,
-        "nodes": nodesAux,
-        "directed": true,
-        "multigraph": true
-    });   
+    var rootAux = [];
 
+    for(var i = 0; i < converted.nodes.length; i++){
+        rootAux.push(converted.nodes[i].name);
+    }
+
+    converted.root = rootAux.slice();
+
+    startGraph(converted, captions); 
+    return;
 
 }
 

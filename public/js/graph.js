@@ -19,14 +19,15 @@ var force = d3.layout.force()
       return i ? -1400 : 0;
     })
     .gravity(0.01)
-    .friction(.3)
+    .friction(.42) //.62
     .linkStrength(0.6)
     .linkDistance( function(d){
         var distanceKey = d.source.index > d.target.index ? d.target.name + d.source.name : d.source.name + d.target.name;
 
         if(linksDistanceDict[distanceKey] == undefined){
           //it means that this link hasn't be created yet, let's put this into the dictionary and keeping tracking everybody
-          linksDistanceDict[distanceKey] =  Math.floor(Math.random() * (depthDistance(d.depth) +11)) + depthDistance(d.depth);
+          // linksDistanceDict[distanceKey] =  Math.floor(Math.random() * (depthDistance(d.depth) +11)) + depthDistance(d.depth);
+          linksDistanceDict[distanceKey] =  depthDistance(d.depth);
         }
         return linksDistanceDict[distanceKey];
     })
@@ -160,6 +161,7 @@ function createGraph(graph){
         .data(graph.nodes)
         .enter().append("g")
         .attr("class", "node")
+        .attr("id", function(d){ return d.name.replace(/\ /g, '').replace(/\"/g, '').replace(/\,/g, ''); })
 
     .call(force.drag)
 
@@ -352,7 +354,7 @@ function createGraph(graph){
 
             if(d.name in openNode){
 
-                d.fixed = true;
+                // d.fixed = false;
 
                 // console.log(openNodePositions);
                 /*
@@ -360,18 +362,26 @@ function createGraph(graph){
                 window.
 
                 */
-
+                if(clickEvent)
                 if(Object.keys(openNodePositions).length === 0){ openNodePositions[d.name] = d;}
                 else{
-                    console.log(openNodePositions);
 
                     var obj = openNodePositions[Object.keys(openNodePositions)[0]];
-                    console.log(obj);
 
                     if(d.name != obj.name){
-                        console.log(d.linkRange);
-                        // return "translate(" + d.x + "," + (obj.y + d.linkRange) + ")";                                    
-                        d.y = (obj.y + d.linkRange);
+                        var id = shortPath[0].replace(/\ /g, '').replace(/\"/g, '').replace(/\,/g, '');
+
+
+                        if(grid.getGridPosition(d.name) != undefined){
+                            var x = (grid.getGridPosition(d.name).right * 300);
+                            var y = grid.getGridPosition(d.name).top * (-250);
+
+                            // y = y % 2 ? y *(-250) : y * 250;
+
+                            d.x = d3.transform(d3.select("#" + id).attr("transform")).translate[0] + x;
+                            d.y = (obj.y + y);
+
+                        }
                     }
 
                     if(!(d.name in openNodePositions)) { openNodePositions[d.name] = d;}
@@ -388,50 +398,9 @@ function createGraph(graph){
         link.selectAll('line').attr("x1", function(d) {
                 return d.source.x;
             })
-            .attr("y1", function(d) {
-
-                // if(d.source.name in openNode){
-                //     if(Object.keys(openNodePositions).length !== 0){
-                //         console.log(openNodePositions);
-
-                //         var obj = openNodePositions[Object.keys(openNodePositions)[0]];
-                //         console.log(obj);
-
-                //         if(d.target.name != obj.name){
-                //             return obj.y;
-                //         }
-
-                //     }
-                // }
-
-                return d.source.y;
-            })
-            .attr("x2", function(d) {
-                return d.target.x;
-            })
-            .attr("y2", function(d) {
-                // if(d.target.name in openNode){
-                //     if(Object.keys(openNodePositions).length !== 0){
-                //         console.log(openNodePositions);
-
-                //         var obj = openNodePositions[Object.keys(openNodePositions)[0]];
-                //         console.log(obj);
-
-                //         if(d.target.name != obj.name){
-                //             return obj.y;
-                //         }
-
-                //     }
-                // }
-                return d.target.y;
-            });
-
-        // node.attr("cx", function(d) {
-        //         return d.x;
-        //     })
-        //     .attr("cy", function(d) {
-        //         return d.y;
-        //     });
+            .attr("y1", function(d) { return d.source.y; })
+            .attr("x2", function(d) { return d.target.x; })
+            .attr("y2", function(d) { return d.target.y; });
 
         link.selectAll('path').attr('transform', function(d){
 
@@ -442,25 +411,6 @@ function createGraph(graph){
 
             var x = (d.source.x + d.target.x)/2;
             var y = (d.source.y + d.target.y)/2;
-
-            // if(d.source.name in openNode){
-
-            //     if(Object.keys(openNodePositions).length === 0){ openNodePositions[d.source.name] = d;}
-            //     else{
-            //         console.log(openNodePositions);
-
-            //         var obj = openNodePositions[Object.keys(openNodePositions)[0]];
-            //         console.log(obj);
-
-            //         if(d.source.name != obj.name){
-            //             return "translate(" + x + "," + obj.y + ")";                                    
-            //         }
-
-            //         if(!(d.source.name in openNodePositions)) { openNodePositions[d.source.name] = d;}
-
-            //     }
-
-            // }
 
             return "translate(" + x + "," + y+ ')';
         });
@@ -490,6 +440,8 @@ function createGraph(graph){
 
 var cache = null, 
     cacheCaptions = null,
+    clickEvent = false,
+    shortPath = [],
     openNode = {}, 
     openNodePositions = {};  //nodes that are being displayed and opened (showing all it's children)
 
@@ -509,6 +461,8 @@ function startGraph(graphData, captions){
         // openNode[graphData.root[i]] = graphData.root[i];
     }
 
+    grid.createInstance(graphData.root[0])
+
     formatGraph(cache.nodes, cache.links);  
 }
 
@@ -520,6 +474,7 @@ function formatGraph(nodes, links){
     var linksDict = {};
 
     //listing all the main nodes
+
     for(var open in openNode){
 
         position = positionCache[open]; //check the node position related to the "nodes"'s array
@@ -682,8 +637,33 @@ function clickNode(obj, data){
 
     clearTooltips(true);
 
+
+    // console.log(d3.transform(d3.select("#" + obj.id).attr("transform")).translate[0]);
+    
+
     if(!(obj.name in openNode)){
         openNode[obj.name] = obj.name;
+
+        openNode[obj.name] = obj.name;
+        var mapAux = {};
+        mapAux[obj.name] = map[obj.name]; // this should be in the graph as well
+
+        for(open in openNode){
+            mapAux[open] = $.extend(map[open], {});
+        }
+
+
+
+        
+
+        dijkstra = new Dijkstra(mapAux);
+        shortPath = dijkstra.findShortestPath(converted.rootCache[0], obj.name);
+
+
+        grid.addNode(shortPath);
+        clickEvent = true;
+
+
     }else{
         delete openNode[obj.name];
         delete openNodePositions[obj.name];
