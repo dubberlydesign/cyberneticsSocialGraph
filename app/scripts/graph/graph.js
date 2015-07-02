@@ -1,0 +1,826 @@
+'use strict';
+
+var graph = (function(){
+
+
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+
+    var nodeTooltipCounter = [];
+
+    var size = d3.scale.pow().exponent( 1 )
+        .domain( [1,100] )
+        .range( [8,24] );
+
+    var force = d3.layout.force()
+        .charge(function( d, i ) {
+            return i ? -1400: 0;
+        })
+        .gravity( 0.01 )
+        .friction( .42 )
+        .linkStrength( .6 )
+        .linkDistance( 150 )
+        .size( [w, h]);
+
+    var currentScale = 0;
+    var spacebar = false;
+    var min_zoom = 0.5;
+    var max_zoom = 1.8; //7
+    var svg = d3.select("body").append("svg");
+
+    var zoom = d3.behavior.zoom().scaleExtent([min_zoom, max_zoom]).on('zoomend', function(){
+
+    });
+
+    var g = svg.append("g").classed('graph-container', true);
+    svg.style("cursor", "move");
+
+    window.addEventListener('keydown', function(event) {
+        if (event.keyCode === 32) { spacebar = true; }
+    });
+
+    window.addEventListener('keyup', function(event) {
+        if (event.keyCode === 32) { spacebar = false; }
+    });
+
+    // graph's core
+
+    var node = null,
+        nodePath = null,
+        link = null,
+        text = null,
+        cache = null,
+        clickEvent = false,
+        shortPath = [],
+        openNode = {},
+        openNodePositions = {},
+        filterAll;  //nodes that are being displayed and opened (showing all it's children)
+
+    function createGraph(graph){
+
+        var linkedByIndex = {};
+        nodeTooltipCounter = [];
+
+        graph.links.forEach(function(d) {
+            linkedByIndex[d.source + "," + d.target] = true;
+        });
+
+        function isConnected(a, b) {
+            return linkedByIndex[a.index + "," + b.index] || linkedByIndex[b.index + "," + a.index] || a.index == b.index;
+        }
+
+        function hasConnections(a) {
+            for (var property in linkedByIndex) {
+                s = property.split(",");
+                if ((s[0] == a.index || s[1] == a.index) && linkedByIndex[property]) return true;
+            }
+            return false;
+        }
+
+        force
+            .nodes(graph.nodes)
+            .links(graph.links)
+            .start();
+
+        link = g.selectAll(".link")
+            .data(graph.links)
+            .enter().append("g")
+            .attr("class", "link");
+
+        link.append("line")
+            .attr('class', function(d){
+                return 'link-' + d.linkType;
+            });
+
+        link.append("svg:path")
+            .attr("d", d3.svg.symbol()
+              .size(80)
+              .type('circle'))
+            .attr('class', function(d){
+              return 'link-' + d.linkType;
+            })
+            .on('mousedown', seeLinkInfo)
+            // .on('mouseover', linkNodeOver)
+            .on('mouseover', function(d){
+
+                if($(".active").length > 0){
+                    var allFilter  =  $('#all').parent().hasClass('active');
+                    $(".nav").find(".active").removeClass("active");
+
+                    if(allFilter)
+                        $('#all').parent().addClass('active');
+
+                    menu.setActiveFilters({});
+                }
+
+                svg.selectAll('g').classed('link-faded', function(l){
+                    if(d3.select(this).classed('graph-container'))
+                        return false;
+                    if(l === d){ return false; } else{ return true; }
+                });
+
+                svg.selectAll('text').classed('text-faded', function(t){
+                    if(t === d.source || t === d.target) return false;
+                    else return true;
+                });
+
+                svg.selectAll('path').classed('node-faded', function(n){
+                    if(n === d.source || n === d.target || n === d) return false;
+                    else return true;
+                });
+
+                if(d.tooltip_link != undefined) return;
+
+                if( d.linkInfo != undefined && d.linkInfo != "" ){
+                    d.tooltip = d3.tip().attr('class', 'd3-tip')
+                        .html( d.linkInfo );
+                        svg.call(d.tooltip);
+                        d.tooltip.show();
+                }
+
+
+            })
+            .on('mouseout', function(d){
+                svg.selectAll('g').classed('link-faded', false);
+                svg.selectAll('text').classed('text-faded', false);
+                svg.selectAll('path').classed('node-faded', false);
+
+                if(d.tooltip != undefined) d.tooltip.destroy();
+
+
+            })
+            .classed('hasInfo', function(d){ return  !(d.linkInfo != undefined && d.linkInfo != ""); });
+
+
+        svg.selectAll('.hasInfo').remove();
+
+        node = g.selectAll(".node")
+            .data(graph.nodes)
+            .enter().append("g")
+            .attr("class", "node")
+            .attr("id", function(d){ return d.name.replace(/\ /g, '').replace(/\"/g, '').replace(/\,/g, ''); })
+
+        .call(force.drag)
+
+
+        node.on("dblclick.zoom", function(d) {
+            d3.event.stopPropagation();
+            var dcx = (window.innerWidth / 2 - d.x * zoom.scale());
+            var dcy = (window.innerHeight / 2 - d.y * zoom.scale());
+            zoom.translate([dcx, dcy]);
+            g.attr("transform", "translate(" + dcx + "," + dcy + ")scale(" + zoom.scale() + ")");
+
+        });
+
+        nodePath = node.append("svg:path")
+            .attr("d", d3.svg.symbol()
+            .size(function(d){
+                if(d.name in openNode){
+                    if(parseInt(d.type) == 11)
+                      return 450;
+                    return 650;
+                }
+                return 300;
+            })
+            .type(function(d){ return graphDictionary.getSymbol(d.type); }))
+            .classed('node-publication', function(d){ return parseInt(d.type) == 12})
+            .classed('node-other', function(d){ return parseInt(d.type) == 11})
+            .attr('fill', function(d){ return graphDictionary.getColor(d.type); })
+            .on("click", clickNode);
+
+        text = node.append("text")
+            .classed('node-name', true)
+            .attr("dy", function(d){ if(d.name in openNode) { return "2.25em" } else { return "1.55em"; } })
+            // .style("font-size", nominal_text_size + "px")
+            .on("click", seeNodeInfo)
+            .on("mouseover", function(d){
+                if(converterData.checkWikipediaIDExists(d.name))
+                    d3.select(this).classed('text-link', true);
+            })
+            .on("mouseout", function(d){
+                d3.select(this).classed('text-link', false);
+            })
+            .text(function(d) {
+                return d.name;
+            })
+            .style("text-anchor", "middle");
+
+        node.on("mouseover", function(d) {
+                var notFaded = {};
+
+                if($(".active").length > 0){
+                    var allFilter  =  $('#all').parent().hasClass('active');
+                    $(".nav").find(".active").removeClass("active");
+
+                    if(allFilter)
+                        $('#all').parent().addClass('active');
+
+                    menu.setActiveFilters({});
+                }
+
+                link.classed('link-faded', function(l){
+                    if(d === l.source || d === l.target){
+                        notFaded[l.source.name] = l.source.name;
+                        notFaded[l.target.name] = l.target.name;
+
+                        return false;
+                    }else{ return true; }
+
+                });
+
+                d3.selectAll('path')
+                    .classed('node-faded', function(nd){
+                        var condition = !(nd.name in notFaded) && parseInt(nd.type) < 10
+                        || !(nd.name in notFaded) && parseInt(nd.type) == 12
+                        || !(nd.name in notFaded) && parseInt(nd.type) == 11;
+
+                        return condition;
+                });
+
+                d3.selectAll('text')
+                    .classed('text-faded', function(nd){
+                        return !(nd.name in notFaded);
+                    });
+
+
+            })
+            .on("mousedown", function(d) {
+                // clearTooltips(false);
+
+                if(d.tooltip_node != undefined){
+                    d.tooltip_node.destroy();
+                    d.tooltip_node = undefined;
+                }
+
+                d3.event.stopPropagation();
+                if (spacebar) {
+                    d.fixed = false;
+                }else{
+                    d.fixed = true;
+                }
+
+            }).on("mouseout", function(d) {
+
+                svg.selectAll('g').classed('link-faded', false);
+                svg.selectAll('text').classed('text-faded', false);
+                svg.selectAll('path').classed('node-faded', false);
+
+            });
+
+        zoom.on("zoom", function() {
+
+            if(d3.event.scale > 0.5 && d3.event.scale < 1.8){
+                $('.zoom-btn').prop('disabled', false);
+            }else{
+
+                if ( d3.event.scale > 0.5) { $('.zoom-in').prop('disabled', true); }
+                else { $('.zoom-out').prop('disabled', true); }
+
+            }
+
+            clearTooltips(true);
+            g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+        });
+
+
+        svg.call(zoom);
+
+        resize();
+        //window.focus();
+        d3.select(window).on("resize", resize).on("keydown", keydown);
+
+        force.on("tick", tick);
+
+        function resize() {
+            var width = window.innerWidth,
+                height = window.innerHeight;
+            svg.attr("width", width).attr("height", height);
+
+            force.size([force.size()[0] + (width - w) / zoom.scale(), force.size()[1] + (height - h) / zoom.scale()]).resume();
+            w = width;
+            h = height;
+        }
+
+        function keydown() {
+            if (d3.event.keyCode == 32) {
+                spacebar = true;
+            }
+        }
+    }
+
+    function tick() {
+
+        node.attr("transform", function(d) {
+
+            if(!filterAll && !(d.name in openNodePositions)){
+                openNodePositions[d.name] = d;
+            }
+
+
+
+            if((d.name in openNodePositions)){
+
+                // Everything is going to be related to the main root
+                var mainRoot = openNodePositions[converterData.getRoot()];
+                mainRoot.fixed = true;
+                // d.fixed = d.name in openNode ? true : false;
+
+
+                var id = d.name.replace(/\ /g, '').replace(/\"/g, '').replace(/\,/g, '');
+
+                if(grid.getGridPosition(d.name) != undefined){
+
+                    // d.fixed = filterAll ? false : true; //making the node be fixed and related to the main root
+
+                    var x = (grid.getGridPosition(d.name).right * 300);
+                    var y = grid.getGridPosition(d.name).top * (-250);
+
+                    d.x = d.px =  (mainRoot.x + x);
+                    d.y = d.py =  (mainRoot.y + y);
+
+                }
+
+            }
+
+            return "translate(" + d.x + "," + d.y + ")";
+        });
+
+        link.selectAll('line').attr("x1", function(d) {
+                return d.source.x;
+            })
+            .attr("y1", function(d) { return d.source.y; })
+            .attr("x2", function(d) { return d.target.x; })
+            .attr("y2", function(d) { return d.target.y; });
+
+        link.selectAll('path').attr('transform', function(d){
+
+            if(d.tooltip_link != undefined){
+                d.tooltip_link.destroy();
+                d.tooltip_link = undefined;
+            }
+
+            var x = (d.source.x + d.target.x)/2;
+            var y = (d.source.y + d.target.y)/2;
+
+            return "translate(" + x + "," + y+ ')';
+        });
+
+
+    }
+
+
+    /**/
+    function startGraph(graphData){
+        removeContent();
+        svg.selectAll('.link-related').remove();
+        svg.selectAll('.link-personal').remove();
+        svg.selectAll('.link-influence').remove();
+
+        cache = graphData;
+        // openNode = {};
+        // openNodePositions = {};
+        console.log(openNode);
+
+        for(var i = 0; i < graphData.root.length; i++){
+            openNode[graphData.root[i]] = graphData.root[i];
+        }
+
+        if(!filterAll){
+            grid.createInstance(graphData.root[0]);
+        }
+
+        // openNodePositions[converterData.getRoot]
+
+        formatGraph(cache.nodes, cache.links);
+    }
+
+    function formatGraph(nodes, links){
+        var position = 0;
+        var nodesDisplayed = [];
+        var linksDisplayed = [];
+        var nodesDict = {};
+        var linksDict = {};
+
+        //listing all the main nodes
+
+        for(var open in openNode){
+
+            position = converterData.getPosition(open); //check the node position related to the "nodes"'s array
+
+            if(!(nodes[position].name in nodesDict)){
+                nodesDisplayed[nodesDisplayed.length] = nodes[position];
+                nodesDict[nodes[position].name] = nodes[position].name;
+            }
+
+            for(var j = 0; j < links.length; j++){
+
+              if(links[j].source == position){
+                //checking if the node wasn't listed before
+                if(!(nodes[links[j].target].name in nodesDict)){
+                  //checking to see if the person is an entity different from a person
+                  nodesDisplayed[nodesDisplayed.length] = nodes[links[j].target];
+                  nodesDict[nodes[links[j].target].name] = nodes[links[j].target].name;
+                }
+              }
+            }
+        }
+
+        //creating links
+        for(var open in openNode){
+            position = converterData.getPosition(open);
+            var pstLink = checkLinkPosition(open, nodesDisplayed);
+
+            //checking link by link from the original data
+            for(var j = 0; j < links.length; j++){
+
+
+              //creating the format for the dictionary
+              // <name>-<name>
+                var linkAux = links[j].source > links[j].target ?
+                    nodes[links[j].target].name + "-" + nodes[links[j].source].name:
+                    nodes[links[j].source].name + "-" + nodes[links[j].target].name;
+
+                if( !(linkAux in linksDict) && links[j].source == position){
+                    linksDisplayed.push({
+                        "source": pstLink,
+                        "target": checkLinkPosition(nodes[links[j].target].name, nodesDisplayed),
+                        "linkType": links[j].linkType,
+                        "linkInfo": converterData.getCaption(linkAux),
+                        "depth": links[j].depth
+                    });
+
+                    linksDict[linkAux] = linkAux;
+                }
+
+            }
+        }
+
+        if(node != null) node.remove();
+        if(link != null) link.remove();
+        if(text != null) text.remove();
+
+        createGraph({
+            "graph": [],
+            "links": linksDisplayed,
+            "nodes": nodesDisplayed,
+            "directed": true,
+            "multigraph": true
+        });
+    }
+
+    //this function enables the user to open the tooltip and keep it there.
+    function seeLinkInfo(d){
+        if(d.tooltip_link != undefined){
+            force.resume();
+            d.tooltip_link.destroy(); //removing tooltip
+            d.tooltip_link = undefined;
+        } else if(d.tooltip_link != ''){
+            force.stop();
+            d.tooltip_link = d3.tip().attr('class', 'd3-tip')
+              .html( d.linkInfo );
+
+            svg.call(d.tooltip_link);
+            d.tooltip_link.show();
+        }
+    }
+
+    function seeNodeInfo(d){
+        if(d.fixed != true){ //d.fixed mights be undefined
+            d.fixed = true;
+        }
+
+        if(!(converterData.checkWikipediaIDExists(d.name)))
+            return;
+
+        if(d.tooltip_node != undefined){
+            nodeTooltipCounter.pop();
+            if(nodeTooltipCounter.length == 0)
+                force.resume();
+            d.tooltip_node.destroy(); //removing tooltip
+            d.tooltip_node = undefined;
+        } else if(d.tooltip_node != ''){
+
+
+            var thumbsize = 219; // px width
+            var charSize = 200; // number of chars
+
+            var url = "https://en.wikipedia.org/w/api.php?action=query&prop=pageimages|extracts&format=json&exintro=&explaintext=";
+            url += "&pithumbsize="+ thumbsize;
+            // url += "&exchars=" + charSize;
+            url += "&titles=" + converterData.getWikipediaID(d.name);
+
+            var target = this;
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                crossDomain: true,
+                dataType: 'jsonp',
+                success: function(data) {
+                    var values;
+                    for(var key in data.query.pages)
+                        values = data.query.pages[key];
+                    var html = "";
+
+                    if(values.thumbnail != undefined && (values.thumbnail.source != undefined ||  values.thumbnail.source != ""))
+                        html += "<img src=" + values.thumbnail.source +" class='img-node' />";
+
+                    html += "<h4>" + values.title + "</h4>";
+                    html += "<h6>"+  (values.extract.length > 200 ? (values.extract.slice(0,200) + "...") : values.extract)   +"</h6>";
+                    html += "<hr>";
+                    html += "<h6><a href='https://en.wikipedia.org/wiki/" + converterData.getWikipediaID(d.name) + " ' target='_blank' class='info-link'>Source: Wikipedia. Read more" +"</a></h6>";
+
+
+                    d.tooltip_node = d3.tip().attr('class', 'd3-tip-node ')
+                    .offset([0, 5])
+                    .direction('e')
+                    .html( html );
+
+                    force.stop();
+                    nodeTooltipCounter.push("");
+                    svg.call(d.tooltip_node);
+                    d.tooltip_node.show(target);
+
+
+                },
+                error: function(e) {
+
+                }
+            });
+
+
+        }
+    }
+
+
+    function clickNode(obj, data){
+
+
+        if (d3.event.defaultPrevented || d3.event.target.nodeName == 'text') return;
+
+        clearTooltips();
+
+        if(!(obj.name in openNode)){
+            openNode[obj.name] = obj.name;
+
+            openNode[obj.name] = obj.name;
+            var mapAux = {};
+            mapAux[obj.name] = converterData.getMap(obj.name); // this should be in the graph as well
+
+            for(var open in openNode){
+                mapAux[open] = converterData.getMap(open);
+            }
+
+            var dijkstra = new Dijkstra(mapAux);
+            shortPath = dijkstra.findShortestPath(cache.rootCache[0], obj.name);
+
+
+            grid.addNode(shortPath);
+            clickEvent = true;
+
+
+        }else{
+
+            if(obj.name != converterData.getRoot()){
+
+                delete openNode[obj.name];
+                delete openNodePositions[obj.name];
+                obj.fixed = false;
+
+                if(Object.keys(openNode).length == 0)
+                    openNode[obj.name] = obj.name;
+
+            }
+
+        }
+
+        formatGraph(cache.nodes, cache.links);
+    }
+
+    function linkNodeOver(d, p){ //path
+
+      var notFaded = {};
+      notFaded[d.source.name] = d.source.name;
+      notFaded[d.target.name] = d.target.name;
+
+
+      svg.selectAll('g')
+        .classed('link-faded', function(l){
+          if(l === d)
+            return false;
+          else
+            return true;
+        });
+
+      d3.selectAll('path')
+        .classed('node-faded', function(nd){
+          var condition = !(nd.name in notFaded) && parseInt(nd.type) < 10
+            || !(nd.name in notFaded) && parseInt(nd.type) == 12
+            || !(nd.name in notFaded) && parseInt(nd.type) == 11;
+
+            return condition;
+        });
+
+      d3.selectAll('text')
+        .classed('text-faded', function(nd){
+          return !(nd.name in notFaded);
+        });
+
+      if(d.tooltip_link != undefined)
+        return;
+
+      if( d.linkInfo != undefined && d.linkInfo != "" ){
+        d.tooltip = d3.tip().attr('class', 'd3-tip')
+          .html( d.linkInfo );
+        svg.call(d.tooltip);
+        d.tooltip.show();
+      }
+
+    }
+
+    //graph functions
+
+    function clearTooltips( event ){
+
+        nodeTooltipCounter = [];
+
+        svg.selectAll('g').classed('link-faded', false);
+        svg.selectAll('text').classed('text-faded', false);
+        svg.selectAll('path').classed('node-faded', false);
+
+        d3.selectAll('path').each(function(d){
+
+
+            if( d.tooltip_link != undefined){
+                d.tooltip_link.destroy();
+                d.tooltip_link = undefined;
+            }
+
+            if( d.tooltip_node != undefined){
+                d.tooltip_node.destroy();
+                d.tooltip_node = undefined;
+            }
+
+        });
+    }
+
+    function checkLinkPosition(name, array){
+      var position = 0;
+      var i = 0;
+
+      while(i < array.length){
+        if(array[i].name == name){
+          position = i;
+          i = array.length;
+        }
+
+        i++;
+      }
+
+      return position;
+    }
+
+    // Zoom's function
+
+    function interpolateZoom (translate, scale) {
+        var self = this;
+
+        return d3.transition().duration(350).tween("zoom", function () {
+
+            var iTranslate = d3.interpolate(zoom.translate(), translate),
+                iScale = d3.interpolate(zoom.scale(), scale);
+
+            return function (t) {
+                zoom
+                .scale(iScale(t))
+                .translate(iTranslate(t));
+                zoomed();
+            };
+        });
+
+    }
+
+    function zoomClick(zoomIn, obj) { // Zoom Click
+
+        clearTooltips(true);
+
+        var direction = 1,
+            factor = 0.2,
+            target_zoom = 1,
+            center = [w / 2, h / 2],
+            extent = zoom.scaleExtent(),
+            translate = zoom.translate(),
+            translate0 = [],
+            l = [],
+            view = {x: translate[0], y: translate[1], k: zoom.scale()};
+
+        direction = (zoomIn) ? 1 : -1;
+        target_zoom = zoom.scale() * (1 + factor * direction);
+
+        if (target_zoom < extent[0] || target_zoom > extent[1]) {
+            $(obj).prop('disabled', true);
+            return false;
+        }
+
+        zoomControl.showButtons();
+
+        translate0 = [(center[0] - view.x) / view.k, (center[1] - view.y) / view.k];
+        view.k = target_zoom;
+        l = [translate0[0] * view.k + view.x, translate0[1] * view.k + view.y];
+
+        view.x += center[0] - l[0];
+        view.y += center[1] - l[1];
+
+        interpolateZoom([view.x, view.y], view.k);
+    }
+
+    function zoomed() {
+        g.attr("transform",
+            "translate(" + zoom.translate() + ")" +
+            "scale(" + zoom.scale() + ")"
+        );
+    }
+
+    // Menu's functions
+
+    function displayFilters(active){
+
+        var activeFilters = {};
+        for(var act in active)
+            activeFilters[menuDict.getOptionValue(act)] = menuDict.getOptionValue(act);
+
+        if(Object.keys(activeFilters).length == 0){
+            //undo the previous filter
+
+            d3.selectAll('path').classed('node-faded', false);
+            d3.selectAll('g').classed('link-faded', false);
+            d3.selectAll('text').classed('text-faded', false);
+
+
+             return;
+        } //don't  apply the filter
+
+        d3.selectAll('path').classed('node-faded', function(d){
+            // console.log(d.type);
+            if(parseInt(d.type) in activeFilters){ return false; }
+            else{ return true; }
+        });
+
+        d3.selectAll('g').classed('link-faded', function(l){
+
+            if(d3.select(this).classed('graph-container') || !d3.select(this).classed('link')
+                || (parseInt(l.source.type) in activeFilters && parseInt(l.target.type) in activeFilters))
+                return false;
+            else
+                return true;
+        });
+
+
+        d3.selectAll('text').classed('text-faded', function(t){
+            if(parseInt(t.type) in activeFilters)
+                return false;
+            else
+                return true;
+        });
+    }
+
+    function removeFadeOut(){
+        svg.selectAll('g').classed('link-faded', false);
+        svg.selectAll('text').classed('text-faded', false);
+        svg.selectAll('path').classed('node-faded', false);
+    }
+
+    function removeContent(){
+        if(node != null) node.remove();
+        if(link != null) link.remove();
+        if(text != null) text.remove();
+    }
+
+
+    return {
+        removeContent : removeContent,
+        resetPositions : tick,
+        zoomClick : zoomClick,
+        create : createGraph,
+        start : startGraph,
+        displayFilters : displayFilters,
+        removeFadeOut : removeFadeOut,
+        setOpenNode : function(open){
+            // console.log("*", openNode);
+            openNode = open;
+            // console.log("****", openNode);
+            return;
+        },
+        getOpenNode : function(){
+            return openNode;
+        },
+        checkOpenNode : function(key){
+            return key in openNode;
+        },
+        setFilterAllFlag : function(flag){
+            filterAll = flag;
+        }
+
+    };
+
+})();

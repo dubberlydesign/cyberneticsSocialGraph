@@ -1,0 +1,158 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <title>Cybernetics</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <!-- <link rel="shortcut icon" href="/favicon.ico"> -->
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <!-- build:css styles/vendor.css -->
+        <!-- bower:css -->
+        <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" href="../bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.css">
+        <!-- endbower -->
+        <!-- endbuild -->
+        <!-- build:css(.tmp) styles/main.css -->
+        <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="styles/graph.css">
+        <link rel="stylesheet" href="styles/zoom.css">
+        <link rel="stylesheet" href="styles/menu.css">
+        <link rel="stylesheet" href="styles/style.css">
+        <link rel="stylesheet" href="styles/tooltip.css">
+        <!-- endbuild -->
+    </head>
+    <body>
+        <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="navmenu navmenu-default navmenu-fixed-left offcanvas-lg">
+          <ul class="nav navmenu-nav">
+            <li>
+                <p>
+                    Personal connections, usually <br>collaborations
+                    <img src='images/menu/line-personal.png' class='legend-line'>
+                </p>
+            </li>
+            <li>
+                <p>
+                    Influence, usually based on <br>publications
+                    <img src='images/menu/line-influence.png' class='legend-line'>
+                </p>
+            </li>
+            <li>
+                <p>
+                    Filters
+                </p>
+            </li>
+            <li>
+                <a href="#" data-toggle="collapse" data-target=".navbar-collapse" id='designers'>
+                    <img src='images/menu/designers.png' class='bullet'>
+                    <span class='filter designers'>
+                        Designers and Architects
+                    </span>
+              </a>
+            </li>
+
+
+            <li>
+                <a href="#" data-toggle="collapse" data-target=".navbar-collapse" id='design-theorists'>
+                    <img src='images/menu/designersTheorists.png' class='bullet'>
+                    <span class='filter designers-theorists'>
+                        Design Theorists and Critics
+                    </span>
+                </a>
+            </li>
+
+
+            <li>
+                <a href="#" data-toggle="collapse" data-target=".navbar-collapse" id='computers-pioneer'>
+                    <img src='images/menu/computersPioneer.png' class='bullet'>
+                    <span class='filter computers-pioneer'>
+                        Computer Pioneer
+                    </span>
+                </a>
+            </li>
+
+
+            <li>
+                <a href="#" data-toggle="collapse" data-target=".navbar-collapse" id='counter-culture'>
+                    <img src='images/menu/counterCulture.png' class='bullet'>
+                    <span class='counter-culture'>
+                        Counter-culture Leader
+                    </span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#" data-toggle="collapse" data-target=".navbar-collapse" id='publication'>
+                    <img src='images/menu/publication.png' class='bullet'>
+                    Publications
+                </a>
+            </li>
+
+            <li>
+                <a href="#" data-toggle="collapse" data-target=".navbar-collapse" id='institution'>
+                    <img src='images/menu/institution.png' class='bullet'>
+                    Institutions or Conferences
+                </a>
+            </li>
+
+            <li>
+                <a href="#" data-toggle="collapse" data-target=".navbar-collapse" id='all'>
+                    <!-- <img src='public/img/gifAll.gif' class='bullet'> -->
+                    All
+                </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="navbar navbar-default navbar-fixed-top">
+          <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target=".navmenu">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">How cybernetics connects computing, the counter-culture, and design</a>
+        </div>
+
+        <div class='zoom-control'>
+            <ul class="zoom-control list-unstyled">
+              <li>
+                <button type="button" class="btn btn-default zoom-btn zoom-in">+</button>
+              </li>
+              <li>
+                <button type="button" class="btn btn-default zoom-btn zoom-out">-</button>
+              </li>
+            </ul>
+        </div>
+
+
+        <!-- build:js scripts/vendor.js -->
+        <!-- bower:js -->
+        <script src="../bower_components/jquery/dist/jquery.js"></script>
+        <!-- endbower -->
+        <!-- endbuild -->
+
+        <!-- build:js scripts/plugins.js -->
+        <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="../bower_components/jasny-bootstrap/dist/js/jasny-bootstrap.js"></script>
+        <script src="../bower_components/d3/d3.min.js"></script>
+        <script src="../bower_components/d3-tip/index.js"></script>
+        <!-- endbuild -->
+
+        <!-- build:js({app,.tmp}) scripts/main.js -->
+        <script src="scripts/zoom-control.js"></script>
+        <script src="scripts/graph/dijkstra.js"></script>
+        <script src="scripts/graph/grid.js"></script>
+        <script src="scripts/graph/graph.js"></script>
+        <script src="scripts/graph/graph-dict.js"></script>
+        <script src="scripts/data/converterData.js"></script>
+        <script src="scripts/menu/menu-dict.js"></script>
+        <script src="scripts/menu/menu.js"></script>
+        <script src="scripts/main.js"></script>
+
+        <!-- endbuild -->
+</body>
+</html>
