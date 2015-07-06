@@ -50,7 +50,6 @@ var graph = (function(){
         link = null,
         text = null,
         cache = null,
-        clickEvent = false,
         shortPath = [],
         openNode = {},
         openNodePositions = {},
@@ -562,22 +561,18 @@ var graph = (function(){
 
         if(!(obj.name in openNode)){
             openNode[obj.name] = obj.name;
-
-            openNode[obj.name] = obj.name;
             var mapAux = {};
             mapAux[obj.name] = converterData.getMap(obj.name); // this should be in the graph as well
 
             for(var open in openNode){
                 mapAux[open] = converterData.getMap(open);
-            }
+            };
+
+            console.log(mapAux);
 
             var dijkstra = new Dijkstra(mapAux);
             shortPath = dijkstra.findShortestPath(cache.rootCache[0], obj.name);
-
-
             grid.addNode(shortPath);
-            clickEvent = true;
-
 
         }else{
 
@@ -585,7 +580,9 @@ var graph = (function(){
 
                 delete openNode[obj.name];
                 delete openNodePositions[obj.name];
+                grid.removeNode(obj.name);
                 obj.fixed = false;
+                tick();
 
                 if(Object.keys(openNode).length == 0)
                     openNode[obj.name] = obj.name;

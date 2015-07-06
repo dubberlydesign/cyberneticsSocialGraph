@@ -37,6 +37,7 @@ var grid = (function(){
 
 	function calculateNewPath(path){
 		//Path is an [] with the positions that are going to be related to the main root (position [0][0])
+		console.log(path);
 
 		var gridAux = createGrid([]);
 		gridDictPosition = {};
@@ -79,7 +80,7 @@ var grid = (function(){
 	function removeNode(node){
 		delete gridDictPosition[node];
 
-		return gridDictPosition;
+		// return gridDictPosition;
 	}
 
 
@@ -90,9 +91,7 @@ var grid = (function(){
 			return gridLayout;
 		},
 		addNode : calculateNewPath,
-		removeNode : function(){
-			console.log('remove');
-		},
+		removeNode : removeNode,
 		getGridPosition : gridPosition
 	}
 
