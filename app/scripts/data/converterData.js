@@ -96,7 +96,7 @@ var converterData = (function(){
         request : function(){
             var nameAux = "";
 
-            $.getJSON( '/scripts/data/data.json', function(data){
+            $.getJSON( './scripts/data/data.json', function(data){
 
 
 

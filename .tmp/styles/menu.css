@@ -1,0 +1,112 @@
+.navmenu-default .navmenu-nav > li > a, .navbar-default .navbar-offcanvas .navmenu-nav > li > a{
+  color: #171616;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+}
+
+.navmenu-default .navmenu-brand, .navbar-default .navbar-offcanvas .navmenu-brand{
+  color: #171616;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+}
+
+.navmenu-default .navmenu-brand, .navbar-default .navbar-offcanvas .navmenu-brand{
+  color: #171616;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1;
+}
+
+@media (max-width: 1279px) {
+  .navmenu-default .navmenu-brand, .navbar-default .navbar-offcanvas .navmenu-brand{
+    display: none !important;
+  }
+}
+
+#showBtn{
+  font-size: 12px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+img.bullet{
+  width: 20px;
+  margin-left: -2px;
+  display: inline;
+}
+
+span.filter{ margin-left: 0; }
+
+span.designers{ color:#00A3D9; }
+
+span.designers-theorists{ color:#00984B; }
+
+span.computers-pioneer{ color:#E15D32; }
+
+span.counter-culture{ color:#993366; }
+
+span.symbol { font-size: 20px; }
+
+p{
+  color: #171616;
+  margin-left: 15px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+}
+
+.legend-line { margin-left: 15px; }
+
+html, body { height: 100%; }
+
+body { padding: 50px 0 0 0; }
+
+.navmenu { padding-top: 50px; }
+
+.navbar {
+  color: #171616 !important;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  display: block;
+  text-align: center;
+}
+.navbar-brand { display: inline-block; float: none; }
+
+.navbar-toggle {
+  position: absolute;
+  float: left;
+  margin-left: 15px;
+}
+
+.container { max-width: 100%; }
+
+ul.nav.navmenu-nav{ margin-top: 75px; }
+
+@media (min-width: 1px) {
+  .navbar-toggle { display: block !important; }
+}
+
+@media (min-width: 1280px) {
+  body { padding: 0 0 0 300px; }
+  .navmenu { padding-top: 0; }
+}
+
+.navbar a {
+  color: #171616 !important;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  display: block;
+  text-align: left;
+  margin-left: 55px !important;
+}
+
+@media (max-width: 1279px){
+  ul.nav.navmenu-nav{ margin-top: 25px; }
+}
+
+@media (max-width: 649px){
+  a.navbar-brand{ font-size: 16px; line-height: .95; }
+}
+
+@media (max-width: 640px){
+  a.navbar-brand{ font-size: 14px; line-height: .95; }
+}

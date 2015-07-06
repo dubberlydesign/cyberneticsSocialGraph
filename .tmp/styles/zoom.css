@@ -1,0 +1,23 @@
+.zoom-control {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  z-index: 100;
+}
+
+.zoom-control > ul{
+  margin-bottom: 0 !important;
+}
+
+.zoom-control > li {
+  margin-top: 5px !important;
+}
+
+.btn{
+  width: 35px;
+  font-weight: 800;
+  font-family: 'Open Sans', sans-serif;
+  -moz-box-shadow: 1px 1px 3px .3px #ccc;
+  -webkit-box-shadow: 1px 1px 3px .3px #ccc;
+  box-shadow: 1px 1px 3px .3px #ccc;
+}

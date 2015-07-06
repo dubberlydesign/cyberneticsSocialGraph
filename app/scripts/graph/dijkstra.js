@@ -66,6 +66,7 @@ var Dijkstra = (function (undefined) {
 
 	var extractShortest = function (predecessors, end) {
 		var nodes = [],
+			predecessor = {},
 		    u = end;
 
 		while (u) {
