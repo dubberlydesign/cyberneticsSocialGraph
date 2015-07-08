@@ -53,7 +53,8 @@ var graph = (function(){
         shortPath = [],
         openNode = {},
         openNodePositions = {},
-        filterAll;  //nodes that are being displayed and opened (showing all it's children)
+        filterAll = false,
+        gridRestoreFlag = false;  //nodes that are being displayed and opened (showing all it's children)
 
     function createGraph(graph){
 
@@ -312,6 +313,7 @@ var graph = (function(){
         node.attr("transform", function(d) {
 
             if(!filterAll && !(d.name in openNodePositions)){
+                // console.log('nodepositions');
                 openNodePositions[d.name] = d;
             }
 
@@ -326,6 +328,7 @@ var graph = (function(){
 
 
                 var id = d.name.replace(/\ /g, '').replace(/\"/g, '').replace(/\,/g, '');
+            //    console.log(grid.getGridPosition(d.name));
 
                 if(grid.getGridPosition(d.name) != undefined){
 
@@ -376,24 +379,25 @@ var graph = (function(){
         svg.selectAll('.link-influence').remove();
 
         cache = graphData;
-        // openNode = {};
-        // openNodePositions = {};
-        console.log(openNode);
 
         for(var i = 0; i < graphData.root.length; i++){
             openNode[graphData.root[i]] = graphData.root[i];
         }
 
-        if(!filterAll){
-            grid.createInstance(graphData.root[0]);
+        if(!filterAll && !gridRestoreFlag){
+
+            grid.createInstance(converterData.getRoot());
+
+            gridRestoreFlag = false;
         }
 
-        // openNodePositions[converterData.getRoot]
-
-        formatGraph(cache.nodes, cache.links);
+        formatGraph();
     }
 
-    function formatGraph(nodes, links){
+    function formatGraph(){
+        var nodes = cache.nodes;
+        var links = cache.links;
+
         var position = 0;
         var nodesDisplayed = [];
         var linksDisplayed = [];
@@ -491,12 +495,14 @@ var graph = (function(){
         if(!(converterData.checkWikipediaIDExists(d.name)))
             return;
 
-        if(d.tooltip_node != undefined){
+        if(d.tooltip_node_showed != undefined){
             nodeTooltipCounter.pop();
             if(nodeTooltipCounter.length == 0)
                 force.resume();
-            d.tooltip_node.destroy(); //removing tooltip
+            // d.tooltip_node.destroy(); //removing tooltip
             d.tooltip_node = undefined;
+
+            d.tooltip_node_showed = undefined;
         } else if(d.tooltip_node != ''){
 
 
@@ -539,7 +545,9 @@ var graph = (function(){
                     nodeTooltipCounter.push("");
                     svg.call(d.tooltip_node);
                     d.tooltip_node.show(target);
+                    $(target).addClass('hasToolTip');
 
+                    d.tooltip_node_showed = true;
 
                 },
                 error: function(e) {
@@ -555,7 +563,7 @@ var graph = (function(){
     function clickNode(obj, data){
 
 
-        if (d3.event.defaultPrevented || d3.event.target.nodeName == 'text') return;
+        if (d3.event.defaultPrevented || d3.event.target.nodeName == 'text' || filterAll) return;
 
         clearTooltips();
 
@@ -568,10 +576,8 @@ var graph = (function(){
                 mapAux[open] = converterData.getMap(open);
             };
 
-            console.log(mapAux);
-
             var dijkstra = new Dijkstra(mapAux);
-            shortPath = dijkstra.findShortestPath(cache.rootCache[0], obj.name);
+            shortPath = dijkstra.findShortestPath(converterData.getRoot(), obj.name);
             grid.addNode(shortPath);
 
         }else{
@@ -591,7 +597,7 @@ var graph = (function(){
 
         }
 
-        formatGraph(cache.nodes, cache.links);
+        formatGraph();
     }
 
     function linkNodeOver(d, p){ //path
@@ -799,24 +805,40 @@ var graph = (function(){
         resetPositions : tick,
         zoomClick : zoomClick,
         create : createGraph,
+        format : formatGraph,
         start : startGraph,
         displayFilters : displayFilters,
         removeFadeOut : removeFadeOut,
         setOpenNode : function(open){
-            // console.log("*", openNode);
             openNode = open;
-            // console.log("****", openNode);
             return;
+        },
+        clearFixedNodes: function(){
+            d3.selectAll('path').classed('path', function(d){
+                d.fixed = false;
+                return false;
+            })
         },
         getOpenNode : function(){
             return openNode;
+        },
+        setOpenNodePositions : function(open){
+            openNodePositions = open;
+            // console.log(openNodePositions);
+            return;
+        },
+        getOpenNodePositions : function(){
+            return openNodePositions;
         },
         checkOpenNode : function(key){
             return key in openNode;
         },
         setFilterAllFlag : function(flag){
             filterAll = flag;
-        }
+        },
+        setGridRestoreFlag : function(flag){
+            gridRestoreFlag = flag;
+        },
 
     };
 

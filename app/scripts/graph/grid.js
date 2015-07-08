@@ -2,10 +2,12 @@
 
 var grid = (function(){
 
+	var gridLayoutCache = null,
+		gridDictPositionCache  = null;
+
 	var gridLayout;
 	var gridDictPosition; 	//dictionary for the positions, this is going to return
 							//an object {top : <int>, left: <int>} related to the position in the grid
-
 
 	function createGrid(grid){
 
@@ -20,7 +22,7 @@ var grid = (function(){
 		return grid;
 	}
 
-	function initDict(root){
+	function initDict(){
 
 		gridLayout = [];
 		gridDictPosition = {};
@@ -28,16 +30,16 @@ var grid = (function(){
 		gridLayout = createGrid(gridLayout);
 
 
-		gridLayout[0][0] = root;
-		gridDictPosition[root] = {"top" : 0 , "right" : 0};
+		gridLayout[0][0] = converterData.getRoot();
+		gridDictPosition[converterData.getRoot()] = {"top" : 0 , "right" : 0};
 
-		return gridLayout;
+		// return gridLayout;
+		return false;
 
 	}
 
 	function calculateNewPath(path){
 		//Path is an [] with the positions that are going to be related to the main root (position [0][0])
-		console.log(path);
 
 		var gridAux = createGrid([]);
 		gridDictPosition = {};
@@ -86,9 +88,18 @@ var grid = (function(){
 
 	return {
 		createInstance : function(root){
-			gridLayout = initDict(root);
+			initDict();
 
-			return gridLayout;
+			return false;
+		},
+		saveInstance : function(){
+			gridLayoutCache = gridLayout.slice();
+			gridDictPositionCache = $.extend( {}, gridDictPosition);
+			// return gridLayout;
+		},
+		restoreInstance : function(instance){
+			gridLayout = gridLayoutCache.slice();
+			gridDictPosition = $.extend( {}, gridDictPositionCache);
 		},
 		addNode : calculateNewPath,
 		removeNode : removeNode,

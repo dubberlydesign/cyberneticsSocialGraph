@@ -5,8 +5,20 @@ var menu = (function(){
     var active = {};
 
     var openNodeCache = null;
+    var openNodePositionCache = null;
+    var gridCache = null;
 
     var activeFilters = null;
+
+    var source = [];
+
+    function init(){
+        source = converterData.getNodeTags();
+
+        $("#txtStart").typeahead({ source: source });
+        $("#txtEnd").typeahead({ source: source });
+
+    }
 
 
     $('.nav a').on('click', function(){
@@ -37,7 +49,19 @@ var menu = (function(){
             active[$(this).attr('id')] = $(this).attr('id');
 
 
+
             if($(this).attr('id') == 'all'){
+                var valid = converterData.checkNodeNameExists($("#txtStart").val()) && converterData.checkNodeNameExists($("#txtEnd").val());
+
+                if(valid){
+                    // it's because the user is using this functionality, so just restore first
+                    restore();
+
+                    $("#txtStart").val('');
+                    $("#txtEnd").val('');
+                }
+
+
                 if(openNodeCache == null){
                     openNodeCache = $.extend( {}, graph.getOpenNode());
                     graph.setFilterAllFlag(true);
@@ -80,13 +104,94 @@ var menu = (function(){
         return position;
     }
 
+    // Form's functions
+
+    // Validating input's value
+
+    $("input").focusout(function(){
+        if(!converterData.checkNodeNameExists($(this).val())){
+            $(this).val('');
+        }
+
+        return;
+    });
+
+
+    $('form').submit(function(){
+
+        var valid = converterData.checkNodeNameExists($("#txtStart").val()) && converterData.checkNodeNameExists($("#txtEnd").val());
+
+
+
+        if(valid){
+
+            if(openNodeCache == null){
+                openNodeCache = $.extend( {}, graph.getOpenNode());
+                openNodePositionCache = $.extend( {}, graph.getOpenNodePositions());
+                grid.saveInstance();
+            }
+
+
+
+            var map = converterData.getFullMap();
+
+
+
+            converterData.setRoot($("#txtStart").val());
+
+            var dijkstra = new Dijkstra(map);
+            var shortPath = dijkstra.findShortestPath($("#txtStart").val(), $("#txtEnd").val());
+
+            var open = {};
+
+            for(var i = 0; i < shortPath.length; i++){
+                open[shortPath[i]] = shortPath[i];
+            };
+
+
+            graph.setOpenNode(open);
+            graph.setOpenNodePositions({});
+
+
+            grid.createInstance();
+            grid.addNode(shortPath);
+            graph.clearFixedNodes();
+            graph.format();
+
+            return false;
+
+        }
+
+        return false;
+    });
+
+
+
+    $('form').on('reset', restore);
+
+    function restore(){
+        graph.setOpenNode(openNodeCache);
+        graph.setOpenNodePositions($.extend( {}, openNodePositionCache));
+
+        grid.restoreInstance();
+
+        openNodeCache = null;
+        converterData.resetRoot();
+        graph.clearFixedNodes();
+
+        graph.setGridRestoreFlag(true);
+
+        converterData.restartGraph();
+    };
+
     return {
         setActiveFilters : function(active){
             activeFilters = active;
         },
         getActiveFilters : function(){
             return activeFilters;
-        }
+        },
+        init : init
     };
 
 }());

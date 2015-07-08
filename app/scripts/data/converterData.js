@@ -6,6 +6,10 @@ var converterData = (function(){
 
     var position = {};
     var wikipediaID = {};
+    var tagsDict = {};
+    var tags = [];
+
+    var root = '\"Behavior, Purpose, and Teleology\"';
 
     var converted = {
         'root' : [
@@ -61,15 +65,21 @@ var converterData = (function(){
 
     }
 
+    // Return a list with all the the nodes name
+    // that is going to be used for the autocomplete function
+
+    function getNodeTags(){
+        return tags;
+    }
+
+
     function restartGraph(){
         graph.removeContent();
-        converted.root = converted.rootCache;
-        graph.resetPositions();
+        converted.root = [root];
 
-
-        console.log(converted);
         graph.start(converted);
-        console.log("hey");
+
+        return false;
     }
 
     return {
@@ -79,7 +89,13 @@ var converterData = (function(){
             return caption[key];
         },
         getMap : function(key){
+            // return dictionary with a list of all the nodes that the node(key)
+            // is connected to
             return map[key];
+        },
+        getFullMap : function(){
+            //return ta list with all nodes in the same format as the getMap()
+            return map;
         },
         getWikipediaID : function(key){
             return wikipediaID[key];
@@ -87,18 +103,30 @@ var converterData = (function(){
         checkWikipediaIDExists : function(key){
             return key in wikipediaID;
         },
+        checkNodeNameExists : function(key){
+            return key in tagsDict;
+        },
+        getNodeTags : getNodeTags,
         getPosition : function(key){
             return position[key];
         },
-        getRoot : function(key){
-            return converted.rootCache[0];
+        getRoot : function(){
+            return root;
+        },
+        setRoot : function(rt){
+            root = rt;
+            return;
+        },
+        resetRoot : function(){
+            root = converted.rootCache[0];
+            return;
         },
         request : function(){
             var nameAux = "";
 
             $.getJSON( './scripts/data/data.json', function(data){
 
-
+                graph.setGridRestoreFlag(false);
 
                 //creating all nodes
                 for(var i=0; i < data.length; i++){
@@ -107,6 +135,11 @@ var converterData = (function(){
                         //it's a different node, add to the node
                         nameAux = data[i].name;
                         map[nameAux] = {};
+
+                        //autocomplete into the menu
+                        tags.push(data[i].name);
+                        tagsDict[data[i].name] = data[i].name;
+
 
                         var node = {
                             "name" :data[i].name,
@@ -155,6 +188,7 @@ var converterData = (function(){
                     });
                 }
 
+                menu.init(); // making the autocomplete avaliable based on the list
                 graph.start(converted);
 
             });
