@@ -27,9 +27,6 @@ svg text {
   cursor:pointer;
   stroke: white;
   text-shadow: -1px 1px 2px white;
-  -webkit-transition: all .35s ease;
-  -moz-transition: all .35s ease;
-  -o-transition: all .35s ease;
   transition: all .35s ease;
 }
 
@@ -37,9 +34,6 @@ svg text {
 svg line, svg path, svg text {
   stroke-opacity: 0.25;
   stroke-width: 2px !important;
-  -webkit-transition: all .35s ease;
-  -moz-transition: all .35s ease;
-  -o-transition: all .35s ease;
   transition: all .35s ease;
 }
 

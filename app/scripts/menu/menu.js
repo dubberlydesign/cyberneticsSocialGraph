@@ -12,6 +12,8 @@ var menu = (function(){
 
     var source = [];
 
+    var inputObj;
+
     function init(){
         source = converterData.getNodeTags();
 
@@ -165,11 +167,29 @@ var menu = (function(){
         return false;
     });
 
+    $('.input-btn').click(function(){
+
+        if($(this).hasClass('txt-start')){
+            inputObj = $("#txtStart");
+        }else{
+            inputObj = $("#txtEnd");
+        }
+
+        menuModal.create();
+    });
+
+    function updateInput(value){
+        inputObj.val(value);
+    }
+
 
 
     $('form').on('reset', restore);
 
     function restore(){
+
+        if(openNodeCache == null) return;
+
         graph.setOpenNode(openNodeCache);
         graph.setOpenNodePositions($.extend( {}, openNodePositionCache));
 
@@ -191,6 +211,7 @@ var menu = (function(){
         getActiveFilters : function(){
             return activeFilters;
         },
+        updateInput : updateInput,
         init : init
     };
 

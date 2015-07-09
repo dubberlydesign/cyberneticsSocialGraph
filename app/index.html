@@ -11,6 +11,7 @@
         <!-- bower:css -->
         <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
         <link rel="stylesheet" href="../bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.css">
+        <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.css">
         <!-- endbower -->
         <!-- endbuild -->
         <!-- build:css(.tmp) styles/main.css -->
@@ -27,7 +28,7 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div class="navmenu navmenu-default navmenu-fixed-left offcanvas-lg">
+        <div id='menu' class="navmenu navmenu-default navmenu-fixed-left offcanvas">
           <ul class="nav navmenu-nav">
             <li>
                 <p>
@@ -124,10 +125,12 @@
                 <form id='form'>
                     <div class='col-lg-12 col-md-12 col-xs-12 col-sm-12 form-row'>
                         <input type="text" data-provide="typeahead" id='txtStart' placeHolder='Start Node' autocomplete="off" required>
+                        <i class="fa fa-search input-btn txt-start" data-toggle="modal" data-target="#modal"></i>
                     </div>
 
                     <div class='col-lg-12 col-md-12 col-xs-12 col-sm-12 form-row'>
                         <input type="text" data-provide="typeahead" id='txtEnd' placeHolder='End Node' autocomplete="off" required>
+                        <i class="fa fa-search input-btn txt-end" data-toggle="modal" data-target="#modal"></i>
                     </div>
 
                     <div class='col-lg-12 col-md-12 col-xs-12 col-sm-12 form-row'>
@@ -161,6 +164,90 @@
         </div>
 
 
+        <!-- Modal -->
+        <div class="modal fade" id="modal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close modal-btn" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">See all</h4>
+              </div>
+              <div class="modal-body">
+                  <div class='row'>
+                      <div class='col-lg-4 col-sm-4 col-md-4 col-xs-4'>
+                          <ul class='modal-menu'>
+                              <li class='modal-see-all all'>
+                                  All
+                              </li>
+                              <li class='modal-see-all designers'>
+                                  <!-- <a href="#" class='modal-see-all designers'> -->
+                                      <img src="./images/menu/designers.png">
+                                      <span class="filter designers">
+                                          Designers and Architects
+                                      </span>
+                                  <!-- </a> -->
+                              </li>
+
+
+                              <li class='modal-see-all design-theorists'>
+                                  <!-- <a href="#" class='modal-see-all designers-theorists'> -->
+                                      <img src="./images/menu/designersTheorists.png">
+                                      <span class="filter designers-theorists">
+                                          Design Theorists and Critics
+                                      </span>
+                                  <!-- </a> -->
+                              </li>
+
+
+                              <li class='modal-see-all computers-pioneer'>
+                                  <!-- <a href="#" class='modal-see-all computers-pioneer'> -->
+                                      <img src="./images/menu/computersPioneer.png">
+                                      <span class="filter computers-pioneer">
+                                          Computer Pioneer
+                                      </span>
+                                  <!-- </a> -->
+                              </li>
+
+
+                              <li class='modal-see-all counter-culture'>
+                                  <!-- <a href="#" class='modal-see-all counter-culture'> -->
+                                      <img src="./images/menu/counterCulture.png">
+                                      <span class="counter-culture">
+                                          Counter-culture Leader
+                                      </span>
+                                  <!-- </a> -->
+                              </li>
+
+                              <li class='modal-see-all publication'>
+                                  <!-- <a href="#" class='modal-see-all publications'> -->
+                                      <img src="./images/menu/publication.png">
+                                      Publications
+                                  <!-- </a> -->
+                              </li>
+
+                              <li class='modal-see-all institution'>
+                                  <!-- <a href="#" class='modal-see-all institutions-conferences'> -->
+                                      <img src="./images/menu/institution.png">
+                                      Institutions or Conferences
+                                  <!-- </a> -->
+                              </li>
+                          </ul>
+                      </div>
+
+                      <div id='modalContent' class='col-lg-8 col-sm-8 col-md-8 col-xs-8'>
+                          content
+                      </div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default modal-btn" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary modal-btn select-btn" data-dismiss="modal">Select</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
         <script src="../bower_components/jquery/dist/jquery.js"></script>
@@ -184,6 +271,7 @@
         <script src="scripts/data/converterData.js"></script>
         <script src="scripts/menu/menu-dict.js"></script>
         <script src="scripts/menu/menu.js"></script>
+        <script src="scripts/menu/menu-modal.js"></script>
         <script src="scripts/main.js"></script>
 
         <!-- endbuild -->

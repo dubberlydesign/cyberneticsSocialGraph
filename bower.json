@@ -7,6 +7,7 @@
   },
   "devDependencies": {
     "typeahead.js": "~0.11.1",
-    "bootstrap3-typeahead": "~3.1.1"
+    "bootstrap3-typeahead": "~3.1.1",
+    "font-awesome": "~4.3.0"
   }
 }

@@ -8,6 +8,7 @@ var converterData = (function(){
     var wikipediaID = {};
     var tagsDict = {};
     var tags = [];
+    var filter = {};
 
     var root = '\"Behavior, Purpose, and Teleology\"';
 
@@ -82,9 +83,24 @@ var converterData = (function(){
         return false;
     }
 
+    function applyFilter(ftlr){
+        return filter[ftlr];
+    }
+
+    function init(){
+        var dict = menuDict.getOptionKeys();
+
+
+        for(var i = 0; i < dict.length; i++){
+            filter[dict[i]] = [];
+        }
+
+    }
+
     return {
         filterAll : filterAll,
         restartGraph : restartGraph,
+        init : init,
         getCaption : function(key){
             return caption[key];
         },
@@ -110,6 +126,7 @@ var converterData = (function(){
         getPosition : function(key){
             return position[key];
         },
+        applyFilter : applyFilter,
         getRoot : function(){
             return root;
         },
@@ -139,6 +156,13 @@ var converterData = (function(){
                         //autocomplete into the menu
                         tags.push(data[i].name);
                         tagsDict[data[i].name] = data[i].name;
+
+                        //filtering
+                        if(filter[menuDict.getOptionKey(data[i].type)] != undefined)
+                            filter[menuDict.getOptionKey(data[i].type)].push(data[i].name);
+
+                        if(data[i].type != 0)
+                            filter['all'].push(data[i].name);
 
 
                         var node = {
@@ -189,6 +213,7 @@ var converterData = (function(){
                 }
 
                 menu.init(); // making the autocomplete avaliable based on the list
+
                 graph.start(converted);
 
             });
