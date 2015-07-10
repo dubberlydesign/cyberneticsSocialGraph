@@ -25,6 +25,10 @@
   }
 }
 
+.navmenu, .navbar-offcanvas {
+    width: 340px !important;
+}
+
 #showBtn{
   font-size: 12px;
   font-weight: 400;
@@ -125,7 +129,7 @@ ul.nav.navmenu-nav{ margin-top: 75px; }
 hr { border-top: 1px solid #ccc; }
 
 input{
-    width: 257px;
+    width: 300px;
     height: 30px;
     padding-left: 32px;
     padding-right: 30px;
@@ -171,6 +175,9 @@ input{
     -moz-transition: all .35s ease !important;
     -o-transition: all .35s ease !important;
     transition: all .35s ease !important;
+
+    font-family: 'Open Sans', sans-serif !important;
+    font-weight: 300 !important;
 }
 
 .btn-reset {
@@ -260,12 +267,6 @@ input{
 
 /*Footnote*/
 .footnote{
-    position: absolute !important;
-    bottom: 0;
-    list-style: none;
-    padding-left: 0 !important;
-}
-
-@media scree(max-height: 500px){
-    .footnode {position: relative !important;}
+    padding-top: 10px;
+    /*padding-bottom: 10px;*/
 }
