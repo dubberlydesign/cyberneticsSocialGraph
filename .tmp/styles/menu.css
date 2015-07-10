@@ -4,6 +4,8 @@
   font-weight: 300;
 }
 
+/*#e7e7e7*/
+
 .navmenu-default .navmenu-brand, .navbar-default .navbar-offcanvas .navmenu-brand{
   color: #171616;
   font-family: 'Open Sans', sans-serif;
@@ -115,12 +117,18 @@ ul.nav.navmenu-nav{ margin-top: 75px; }
 
 .form-row{
     margin-bottom: 10px !important;
+    display: inline-block;
 }
+
+*:focus{ outline: 0 !important; }
+
+hr { border-top: 1px solid #ccc; }
 
 input{
     width: 257px;
     height: 30px;
-    padding-left: 10px;
+    padding-left: 32px;
+    padding-right: 30px;
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
     border-radius: 4px;
@@ -129,22 +137,45 @@ input{
 }
 
 .input-btn {
-    /*position: absolute !important;*/
-    margin-left: -25px;
+    position: absolute !important;
+    margin-left: -30px;
     cursor: pointer;
-    color: #ccc;
-}
+    color: white;
 
-.input-btn {
-    /*position: absolute !important;*/
-    margin-left: -25px;
-    cursor: pointer;
-    color: #ccc;
+    padding: 8px 8px;
+    border-radius: 0 4px 4px 0;
+    background-color: #ccc;
     transition: all .35s ease;
 }
 
+.input-icon {
+    position: absolute;
+    margin-left: 10px;
+    margin-top: 8px;
+    color: #ccc;
+    /*z-index: 10;*/
+    /*margin-top: auto;*/
+}
+
 .input-btn:hover{
-    color: black;
+    /*color: #ccc;*/
+    background-color: #171616;
+}
+
+.btn{
+    transition: all .35s ease !important;
+}
+
+.btn-reset {
+    border: 0 !important;
+    background-color: #f8f8f8 !important;
+    border-color: #f8f8f8 !important;
+    color: #333 !important;
+    opacity: .5 !important;
+}
+
+.btn-reset:hover {
+    opacity: 1 !important;
 }
 
 /*.modal-body{*/
@@ -159,10 +190,6 @@ input{
         width: 70% !important;
         /* either % (e.g. 60%) or px (400px) */
     }
-}
-
-.navmenu{
-    /*display : none;*/
 }
 
 .modal-menu{
@@ -187,7 +214,7 @@ input{
     transition: all .35s ease;
 }
 
-.modal-menu li:hover, .modal-item:hover{
+.modal-menu li:hover, .modal-item:hover, .filter-item:hover{
     background-color: rgba(204,204,204,0.14) !important;
 }
 
@@ -214,4 +241,17 @@ input{
     vertical-align: middle;
     cursor: pointer;
     transition: all .35s ease;
+}
+
+
+/*Footnote*/
+.footnote{
+    position: absolute !important;
+    bottom: 0;
+    list-style: none;
+    padding-left: 0 !important;
+}
+
+@media scree(max-height: 500px){
+    .footnode {position: relative !important;}
 }
