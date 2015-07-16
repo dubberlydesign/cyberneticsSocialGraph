@@ -149,10 +149,6 @@ input{
     padding: 8px 8px;
     border-radius: 0 4px 4px 0;
     background-color: #ccc;
-
-    -webkit-transition: all .35s ease;
-    -moz-transition: all .35s ease;
-    -o-transition: all .35s ease;
     transition: all .35s ease;
 }
 
@@ -171,9 +167,6 @@ input{
 }
 
 .btn{
-    -webkit-transition: all .35s ease !important;
-    -moz-transition: all .35s ease !important;
-    -o-transition: all .35s ease !important;
     transition: all .35s ease !important;
 
     font-family: 'Open Sans', sans-serif !important;
@@ -225,10 +218,6 @@ input{
 .modal-menu li {
     padding: 10px 10px;
     cursor: pointer;
-
-    -webkit-transition: all .35s ease;
-    -moz-transition: all .35s ease;
-    -o-transition: all .35s ease;
     transition: all .35s ease;
 }
 
@@ -258,9 +247,6 @@ input{
     /*line-height: 50px;*/
     vertical-align: middle;
     cursor: pointer;
-    -webkit-transition: all .35s ease;
-    -moz-transition: all .35s ease;
-    -o-transition: all .35s ease;
     transition: all .35s ease;
 }
 
@@ -304,10 +290,6 @@ input{
 
 .help-btn{
     cursor: pointer !important;
-
-    -webkit-transition: all .35s ease;
-    -moz-transition: all .35s ease;
-    -o-transition: all .35s ease;
     transition: all .35s ease;
 }
 

@@ -8,9 +8,9 @@ var graph = (function(){
 
     var nodeTooltipCounter = [];
 
-    var size = d3.scale.pow().exponent( 1 )
-        .domain( [1,100] )
-        .range( [8,24] );
+    // var size = d3.scale.pow().exponent( 1 )
+    //     .domain( [1,100] )
+    //     .range( [8,24] );
 
     var force = d3.layout.force()
         .charge(function( d, i ) {
@@ -190,7 +190,24 @@ var graph = (function(){
 
         text = node.append("text")
             .classed('node-name', true)
-            .attr("dy", function(d){ if(d.name in openNode) { return "2.25em" } else { return "1.55em"; } })
+            .attr("dy", function(d){
+                if(d.name in openNode) {
+
+                    if(d.symbol == 'diamond')
+                        return '2.35em';
+                    else
+                        return "2.15em";
+
+                } else {
+                    // return "1.55em";
+
+                    if(d.symbol == 'diamond')
+                        return '2em';
+                    else
+                        return "1.55em";
+                }
+
+            })
             // .style("font-size", nominal_text_size + "px")
             .on("click", seeNodeInfo)
             .on("mouseover", function(d){
@@ -461,6 +478,8 @@ var graph = (function(){
         if(node != null) node.remove();
         if(link != null) link.remove();
         if(text != null) text.remove();
+
+        console.log(nodesDisplayed);
 
         createGraph({
             "graph": [],
