@@ -17,7 +17,7 @@ var graph = (function(){
             return i ? -1400: 0;
         })
         .gravity( 0.01 )
-        .friction( .42 )
+        .friction( .58 )
         .linkStrength( .6 )
         .linkDistance( 150 )
         .size( [w, h]);
@@ -26,7 +26,7 @@ var graph = (function(){
     var spacebar = false;
     var min_zoom = 0.5;
     var max_zoom = 1.8; //7
-    var svg = d3.select("body").append("svg");
+    var svg = d3.select(".body-content").append("svg");
 
     var zoom = d3.behavior.zoom().scaleExtent([min_zoom, max_zoom]).on('zoomend', function(){
 
@@ -167,6 +167,7 @@ var graph = (function(){
             d3.event.stopPropagation();
             var dcx = (window.innerWidth / 2 - d.x * zoom.scale());
             var dcy = (window.innerHeight / 2 - d.y * zoom.scale());
+            main.hideTour();
             zoom.translate([dcx, dcy]);
             g.attr("transform", "translate(" + dcx + "," + dcy + ")scale(" + zoom.scale() + ")");
 
@@ -295,6 +296,7 @@ var graph = (function(){
 
             }
 
+            main.hideTour();
             clearTooltips(true);
             g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
         });
@@ -478,8 +480,6 @@ var graph = (function(){
         if(node != null) node.remove();
         if(link != null) link.remove();
         if(text != null) text.remove();
-
-        console.log(nodesDisplayed);
 
         createGraph({
             "graph": [],

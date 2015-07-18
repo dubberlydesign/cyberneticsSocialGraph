@@ -3,105 +3,131 @@
 var main = (function(){
 
     var tour = null;
+    var loadedPage = true; //this is going to be used just when the user loads the page
 
     $('.navmenu').offcanvas({ autohide: false});
     window.onload = function(){
-
-        // $('.navmenu').hide();
-        setTimeout(function(){
-            // $('.navmenu').offcanvas('hide');
-            // $('.navmenu').show();
-            // $('.navmenu').offcanvas('hide');
-
-            menuDict.init();
-            graphDictionary.init();
-            converterData.init();
-            converterData.request();
-
-
-        }, 650);
-        // $('.navmenu').hide();
+        showBodyIntro();
     }
 
 
+    // Click functions
+    $('#startBtn').click(showBodyContent);
+
+    $('.help-btn').click(showBodyIntro);
+
     $('svg').click(hideMenu);
+
+    // [end] Click functions
+
+
+    // Functions that handle the clicks
+
+    function showBodyIntro(){
+        $('.navmenu').offcanvas('hide');
+        $('.navmenu').show();
+        $('.navmenu').offcanvas('hide');
+
+        if(!loadedPage){
+            $('.body-content').fadeOut('slow');
+        }else{
+            $('.body-content').hide();
+        }
+
+        $('.body-intro').fadeIn('slow');
+    }
+
+    function showBodyContent(){
+
+        $('.body-intro').fadeOut();
+        $('.body-content').fadeIn('slow');
+
+        if(loadedPage){
+            $('.navmenu').offcanvas('hide');
+            $('.navmenu').show();
+            $('.navmenu').offcanvas('hide');
+
+            setTimeout(function(){
+
+
+                // introInit();
+
+                menuDict.init();
+                graphDictionary.init();
+                converterData.init();
+                converterData.request();
+
+
+            }, 650);
+
+            loadedPage = false;
+        }
+
+        tourGraphInit();
+
+    }
 
     function hideMenu(){
 
         $('.navmenu').offcanvas('hide');
         $('.offcanvas-clone').remove();
-        tour.end();
+        hideTour();
     }
 
     // Introduction's messages
 
-    var introHeader = 'Cybernetics is "deep intro-twingled" (to borrow Ted Nelson\'s magical phrase) with the early development of personal computers, the 1960s counter-culture, and the rise of the design methods movement (which ejoyed  arecent rebranding as "design thinking").'
-    // var introMenu = 'This interactive social graph illustrates connections between people, institutions and ideas of the time.';
     var introMenu = 'Select one or more filters to see the relations between nodes.';
     var introCreate = 'To see how individuals are connected to one another, enter names into the form fields in the tools panel.';
-    var introGraph = 'You can explore the graph by clicking and dragging any of the objects. Select a dot to learn more.';
-    var introZoom = 'You can zoom in and zoom out the graph to have a better view.';
+    var introGraph = 'You can explore the graph by clicking, mousing over or dragging any of the objects. Select a dot to learn more.';
 
 
-    function introInit(){
+    function tourGraphInit(){
         // start the introduction
-        // $.cookie("current_tour", "undefined");
 
-        tour = new Tour({
-            steps: [
-                {
-                    element: ".navbar-brand",
-                    content: introHeader,
-                    placement: 'bottom'
-                },
-                {
-                    element: ".navmenu-nav",
-                    content: introMenu,
-                },
-                {
-                    element: "#form",
-                    content: introCreate
-                },
+        setTimeout(function(){
+            tour = new Tour({
+                steps: [
+                    {
+                        element: "#" + converterData.getRoot().replace(/\ /g, '').replace(/\"/g, '').replace(/\,/g, ''),
+                        content: introGraph,
+                        placement: function(){
+                            var place = 'left';
+                            var root = "#" + converterData.getRoot().replace(/\ /g, '').replace(/\"/g, '').replace(/\,/g, '');
+                            var rootX = d3.transform(d3.select(root).attr("transform")).translate[0];
+                            var rootY = d3.transform(d3.select(root).attr("transform")).translate[0];
 
-                {
-                    element: ".zoom-in",
-                    content: introZoom,
-                    placement: 'left'
-                }
-                ,
-                {
-                    element: "#" + converterData.getRoot().replace(/\ /g, '').replace(/\"/g, '').replace(/\,/g, ''),
-                    content: introGraph,
-                    placement: function(){
-                        var place = 'left';
-                        var root = "#" + converterData.getRoot().replace(/\ /g, '').replace(/\"/g, '').replace(/\,/g, '');
-                        var rootX = d3.transform(d3.select(root).attr("transform")).translate[0];
-                        var rootY = d3.transform(d3.select(root).attr("transform")).translate[0];
+                            if( rootX < (window.innerWidth / 2) ){
+                                place = 'right';
+                            }
 
-                        if( rootX < (window.innerWidth / 2) ){
-                            place = 'right';
+                            return place;
                         }
+                    }],
+                next: -1,
+                prev: -1,
+                storage: false,
+                onShown:function(){
+                    $("button[data-role='end']").text('I got it!');
+                }});
 
-                        console.log("***", root, rootX, rootY, window.innerWidth, window.innerHeight , ' --> ' , place);
 
-                        return place;
-                    }
-                }],
-            storage: false});
+            tour.init();
+            tour.start();
 
-        // Initialize the tour
-        tour.init();
 
-        // Start the tour
-        tour.start();
+        }, 200);
     }
 
-    $('.help-btn').click(function(){
-        introInit();
-    });
+    function hideTour(){
+        if(tour != null){
+            tour.end();
+            tour = null;
+        }
+    }
 
     return {
-        introInit : introInit
+        introInit : tourGraphInit,
+        hideTour: hideTour
     };
 
 }());

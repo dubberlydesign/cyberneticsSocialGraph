@@ -77,7 +77,7 @@ body { padding: 50px 0 0 0; }
   display: block;
   text-align: center;
 }
-.navbar-brand { display: inline-block; float: none; }
+.navbar-brand { display: inline-block; float: none; cursor: default !important; }
 
 .navbar-toggle {
   position: absolute;
@@ -264,6 +264,10 @@ input{
     transition: all .35s ease;
 }
 
+form{
+    z-index: 10000 !important;
+}
+
 /*Tour*/
 .popover, .popover-content{
     background-color: #171616 !important;
@@ -278,7 +282,7 @@ input{
 }
 
 
-/*Footnote*/
+
 .footnote{
     padding-top: 10px;
     /*padding-bottom: 10px;*/
@@ -301,6 +305,18 @@ input{
     -o-transition: all .35s ease;
     transition: all .35s ease;
 }*/
+
+.disabled{
+    display: none !important;
+}
+
+.popover {
+    padding-bottom: 9px !important;
+}
+
+.popover-content{
+    padding-bottom: 0 !important;
+}
 
 .help-btn{
     cursor: pointer !important;
