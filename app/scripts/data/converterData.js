@@ -162,7 +162,7 @@ var converterData = (function(){
                             filter[menuDict.getOptionKey(data[i].type)].push(data[i].name);
 
                         if(data[i].type != 0)
-                            filter['all'].push(data[i].name);
+                            filter['scientists'].push(data[i].name);
 
 
                         var node = {

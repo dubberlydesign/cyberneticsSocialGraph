@@ -104,13 +104,15 @@ var graph = (function(){
             .on('mouseover', function(d){
 
                 if($(".active").length > 0){
-                    var allFilter  =  $('#all').parent().hasClass('active');
-                    $(".nav").find(".active").removeClass("active");
+                    // var allFilter  =  $('#all').parent().hasClass('active');
+                    // $(".nav").find(".active").removeClass("active");
+                    //
+                    // if(allFilter)
+                    //     $('#all').parent().addClass('active');
+                    //
+                    // menu.setActiveFilters({});
 
-                    if(allFilter)
-                        $('#all').parent().addClass('active');
-
-                    menu.setActiveFilters({});
+                    return;
                 }
 
                 svg.selectAll('g').classed('link-faded', function(l){
@@ -141,6 +143,11 @@ var graph = (function(){
 
             })
             .on('mouseout', function(d){
+
+                if($(".active").length > 0){ return; }
+
+
+
                 svg.selectAll('g').classed('link-faded', false);
                 svg.selectAll('text').classed('text-faded', false);
                 svg.selectAll('path').classed('node-faded', false);
@@ -212,10 +219,14 @@ var graph = (function(){
             // .style("font-size", nominal_text_size + "px")
             .on("click", seeNodeInfo)
             .on("mouseover", function(d){
+                if($(".active").length > 0){ return; }
+
                 if(converterData.checkWikipediaIDExists(d.name))
                     d3.select(this).classed('text-link', true);
             })
             .on("mouseout", function(d){
+                if($(".active").length > 0){ return; }
+
                 d3.select(this).classed('text-link', false);
             })
             .text(function(d) {
@@ -227,13 +238,15 @@ var graph = (function(){
                 var notFaded = {};
 
                 if($(".active").length > 0){
-                    var allFilter  =  $('#all').parent().hasClass('active');
-                    $(".nav").find(".active").removeClass("active");
+                    // var allFilter  =  $('#all').parent().hasClass('active');
+                    // $(".nav").find(".active").removeClass("active");
+                    //
+                    // if(allFilter)
+                    //     $('#all').parent().addClass('active');
+                    //
+                    // menu.setActiveFilters({});
 
-                    if(allFilter)
-                        $('#all').parent().addClass('active');
-
-                    menu.setActiveFilters({});
+                    return ;
                 }
 
                 link.classed('link-faded', function(l){
@@ -278,6 +291,8 @@ var graph = (function(){
                 }
 
             }).on("mouseout", function(d) {
+
+                if($(".active").length > 0){ return; }
 
                 svg.selectAll('g').classed('link-faded', false);
                 svg.selectAll('text').classed('text-faded', false);
@@ -619,56 +634,15 @@ var graph = (function(){
         formatGraph();
     }
 
-    function linkNodeOver(d, p){ //path
-
-      var notFaded = {};
-      notFaded[d.source.name] = d.source.name;
-      notFaded[d.target.name] = d.target.name;
-
-
-      svg.selectAll('g')
-        .classed('link-faded', function(l){
-          if(l === d)
-            return false;
-          else
-            return true;
-        });
-
-      d3.selectAll('path')
-        .classed('node-faded', function(nd){
-          var condition = !(nd.name in notFaded) && parseInt(nd.type) < 10
-            || !(nd.name in notFaded) && parseInt(nd.type) == 12
-            || !(nd.name in notFaded) && parseInt(nd.type) == 11;
-
-            return condition;
-        });
-
-      d3.selectAll('text')
-        .classed('text-faded', function(nd){
-          return !(nd.name in notFaded);
-        });
-
-      if(d.tooltip_link != undefined)
-        return;
-
-      if( d.linkInfo != undefined && d.linkInfo != "" ){
-        d.tooltip = d3.tip().attr('class', 'd3-tip')
-          .html( d.linkInfo );
-        svg.call(d.tooltip);
-        d.tooltip.show();
-      }
-
-    }
-
     //graph functions
 
     function clearTooltips( event ){
 
         nodeTooltipCounter = [];
 
-        svg.selectAll('g').classed('link-faded', false);
-        svg.selectAll('text').classed('text-faded', false);
-        svg.selectAll('path').classed('node-faded', false);
+        // svg.selectAll('g').classed('link-faded', false);
+        // svg.selectAll('text').classed('text-faded', false);
+        // svg.selectAll('path').classed('node-faded', false);
 
         d3.selectAll('path').each(function(d){
 
@@ -767,7 +741,10 @@ var graph = (function(){
 
     function displayFilters(active){
 
+        // console.log(active);
+
         var activeFilters = {};
+        var nodeNameFilters = {}; // where the filter should or shouldn't be applied
         for(var act in active)
             activeFilters[menuDict.getOptionValue(act)] = menuDict.getOptionValue(act);
 
@@ -782,24 +759,35 @@ var graph = (function(){
              return;
         } //don't  apply the filter
 
-        d3.selectAll('path').classed('node-faded', function(d){
-            // console.log(d.type);
-            if(parseInt(d.type) in activeFilters){ return false; }
-            else{ return true; }
-        });
+
 
         d3.selectAll('g').classed('link-faded', function(l){
+            if(l == undefined || l.linkType == undefined) { return; }
 
             if(d3.select(this).classed('graph-container') || !d3.select(this).classed('link')
-                || (parseInt(l.source.type) in activeFilters && parseInt(l.target.type) in activeFilters))
-                return false;
+                || (parseInt(l.source.type) in activeFilters && parseInt(l.target.type) in activeFilters)
+                || l.linkType in active){
+                    nodeNameFilters[l.source.name] = l.source.name;
+                    nodeNameFilters[l.target.name] = l.target.name;
+
+                    return false;
+                }
+
             else
                 return true;
         });
 
 
+
+        d3.selectAll('path').classed('node-faded', function(d){
+            // console.log(d.type);
+            if(parseInt(d.type) in activeFilters || d.name in nodeNameFilters){ return false; }
+            else{ return true; }
+        });
+
         d3.selectAll('text').classed('text-faded', function(t){
-            if(parseInt(t.type) in activeFilters)
+
+            if(parseInt(t.type) in activeFilters || t.name in nodeNameFilters)
                 return false;
             else
                 return true;

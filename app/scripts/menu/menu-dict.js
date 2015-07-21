@@ -7,7 +7,7 @@ var menuDict = (function(){
     function init(){
 
         dict.options = {
-            'all': 0,
+            'scientists': 0,
             'designers': 1,
             'design-theorists': 2,
             'computers-pioneer': 3,
@@ -17,7 +17,7 @@ var menuDict = (function(){
         };
 
         dict.optionsKey = {
-            0 : 'all',
+            0 : 'scientists',
             1 : 'designers',
             2 : 'design-theorists',
             3 : 'computers-pioneer',

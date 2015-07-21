@@ -11,7 +11,7 @@ var menuModal = (function(){
         selected = null;
 
         //displaying all at once
-        createsContent(converterData.applyFilter('all'));
+        createContent(converterData.applyFilter('scientists'));
 
 
     }
@@ -43,7 +43,7 @@ var menuModal = (function(){
         $(this).addClass('active');
     });
 
-    function createsContent(content){
+    function createContent(content){
         var html = "";
 
         for(var i = 0; i < content.length; i++){

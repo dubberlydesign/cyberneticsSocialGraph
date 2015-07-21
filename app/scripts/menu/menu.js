@@ -14,6 +14,8 @@ var menu = (function(){
 
     var inputObj;
 
+    var firstTimeMenu = true; //first time using the menu, this is going
+
     function init(){
         source = converterData.getNodeTags();
 
@@ -22,8 +24,22 @@ var menu = (function(){
 
     }
 
+    $('.navbar-toggle').on('click', function(){
+
+        if(firstTimeMenu){
+            firstTimeMenu = false;
+
+
+            main.introduceMenu();
+
+        }
+
+    });
+
 
     $('.nav a').on('click', function(){
+
+        console.log('caio');
 
         if($(this).parent().hasClass('active')){
             delete active[$(this).attr('id')]; //removing element from the active list
@@ -212,6 +228,9 @@ var menu = (function(){
             return activeFilters;
         },
         updateInput : updateInput,
+        resetIntroMenu : function(){
+            firstTimeMenu = true;
+        },
         init : init
     };
 

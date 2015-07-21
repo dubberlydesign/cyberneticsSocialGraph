@@ -13,6 +13,7 @@ var main = (function(){
 
     // Click functions
     $('#startBtn').click(showBodyContent);
+    $('#startBtn').click(showBodyContent);
 
     $('.help-btn').click(showBodyIntro);
 
@@ -27,6 +28,8 @@ var main = (function(){
         $('.navmenu').offcanvas('hide');
         $('.navmenu').show();
         $('.navmenu').offcanvas('hide');
+
+        menu.resetIntroMenu();
 
         if(!loadedPage){
             $('.body-content').fadeOut('slow');
@@ -125,9 +128,44 @@ var main = (function(){
         }
     }
 
+    function introduceMenu(){
+
+
+
+        setTimeout(function(){
+            tour = new Tour({
+                steps: [
+                    {
+                        element: '#publication',
+                        content: introMenu,
+                        placement: 'right'
+                    },
+                    {
+                        element: '#form',
+                        content: introCreate,
+                        placement: 'right'
+                    }
+                    ],
+                next: -1,
+                prev: -1,
+                storage: false,
+                onShown:function(){
+                    $("button[data-role='end']").text('I got it!');
+                }});
+
+
+            tour.init();
+            tour.start();
+
+        }, 200);
+
+
+    }
+
     return {
         introInit : tourGraphInit,
-        hideTour: hideTour
+        hideTour: hideTour,
+        introduceMenu : introduceMenu
     };
 
 }());
