@@ -39,8 +39,6 @@ var menu = (function(){
 
     $('.nav a').on('click', function(){
 
-        console.log('caio');
-
         if($(this).parent().hasClass('active')){
             delete active[$(this).attr('id')]; //removing element from the active list
 
@@ -204,7 +202,21 @@ var menu = (function(){
 
     function restore(){
 
-        if(openNodeCache == null) return;
+
+        if(openNodeCache == null) return; //checking if the app is or  using parameters
+
+        if(parameters.hasParameters()){
+            parameters.getParameters();
+            return;
+        }
+
+        resetGraphConfig();
+
+        converterData.restartGraph();
+    };
+
+    function resetGraphConfig(){
+
 
         graph.setOpenNode(openNodeCache);
         graph.setOpenNodePositions($.extend( {}, openNodePositionCache));
@@ -217,8 +229,7 @@ var menu = (function(){
 
         graph.setGridRestoreFlag(true);
 
-        converterData.restartGraph();
-    };
+    }
 
     return {
         setActiveFilters : function(active){
@@ -231,6 +242,7 @@ var menu = (function(){
         resetIntroMenu : function(){
             firstTimeMenu = true;
         },
+        resetGraphConfig : resetGraphConfig,
         init : init
     };
 

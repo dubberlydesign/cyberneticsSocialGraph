@@ -222,6 +222,8 @@ var converterData = (function(){
 
                 graph.start(converted);
 
+                parameters.getParameters();
+
             });
         }
     };

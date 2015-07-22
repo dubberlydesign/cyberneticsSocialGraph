@@ -28,6 +28,7 @@ var graph = (function(){
     var max_zoom = 1.8; //7
     var svg = d3.select(".body-content").append("svg");
 
+
     var zoom = d3.behavior.zoom().scaleExtent([min_zoom, max_zoom]).on('zoomend', function(){
 
     });
@@ -358,6 +359,10 @@ var graph = (function(){
                 // Everything is going to be related to the main root
                 var mainRoot = openNodePositions[converterData.getRoot()];
                 mainRoot.fixed = true;
+
+                mainRoot.x = (w/2.1);
+                mainRoot.y = h/2;
+
                 // d.fixed = d.name in openNode ? true : false;
 
 
