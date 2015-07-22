@@ -45,15 +45,15 @@ var main = (function(){
         $('.body-intro').fadeOut();
         $('.body-content').fadeIn('slow');
 
+        // Prevent the tour being displayed more times, we should display
+        // it only when the user loads the page or go to the "what's this graph about?"
+
         if(loadedPage){
             $('.navmenu').offcanvas('hide');
             $('.navmenu').show();
             $('.navmenu').offcanvas('hide');
 
             setTimeout(function(){
-
-
-                // introInit();
 
                 menuDict.init();
                 graphDictionary.init();
@@ -87,6 +87,9 @@ var main = (function(){
     function tourGraphInit(){
         // start the introduction
 
+        // I'm using a timeout function because the menu slider
+        // has an animation and those animations were overlaping each other.
+        // So I decided to wait a little bit and then trigger this function
         setTimeout(function(){
             tour = new Tour({
                 steps: [
@@ -131,7 +134,9 @@ var main = (function(){
     function introduceMenu(){
 
 
-
+        // I'm using a timeout function because the menu slider
+        // has an animation and those animations were overlaping each other.
+        // So I decided to wait a little bit and then trigger this function
         setTimeout(function(){
             tour = new Tour({
                 steps: [

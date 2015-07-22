@@ -169,12 +169,9 @@ var converterData = (function(){
                             "name" :data[i].name,
                             "type" : data[i].type,
                             "symbol": data[i].symbol,
-                            "linkRange": 0, //Math.floor(Math.random() * 201) - 100
                             "id" : data[i].name.replace(" ", ""),
                             'x' : window.innerWidth/2,
                             'y' : window.innerHeight/2,
-                            // 'px' : window.innerWidth/2,
-                            // 'py' : window.innerHeight/2
                         };
 
                         if (converted['root'].indexOf( node.name ) !== -1) {

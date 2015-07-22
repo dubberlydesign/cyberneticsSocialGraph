@@ -8,10 +8,6 @@ var graph = (function(){
 
     var nodeTooltipCounter = [];
 
-    // var size = d3.scale.pow().exponent( 1 )
-    //     .domain( [1,100] )
-    //     .range( [8,24] );
-
     var force = d3.layout.force()
         .charge(function( d, i ) {
             return i ? -1400: 0;
@@ -22,16 +18,13 @@ var graph = (function(){
         .linkDistance( 150 )
         .size( [w, h]);
 
-    var currentScale = 0;
     var spacebar = false;
     var min_zoom = 0.5;
     var max_zoom = 1.8; //7
     var svg = d3.select(".body-content").append("svg");
 
 
-    var zoom = d3.behavior.zoom().scaleExtent([min_zoom, max_zoom]).on('zoomend', function(){
-
-    });
+    var zoom = d3.behavior.zoom().scaleExtent([min_zoom, max_zoom]);
 
     var g = svg.append("g").classed('graph-container', true);
     svg.style("cursor", "move");
@@ -101,18 +94,9 @@ var graph = (function(){
               return 'link-' + d.linkType;
             })
             .on('mousedown', seeLinkInfo)
-            // .on('mouseover', linkNodeOver)
             .on('mouseover', function(d){
 
                 if($(".active").length > 0){
-                    // var allFilter  =  $('#all').parent().hasClass('active');
-                    // $(".nav").find(".active").removeClass("active");
-                    //
-                    // if(allFilter)
-                    //     $('#all').parent().addClass('active');
-                    //
-                    // menu.setActiveFilters({});
-
                     return;
                 }
 
@@ -147,11 +131,7 @@ var graph = (function(){
 
                 if($(".active").length > 0){ return; }
 
-
-
-                svg.selectAll('g').classed('link-faded', false);
-                svg.selectAll('text').classed('text-faded', false);
-                svg.selectAll('path').classed('node-faded', false);
+                removeFadeOut();
 
                 if(d.tooltip != undefined) d.tooltip.destroy();
 
@@ -167,7 +147,6 @@ var graph = (function(){
             .enter().append("g")
             .attr("class", "node")
             .attr("id", function(d){ return d.name.replace(/\ /g, '').replace(/\"/g, '').replace(/\,/g, ''); })
-
         .call(force.drag)
 
 
@@ -175,7 +154,7 @@ var graph = (function(){
             d3.event.stopPropagation();
             var dcx = (window.innerWidth / 2 - d.x * zoom.scale());
             var dcy = (window.innerHeight / 2 - d.y * zoom.scale());
-            main.hideTour();
+            main.hideTour(); // in the case that we have any tourtip opened
             zoom.translate([dcx, dcy]);
             g.attr("transform", "translate(" + dcx + "," + dcy + ")scale(" + zoom.scale() + ")");
 
@@ -186,14 +165,12 @@ var graph = (function(){
             .size(function(d){
                 if(d.name in openNode){
                     if(parseInt(d.type) == 11)
-                      return 450;
-                    return 650;
+                      return 450; //for diamonds symbols because they look disproportional when they are opened
+                    return 650; //for circles or squares
                 }
                 return 300;
             })
             .type(function(d){ return graphDictionary.getSymbol(d.type); }))
-            .classed('node-publication', function(d){ return parseInt(d.type) == 12})
-            .classed('node-other', function(d){ return parseInt(d.type) == 11})
             .attr('fill', function(d){ return graphDictionary.getColor(d.type); })
             .on("click", clickNode);
 
@@ -202,31 +179,29 @@ var graph = (function(){
             .attr("dy", function(d){
                 if(d.name in openNode) {
 
-                    if(d.symbol == 'diamond')
+                    if(graphDictionary.getSymbol(d.type) == 'diamond')
                         return '2.35em';
                     else
                         return "2.15em";
 
                 } else {
-                    // return "1.55em";
 
-                    if(d.symbol == 'diamond')
+                    if(graphDictionary.getSymbol(d.type) == 'diamond')
                         return '2em';
                     else
                         return "1.55em";
                 }
 
             })
-            // .style("font-size", nominal_text_size + "px")
             .on("click", seeNodeInfo)
             .on("mouseover", function(d){
-                if($(".active").length > 0){ return; }
+                if($(".active").length > 0){ return; } //prevent the graph to disable the filter that is being used (active)
 
                 if(converterData.checkWikipediaIDExists(d.name))
                     d3.select(this).classed('text-link', true);
             })
             .on("mouseout", function(d){
-                if($(".active").length > 0){ return; }
+                if($(".active").length > 0){ return; }//prevent the graph to disable the filter that is being used (active)
 
                 d3.select(this).classed('text-link', false);
             })
@@ -238,17 +213,7 @@ var graph = (function(){
         node.on("mouseover", function(d) {
                 var notFaded = {};
 
-                if($(".active").length > 0){
-                    // var allFilter  =  $('#all').parent().hasClass('active');
-                    // $(".nav").find(".active").removeClass("active");
-                    //
-                    // if(allFilter)
-                    //     $('#all').parent().addClass('active');
-                    //
-                    // menu.setActiveFilters({});
-
-                    return ;
-                }
+                if($(".active").length > 0){ return ; }
 
                 link.classed('link-faded', function(l){
                     if(d === l.source || d === l.target){
@@ -277,7 +242,6 @@ var graph = (function(){
 
             })
             .on("mousedown", function(d) {
-                // clearTooltips(false);
 
                 if(d.tooltip_node != undefined){
                     d.tooltip_node.destroy();
@@ -293,12 +257,9 @@ var graph = (function(){
 
             }).on("mouseout", function(d) {
 
-                if($(".active").length > 0){ return; }
+                if($(".active").length > 0){ return; } //prevent the graph to disable the filter that is being used (active)
 
-                svg.selectAll('g').classed('link-faded', false);
-                svg.selectAll('text').classed('text-faded', false);
-                svg.selectAll('path').classed('node-faded', false);
-
+                removeFadeOut();
             });
 
         zoom.on("zoom", function() {
@@ -321,7 +282,7 @@ var graph = (function(){
         svg.call(zoom);
 
         resize();
-        //window.focus();
+
         d3.select(window).on("resize", resize).on("keydown", keydown);
 
         force.on("tick", tick);
@@ -348,7 +309,7 @@ var graph = (function(){
         node.attr("transform", function(d) {
 
             if(!filterAll && !(d.name in openNodePositions)){
-                // console.log('nodepositions');
+
                 openNodePositions[d.name] = d;
             }
 
@@ -363,16 +324,11 @@ var graph = (function(){
                 mainRoot.x = (w/2.1);
                 mainRoot.y = h/2;
 
-                // d.fixed = d.name in openNode ? true : false;
-
-
                 var id = d.name.replace(/\ /g, '').replace(/\"/g, '').replace(/\,/g, '');
-            //    console.log(grid.getGridPosition(d.name));
 
                 if(grid.getGridPosition(d.name) != undefined){
 
-                    // d.fixed = filterAll ? false : true; //making the node be fixed and related to the main root
-
+                    // making the node be fixed and related to the main root (also this is going to be realted to the Start Node)
                     var x = (grid.getGridPosition(d.name).right * 300);
                     var y = grid.getGridPosition(d.name).top * (-250);
 
@@ -382,7 +338,8 @@ var graph = (function(){
                 }
 
             }
-
+            // if the node is not opened, so it is going to be related
+            // to its own position, not based into the main root position
             return "translate(" + d.x + "," + d.y + ")";
         });
 
@@ -392,6 +349,8 @@ var graph = (function(){
             .attr("y1", function(d) { return d.source.y; })
             .attr("x2", function(d) { return d.target.x; })
             .attr("y2", function(d) { return d.target.y; });
+
+        // This is for the link's path (circle) that helps the user to see the link's info
 
         link.selectAll('path').attr('transform', function(d){
 
@@ -413,9 +372,7 @@ var graph = (function(){
     /**/
     function startGraph(graphData){
         removeContent();
-        svg.selectAll('.link-related').remove();
-        svg.selectAll('.link-personal').remove();
-        svg.selectAll('.link-influence').remove();
+        removeFadeOut();
 
         cache = graphData;
 
@@ -476,7 +433,7 @@ var graph = (function(){
             for(var j = 0; j < links.length; j++){
 
 
-              //creating the format for the dictionary
+              //creating the format for the dictionary based win who is indexed first into the array
               // <name>-<name>
                 var linkAux = links[j].source > links[j].target ?
                     nodes[links[j].target].name + "-" + nodes[links[j].source].name:
@@ -497,9 +454,7 @@ var graph = (function(){
             }
         }
 
-        if(node != null) node.remove();
-        if(link != null) link.remove();
-        if(text != null) text.remove();
+        removeContent();
 
         createGraph({
             "graph": [],
@@ -572,7 +527,7 @@ var graph = (function(){
                     html += "<h4>" + values.title + "</h4>";
                     html += "<h6>"+  (values.extract.length > 200 ? (values.extract.slice(0,200) + "...") : values.extract)   +"</h6>";
                     html += "<hr>";
-                    html += "<h6><a href='https://en.wikipedia.org/wiki/" + converterData.getWikipediaID(d.name) + " ' target='_blank' class='info-link'>Source: Wikipedia. Read more" +"</a></h6>";
+                    html += "<h6><a href='https://en.wikipedia.org/wiki/" + converterData.getWikipediaID(d.name) + " ' target='_blank' class='info-link'>Source: Wikipedia." +"</a></h6>";
 
 
                     d.tooltip_node = d3.tip().attr('class', 'd3-tip-node ')
@@ -645,9 +600,6 @@ var graph = (function(){
 
         nodeTooltipCounter = [];
 
-        // svg.selectAll('g').classed('link-faded', false);
-        // svg.selectAll('text').classed('text-faded', false);
-        // svg.selectAll('path').classed('node-faded', false);
 
         d3.selectAll('path').each(function(d){
 

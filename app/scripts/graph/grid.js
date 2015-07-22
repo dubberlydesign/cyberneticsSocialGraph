@@ -81,8 +81,6 @@ var grid = (function(){
 
 	function removeNode(node){
 		delete gridDictPosition[node];
-
-		// return gridDictPosition;
 	}
 
 
@@ -95,7 +93,6 @@ var grid = (function(){
 		saveInstance : function(){
 			gridLayoutCache = gridLayout.slice();
 			gridDictPositionCache = $.extend( {}, gridDictPosition);
-			// return gridLayout;
 		},
 		restoreInstance : function(instance){
 			gridLayout = gridLayoutCache.slice();

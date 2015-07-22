@@ -43,19 +43,14 @@ var menu = (function(){
             delete active[$(this).attr('id')]; //removing element from the active list
 
             if($(this).attr('id') ==  'all'){
-                // openNode = $.extend( {}, openNodeCache ); //making a copy
 
                 graph.setOpenNode($.extend( {}, openNodeCache));
 
                 openNodeCache = null;
 
-                // converted.root = converted.rootCache;
-
                 converterData.restartGraph();
 
                 graph.setFilterAllFlag(false);
-
-                // graph.start(converted);
             }
 
             $(this).parent().removeClass('active');

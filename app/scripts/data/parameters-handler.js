@@ -4,7 +4,6 @@ var parameters = (function(){
 
     var query = location.search.substr(1);
     var result = {};
-    var loadedPage = true; //
 
     function getJsonFromUrl() {
 
@@ -25,17 +24,13 @@ var parameters = (function(){
         getParameters : function(){
             var par = {};
 
-            //
-            // var search = location.search.substring(1);
-            //
-            // search = search.split('&');
-
             par = getJsonFromUrl();
 
-            // console.log(par, par.s, par.e);
             if(par != null){
                 if(par.s != undefined && par.e != undefined){
 
+                    // If I'm passing two arguments is the same as using the "Create your own graph" functionality
+                    
                     $('#txtStart').val(par.s);
                     $('#txtEnd').val(par.e);
 
@@ -47,23 +42,13 @@ var parameters = (function(){
 
                 }else if(par.s != undefined){
 
-                    // graph.setOpenNode(menu.getOpenNodeCache());
-                    // menu.setOpenNodeCache({});
-
                     graph.setOpenNode({});
-
-                    // menu.resetGraphConfig();
 
                     converterData.setRoot(par.s);
                     converterData.restartGraph();
                 }else if(par.e != undefined){
 
-                    // graph.setOpenNode(menu.getOpenNodeCache());
-                    // menu.setOpenNodeCache({});
-
                     graph.setOpenNode({});
-
-                    // menu.resetGraphConfig();
 
                     converterData.setRoot(par.e);
                     converterData.restartGraph();
@@ -73,6 +58,7 @@ var parameters = (function(){
             return par;
         },
         hasParameters : function(){
+            // Verify if we are using some parameters to initiate the graph or not.
             return result != null;
         }
     };
