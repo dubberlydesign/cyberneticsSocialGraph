@@ -19,8 +19,8 @@
 }
 
 svg text {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 400;
+  font-family: 'Open Sans', sans-serif, 'FontAwesome';
+  font-weight: 300;
   font-size: 14px;
   color: #1A1919;
   text-anchor: middle;

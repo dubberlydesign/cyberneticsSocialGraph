@@ -206,7 +206,11 @@ var graph = (function(){
                 d3.select(this).classed('text-link', false);
             })
             .text(function(d) {
-                return d.name;
+
+                if(converterData.checkWikipediaIDExists(d.name))
+                    return d.name + '   \uf0c1';
+                else
+                    return d.name;
             })
             .style("text-anchor", "middle");
 
@@ -329,8 +333,12 @@ var graph = (function(){
                 if(grid.getGridPosition(d.name) != undefined){
 
                     // making the node be fixed and related to the main root (also this is going to be realted to the Start Node)
+                    // console.log(grid.getGridPosition(d.name).top);
+
+                    var gridPosTop = grid.getGridPosition(d.name).top;
+
                     var x = (grid.getGridPosition(d.name).right * 300);
-                    var y = grid.getGridPosition(d.name).top * (-250);
+                    var y = gridPosTop < 2 ? gridPosTop  * (-250) : (-250) - ((gridPosTop-1) * 130);
 
                     d.x = d.px =  (mainRoot.x + x);
                     d.y = d.py =  (mainRoot.y + y);
@@ -473,7 +481,7 @@ var graph = (function(){
             d.tooltip_link = undefined;
         } else if(d.tooltip_link != ''){
             force.stop();
-            d.tooltip_link = d3.tip().attr('class', 'd3-tip')
+            d.tooltip_link = d3.tip().offset([10,0]).attr('class', 'd3-tip')
               .html( d.linkInfo );
 
             svg.call(d.tooltip_link);
@@ -500,7 +508,7 @@ var graph = (function(){
         } else if(d.tooltip_node != ''){
 
 
-            var thumbsize = 219; // px width
+            var thumbsize = 399; // px width
             var charSize = 200; // number of chars
 
             var url = "https://en.wikipedia.org/w/api.php?action=query&prop=pageimages|extracts&format=json&exintro=&explaintext=";
@@ -530,7 +538,7 @@ var graph = (function(){
                     html += "<h6><a href='https://en.wikipedia.org/wiki/" + converterData.getWikipediaID(d.name) + " ' target='_blank' class='info-link'>Source: Wikipedia." +"</a></h6>";
 
 
-                    d.tooltip_node = d3.tip().attr('class', 'd3-tip-node ')
+                    d.tooltip_node = d3.tip().attr('class', 'd3-tip-node')
                     .offset([0, 5])
                     .direction('e')
                     .html( html );
@@ -556,6 +564,7 @@ var graph = (function(){
 
     function clickNode(obj, data){
 
+        main.hideTour(); // in the case that we have any tourtip opened
 
         if (d3.event.defaultPrevented || d3.event.target.nodeName == 'text' || filterAll) return;
 

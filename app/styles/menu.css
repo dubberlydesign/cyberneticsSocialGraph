@@ -290,22 +290,11 @@ form{
 }
 
 .popover{
-    max-width: 450px !important;
+    max-width: 400px !important;
     font-size: 18px !important;
     font-weight: 300 !important;
 
 }
-
-/*.help-btn{
-    position: absolute !important;
-    bottom: 10px;
-    cursor: pointer !important;
-
-    -webkit-transition: all .35s ease;
-    -moz-transition: all .35s ease;
-    -o-transition: all .35s ease;
-    transition: all .35s ease;
-}*/
 
 .disabled{
     display: none !important;

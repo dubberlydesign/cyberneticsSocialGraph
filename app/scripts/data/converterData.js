@@ -172,6 +172,8 @@ var converterData = (function(){
                             "id" : data[i].name.replace(" ", ""),
                             'x' : window.innerWidth/2,
                             'y' : window.innerHeight/2,
+                            'px' : window.innerWidth/2,
+                            'py' : window.innerHeight/2
                         };
 
                         if (converted['root'].indexOf( node.name ) !== -1) {
