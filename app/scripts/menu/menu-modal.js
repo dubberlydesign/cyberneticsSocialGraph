@@ -38,7 +38,7 @@ var menuModal = (function(){
 
         var filter = $(this).attr('class').split(' ')[1];
 
-        createsContent(converterData.applyFilter(filter));
+        createContent(converterData.applyFilter(filter));
 
         $(this).addClass('active');
     });

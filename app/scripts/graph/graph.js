@@ -338,7 +338,6 @@ var graph = (function(){
                 if(grid.getGridPosition(d.name) != undefined){
 
                     // making the node be fixed and related to the main root (also this is going to be realted to the Start Node)
-                    // console.log(grid.getGridPosition(d.name).top);
 
                     var gridPosTop = grid.getGridPosition(d.name).top;
 
@@ -559,7 +558,6 @@ var graph = (function(){
 
 
                     $('img').load(function(){
-                        console.log("carregou!");
                         d.tooltip_node.show(target);
                     });
 
@@ -638,6 +636,8 @@ var graph = (function(){
             }
 
         });
+
+        $('.d3-tip-node').remove();
     }
 
     function checkLinkPosition(name, array){
@@ -721,7 +721,6 @@ var graph = (function(){
 
     function displayFilters(active){
 
-        // console.log(active);
 
         var activeFilters = {};
         var nodeNameFilters = {}; // where the filter should or shouldn't be applied
@@ -760,7 +759,6 @@ var graph = (function(){
 
 
         d3.selectAll('path').classed('node-faded', function(d){
-            // console.log(d.type);
             if(parseInt(d.type) in activeFilters || d.name in nodeNameFilters){ return false; }
             else{ return true; }
         });
@@ -811,7 +809,6 @@ var graph = (function(){
         },
         setOpenNodePositions : function(open){
             openNodePositions = open;
-            // console.log(openNodePositions);
             return;
         },
         getOpenNodePositions : function(){

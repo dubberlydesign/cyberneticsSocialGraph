@@ -6,9 +6,9 @@
 }
 
 .d3-tip {
-  line-height: 22px !important;
-  font-size: 12px !important;
-  font-weight: 300;
+  font-weight: 300 !important;
+  font-size: 1em !important;
+  line-height: 1.5em !important;
   padding: 14px;
   background: rgba(23, 22, 22, 1);
   color: #fff;
@@ -66,6 +66,7 @@ h6{
 
 img.img-node{
   max-width: 230px !important;
+  min-width: 220px !important;
   /*width: 380px !important;*/
   padding-right: 10px;
   margin: 0 auto;

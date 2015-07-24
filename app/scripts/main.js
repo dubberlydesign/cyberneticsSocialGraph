@@ -75,6 +75,10 @@ var main = (function(){
         $('.navmenu').offcanvas('hide');
         $('.offcanvas-clone').remove();
         hideTour();
+        $('.popover').fadeOut('slow', function(){
+            if(this != undefined)
+                $(this).remove();
+        });
     }
 
     // Introduction's messages
