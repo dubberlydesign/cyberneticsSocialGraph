@@ -7,13 +7,13 @@
 
 .d3-tip {
   line-height: 22px !important;
-  font-size: 16px !important;
+  font-size: 12px !important;
   font-weight: 300;
   padding: 14px;
   background: rgba(23, 22, 22, 1);
   color: #fff;
   border-radius: 6px;
-  max-width: 380px !important;
+  max-width: 250px !important;
   /*width: 350px !important;*/
   pointer-events: none;
   -webkit-transition: opacity 300ms ease-in-out;
@@ -23,7 +23,7 @@
   margin: -1px 0 0 0;
   top: 100%;
   left: 0;
-  font-size: 16px !important;
+  font-size: 12px !important;
   font-weight: 300;
   pointer-events: none;
 }
@@ -35,8 +35,8 @@
   background: rgba(23, 22, 22, 1);
   color: #fff;
   border-radius: 6px;
-  width: 400px !important;
-  font-size: 16px !important;
+  max-width: 250px !important;
+  font-size: 12px !important;
   pointer-events: none;
   box-shadow: 0 5px 10px rgba(0, 0, 0, .2) !important;
   -webkit-transition: opacity 300ms ease-in-out;
@@ -54,19 +54,19 @@
 
 h4{
     font-weight: 300 !important;
-    font-size: 2em !important;
+    font-size: 1.25em !important;
     font-weight: bold !important;
 }
 
 h6{
     font-weight: 300 !important;
-    font-size: 16px !important;
-    line-height: 22px !important;
+    font-size: 1.25em !important;
+    line-height: 1.5em !important;
 }
 
 img.img-node{
-  max-width: 380px !important;
-  width: 380px !important;
+  max-width: 230px !important;
+  /*width: 380px !important;*/
   padding-right: 10px;
   margin: 0 auto;
   display: inline-block !important;

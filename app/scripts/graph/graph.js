@@ -96,6 +96,16 @@ var graph = (function(){
             .on('mousedown', seeLinkInfo)
             .on('mouseover', function(d){
 
+                if(d.tooltip_link != undefined) return;
+
+                if( d.linkInfo != undefined && d.linkInfo != "" ){
+                    d.tooltip = d3.tip().attr('class', 'd3-tip')
+                        .html( d.linkInfo );
+                        svg.call(d.tooltip);
+                        d.tooltip.show();
+                }
+
+
                 if($(".active").length > 0){
                     return;
                 }
@@ -116,24 +126,19 @@ var graph = (function(){
                     else return true;
                 });
 
-                if(d.tooltip_link != undefined) return;
 
-                if( d.linkInfo != undefined && d.linkInfo != "" ){
-                    d.tooltip = d3.tip().attr('class', 'd3-tip')
-                        .html( d.linkInfo );
-                        svg.call(d.tooltip);
-                        d.tooltip.show();
-                }
 
 
             })
             .on('mouseout', function(d){
 
+                if(d.tooltip != undefined) d.tooltip.destroy();
+
                 if($(".active").length > 0){ return; }
 
                 removeFadeOut();
 
-                if(d.tooltip != undefined) d.tooltip.destroy();
+
 
 
             })
@@ -195,13 +200,13 @@ var graph = (function(){
             })
             .on("click", seeNodeInfo)
             .on("mouseover", function(d){
-                if($(".active").length > 0){ return; } //prevent the graph to disable the filter that is being used (active)
+                // if($(".active").length > 0){ return; } //prevent the graph to disable the filter that is being used (active)
 
                 if(converterData.checkWikipediaIDExists(d.name))
                     d3.select(this).classed('text-link', true);
             })
             .on("mouseout", function(d){
-                if($(".active").length > 0){ return; }//prevent the graph to disable the filter that is being used (active)
+                // if($(".active").length > 0){ return; }//prevent the graph to disable the filter that is being used (active)
 
                 d3.select(this).classed('text-link', false);
             })
@@ -533,7 +538,7 @@ var graph = (function(){
                         html += "<img src=" + values.thumbnail.source +" class='img-node' />";
 
                     html += "<h4>" + values.title + "</h4>";
-                    html += "<h6>"+  (values.extract.length > 200 ? (values.extract.slice(0,200) + "...") : values.extract)   +"</h6>";
+                    html += "<h6>"+  (values.extract.length > 146 ? (values.extract.slice(0,146) + "...") : values.extract)   +"</h6>";
                     html += "<hr>";
                     html += "<h6><a href='https://en.wikipedia.org/wiki/" + converterData.getWikipediaID(d.name) + " ' target='_blank' class='info-link'>Source: Wikipedia." +"</a></h6>";
 
@@ -543,6 +548,7 @@ var graph = (function(){
                     .direction('e')
                     .html( html );
 
+
                     force.stop();
                     nodeTooltipCounter.push("");
                     svg.call(d.tooltip_node);
@@ -550,6 +556,14 @@ var graph = (function(){
                     $(target).addClass('hasToolTip');
 
                     d.tooltip_node_showed = true;
+
+
+                    $('img').load(function(){
+                        console.log("carregou!");
+                        d.tooltip_node.show(target);
+                    });
+
+
 
                 },
                 error: function(e) {

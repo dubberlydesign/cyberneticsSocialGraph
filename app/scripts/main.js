@@ -25,9 +25,8 @@ var main = (function(){
     // Functions that handle the clicks
 
     function showBodyIntro(){
-        $('.navmenu').offcanvas('hide');
-        $('.navmenu').show();
-        $('.navmenu').offcanvas('hide');
+
+        $("#menu").removeClass('canvas-slid');
 
         menu.resetIntroMenu();
 
@@ -71,6 +70,7 @@ var main = (function(){
     }
 
     function hideMenu(){
+        $("#menu").removeClass('.canvas-slid');
 
         $('.navmenu').offcanvas('hide');
         $('.offcanvas-clone').remove();
