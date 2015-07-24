@@ -9,6 +9,7 @@
 body {
     padding-top: 20px;
     padding-bottom: 20px;
+    overflow: scroll !important;
 }
 
 .header,
@@ -69,6 +70,7 @@ body {
     text-align: left;
     opacity: 0.9 !important;
     margin-bottom: 15px !important;
+    overflow: scroll !important;
     /*margin-top: 2.5em !important;*/
 }
 
