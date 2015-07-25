@@ -562,6 +562,10 @@ var graph = (function(){
                         d.tooltip_node.show(target);
                     });
 
+                    $('img').error(function(){
+                        $(this).remove();
+                    });
+
 
 
                 },
