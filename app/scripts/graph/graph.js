@@ -528,18 +528,19 @@ var graph = (function(){
                 crossDomain: true,
                 dataType: 'jsonp',
                 success: function(data) {
+
                     var values;
                     for(var key in data.query.pages)
                         values = data.query.pages[key];
-                    var html = "";
+                    var html = "<div class='node-info-box'>";
 
                     if(values.thumbnail != undefined && (values.thumbnail.source != undefined ||  values.thumbnail.source != ""))
-                        html += "<img src=" + values.thumbnail.source +" class='img-node' />";
+                        html += "<div class='box-img'><img src=" + values.thumbnail.source +" class='img-node'/></div>";
 
-                    html += "<h4>" + values.title + "</h4>";
+                    html += "<div class='box-info'><h4>" + values.title + "</h4>";
                     html += "<h6>"+  (values.extract.length > 146 ? (values.extract.slice(0,146) + "...") : values.extract)   +"</h6>";
                     html += "<hr>";
-                    html += "<h6><a href='https://en.wikipedia.org/wiki/" + converterData.getWikipediaID(d.name) + " ' target='_blank' class='info-link'>Source: Wikipedia." +"</a></h6>";
+                    html += "<h6><a href='https://en.wikipedia.org/wiki/" + converterData.getWikipediaID(d.name) + " ' target='_blank' class='info-link'>Source: Wikipedia." +"</a></h6></div>";
 
 
                     d.tooltip_node = d3.tip().attr('class', 'd3-tip-node')

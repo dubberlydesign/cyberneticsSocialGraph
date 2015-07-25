@@ -8,7 +8,7 @@
 /* Space out content a bit */
 body {
     padding-top: 20px;
-    padding-bottom: 20px;
+    /*padding-bottom: 20px;*/
     overflow: scroll !important;
 }
 
@@ -69,7 +69,6 @@ body {
     display: block;
     text-align: left;
     opacity: 0.9 !important;
-    margin-bottom: 15px !important;
     overflow: scroll !important;
     /*margin-top: 2.5em !important;*/
 }
@@ -87,12 +86,15 @@ body {
     line-height: 1.75em;
 }
 
+.container{
+    padding-bottom: 15px !important;
+}
+
 #startBtn{
     font-size: 1.25em !important;
     /*line-height: 1.75em !important;*/
     color: #fff !important;
     background-color: #171616 !important;
-
     -webkit-transition: all .35s ease;
     -moz-transition: all .35s ease;
     -o-transition: all .35s ease;
