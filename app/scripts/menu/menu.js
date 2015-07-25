@@ -136,6 +136,8 @@ var menu = (function(){
 
         if(valid){
 
+            $('.typeahead').find('.active').removeClass('active');
+
             if(openNodeCache == null){
                 openNodeCache = $.extend( {}, graph.getOpenNode());
                 openNodePositionCache = $.extend( {}, graph.getOpenNodePositions());

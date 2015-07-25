@@ -105,7 +105,8 @@ var graph = (function(){
                         d.tooltip.show();
                 }
 
-
+                console.log($(".active"), $(".active").length > 0);
+                
                 if($(".active").length > 0){
                     return;
                 }
