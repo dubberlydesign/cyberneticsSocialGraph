@@ -105,8 +105,6 @@ var graph = (function(){
                         d.tooltip.show();
                 }
 
-                console.log($(".active"), $(".active").length > 0);
-                
                 if($(".active").length > 0){
                     return;
                 }
@@ -535,8 +533,9 @@ var graph = (function(){
                         values = data.query.pages[key];
                     var html = "<div class='node-info-box'>";
 
-                    if(values.thumbnail != undefined && (values.thumbnail.source != undefined ||  values.thumbnail.source != ""))
-                        html += "<div class='box-img'><img src=" + values.thumbnail.source +" class='img-node'/></div>";
+                    if(values.thumbnail != undefined && (values.thumbnail.source != undefined ||  values.thumbnail.source != "")){
+                        html += "<div class='box-img'><img src=" + values.thumbnail.source  +" class='img-node'/></div>";
+                    }
 
                     html += "<div class='box-info'><h4>" + values.title + "</h4>";
                     html += "<h6>"+  (values.extract.length > 146 ? (values.extract.slice(0,146) + "...") : values.extract)   +"</h6>";
@@ -560,7 +559,9 @@ var graph = (function(){
 
 
                     $('img').load(function(){
+
                         d.tooltip_node.show(target);
+
                     });
 
                     $('img').error(function(){

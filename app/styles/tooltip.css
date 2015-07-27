@@ -66,14 +66,14 @@ h6{
 }
 
 img.img-node{
-  max-height: 200px !important;
-  min-height: 200px !important;
-  max-width: 200px !important;
+  height: 200px !important;
+  width: 200px !important;
   padding-right: 10px;
   margin: 0 auto;
   display: inline-block !important;
   background-color: #171616;
   top: 9px;
+  object-fit: cover;
 }
 
 .node-info-box{
