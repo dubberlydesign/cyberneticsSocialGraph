@@ -19,7 +19,7 @@ var graph = (function(){
         .size( [w, h]);
 
     var spacebar = false;
-    var min_zoom = 0.5;
+    var min_zoom = 0.15;
     var max_zoom = 1.8; //7
     var svg = d3.select(".body-content").append("svg");
 
@@ -272,11 +272,11 @@ var graph = (function(){
 
         zoom.on("zoom", function() {
 
-            if(d3.event.scale > 0.5 && d3.event.scale < 1.8){
+            if(d3.event.scale > min_zoom && d3.event.scale < max_zoom){
                 $('.zoom-btn').prop('disabled', false);
             }else{
 
-                if ( d3.event.scale > 0.5) { $('.zoom-in').prop('disabled', true); }
+                if ( d3.event.scale > min_zoom) { $('.zoom-in').prop('disabled', true); }
                 else { $('.zoom-out').prop('disabled', true); }
 
             }
