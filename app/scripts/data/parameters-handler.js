@@ -30,7 +30,7 @@ var parameters = (function(){
                 if(par.s != undefined && par.e != undefined){
 
                     // If I'm passing two arguments is the same as using the "Create your own graph" functionality
-                    
+
                     $('#txtStart').val(par.s);
                     $('#txtEnd').val(par.e);
 
@@ -59,7 +59,7 @@ var parameters = (function(){
         },
         hasParameters : function(){
             // Verify if we are using some parameters to initiate the graph or not.
-            return result != null;
+            return getJsonFromUrl() != null;
         }
     };
 

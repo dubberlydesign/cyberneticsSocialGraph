@@ -219,9 +219,12 @@ var converterData = (function(){
 
                 main.introInit();
 
+
                 graph.start(converted);
 
                 parameters.getParameters();
+
+
 
             });
         }

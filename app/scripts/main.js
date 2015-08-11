@@ -6,8 +6,34 @@ var main = (function(){
     var loadedPage = true; //this is going to be used just when the user loads the page
 
     $('.navmenu').offcanvas({ autohide: false});
+
+
     window.onload = function(){
-        showBodyIntro();
+
+        $('.body-intro').hide();
+        $('.body-content').hide();
+
+        if(!parameters.hasParameters()){
+            showBodyIntro();
+        }else{
+
+            $('.body-content').fadeIn('slow', function(){
+                $('.navmenu').offcanvas('hide');
+
+                setTimeout(function(){
+
+                    menuDict.init();
+                    graphDictionary.init();
+                    converterData.init();
+                    converterData.request();
+                    loadedPage = false;
+
+                }, 650);
+            });
+
+
+        }
+
     }
 
 
@@ -15,7 +41,12 @@ var main = (function(){
     $('#startBtn').click(showBodyContent);
     $('#startBtn').click(showBodyContent);
 
-    $('.help-btn').click(showBodyIntro);
+    $('.help-btn').click(function(){
+
+        $('.navmenu').offcanvas('hide');
+
+        showBodyIntro();
+    });
 
     $('svg').click(hideMenu);
 
@@ -28,44 +59,48 @@ var main = (function(){
 
         $("#menu").removeClass('canvas-slid');
 
-        menu.resetIntroMenu();
+        setTimeout(function(){
+            menu.resetIntroMenu();
 
-        if(!loadedPage){
-            $('.body-content').fadeOut('slow');
-        }else{
-            $('.body-content').hide();
-        }
+            $('.body-content').fadeOut('slow', function(){
+                $('.body-intro').fadeIn('slow');
+            });
+        }, 250);
 
-        $('.body-intro').fadeIn('slow');
+
     }
 
     function showBodyContent(){
 
-        $('.body-intro').fadeOut();
-        $('.body-content').fadeIn('slow');
+        $('.body-intro').fadeOut('slow', function(){
+            $('.body-content').fadeIn('slow');
 
-        // Prevent the tour being displayed more times, we should display
-        // it only when the user loads the page or go to the "what's this graph about?"
+            // Prevent the tour being displayed more times, we should display
+            // it only when the user loads the page or go to the "what's this graph about?"
 
-        if(loadedPage){
-            $('.navmenu').offcanvas('hide');
-            $('.navmenu').show();
-            $('.navmenu').offcanvas('hide');
+            if(loadedPage){
+                $('.navmenu').offcanvas('hide');
+                $('.navmenu').show();
+                $('.navmenu').offcanvas('hide');
 
-            setTimeout(function(){
+                setTimeout(function(){
 
-                menuDict.init();
-                graphDictionary.init();
-                converterData.init();
-                converterData.request();
+                    menuDict.init();
+                    graphDictionary.init();
+                    converterData.init();
+                    converterData.request();
 
 
-            }, 650);
+                }, 650);
 
-            loadedPage = false;
-        }
+                loadedPage = false;
+            }
 
-        tourGraphInit();
+            tourGraphInit();
+        });
+
+
+
 
     }
 
