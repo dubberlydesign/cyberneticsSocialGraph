@@ -119,3 +119,7 @@ body {
 .body-intro {
     padding-left: 4.5em !important;
 }
+
+.body-intro, .body-content {
+    display: none;
+}

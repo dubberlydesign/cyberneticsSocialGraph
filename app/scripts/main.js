@@ -7,7 +7,27 @@ var main = (function(){
 
     $('.navmenu').offcanvas({ autohide: false});
     window.onload = function(){
-        showBodyIntro();
+
+        if(!parameters.hasViewRequested() ){
+            showBodyIntro();
+        }else{
+
+            $('.navmenu').offcanvas('hide');
+            $('.navmenu').show();
+            $('.navmenu').offcanvas('hide');
+
+            setTimeout(function(){
+
+                menuDict.init();
+                graphDictionary.init();
+                converterData.init();
+                converterData.request();
+
+
+            }, 650);
+        }
+
+
     }
 
 
@@ -26,17 +46,20 @@ var main = (function(){
 
     function showBodyIntro(){
 
-        $("#menu").removeClass('canvas-slid');
+        $('.body-intro').fadeIn('slow', function(){
 
-        menu.resetIntroMenu();
+            $("#menu").removeClass('canvas-slid');
 
-        if(!loadedPage){
-            $('.body-content').fadeOut('slow');
-        }else{
-            $('.body-content').hide();
-        }
+            menu.resetIntroMenu();
 
-        $('.body-intro').fadeIn('slow');
+            if(!loadedPage){
+                $('.body-content').fadeOut('slow');
+            }else{
+                $('.body-content').hide();
+            }
+        });
+
+
     }
 
     function showBodyContent(){
@@ -58,14 +81,14 @@ var main = (function(){
                 graphDictionary.init();
                 converterData.init();
                 converterData.request();
-
+                // tourGraphInit();
 
             }, 650);
 
             loadedPage = false;
         }
 
-        tourGraphInit();
+
 
     }
 
@@ -94,6 +117,7 @@ var main = (function(){
         // I'm using a timeout function because the menu slider
         // has an animation and those animations were overlaping each other.
         // So I decided to wait a little bit and then trigger this function
+
         setTimeout(function(){
             tour = new Tour({
                 steps: [
@@ -174,7 +198,8 @@ var main = (function(){
     return {
         introInit : tourGraphInit,
         hideTour: hideTour,
-        introduceMenu : introduceMenu
+        introduceMenu : introduceMenu,
+        showBodyContent : showBodyContent
     };
 
 }());
