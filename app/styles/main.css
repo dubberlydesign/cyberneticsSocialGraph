@@ -66,7 +66,7 @@ body {
     background-color: #fff !important;
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
-    display: none;
+    display: block;
     text-align: left;
     opacity: 0.9 !important;
     overflow: scroll !important;
@@ -118,4 +118,8 @@ body {
 
 .body-intro {
     padding-left: 4.5em !important;
+}
+
+.body-intro, .body-content {
+    display: none;
 }

@@ -6,33 +6,27 @@ var main = (function(){
     var loadedPage = true; //this is going to be used just when the user loads the page
 
     $('.navmenu').offcanvas({ autohide: false});
-
-
     window.onload = function(){
 
-        $('.body-intro').hide();
-        $('.body-content').hide();
-
-        if(!parameters.hasParameters()){
+        if(!parameters.hasViewRequested() ){
             showBodyIntro();
         }else{
 
-            $('.body-content').fadeIn('slow', function(){
-                $('.navmenu').offcanvas('hide');
+            $('.navmenu').offcanvas('hide');
+            $('.navmenu').show();
+            $('.navmenu').offcanvas('hide');
 
-                setTimeout(function(){
+            setTimeout(function(){
 
-                    menuDict.init();
-                    graphDictionary.init();
-                    converterData.init();
-                    converterData.request();
-                    loadedPage = false;
-
-                }, 650);
-            });
+                menuDict.init();
+                graphDictionary.init();
+                converterData.init();
+                converterData.request();
 
 
+            }, 650);
         }
+
 
     }
 
@@ -41,12 +35,7 @@ var main = (function(){
     $('#startBtn').click(showBodyContent);
     $('#startBtn').click(showBodyContent);
 
-    $('.help-btn').click(function(){
-
-        $('.navmenu').offcanvas('hide');
-
-        showBodyIntro();
-    });
+    $('.help-btn').click(showBodyIntro);
 
     $('svg').click(hideMenu);
 
@@ -57,48 +46,47 @@ var main = (function(){
 
     function showBodyIntro(){
 
-        $("#menu").removeClass('canvas-slid');
+        $('.body-intro').fadeIn('slow', function(){
 
-        setTimeout(function(){
+            $("#menu").removeClass('canvas-slid');
+
             menu.resetIntroMenu();
 
-            $('.body-content').fadeOut('slow', function(){
-                $('.body-intro').fadeIn('slow');
-            });
-        }, 250);
+            if(!loadedPage){
+                $('.body-content').fadeOut('slow');
+            }else{
+                $('.body-content').hide();
+            }
+        });
 
 
     }
 
     function showBodyContent(){
 
-        $('.body-intro').fadeOut('slow', function(){
-            $('.body-content').fadeIn('slow');
+        $('.body-intro').fadeOut();
+        $('.body-content').fadeIn('slow');
 
-            // Prevent the tour being displayed more times, we should display
-            // it only when the user loads the page or go to the "what's this graph about?"
+        // Prevent the tour being displayed more times, we should display
+        // it only when the user loads the page or go to the "what's this graph about?"
 
-            if(loadedPage){
-                $('.navmenu').offcanvas('hide');
-                $('.navmenu').show();
-                $('.navmenu').offcanvas('hide');
+        if(loadedPage){
+            $('.navmenu').offcanvas('hide');
+            $('.navmenu').show();
+            $('.navmenu').offcanvas('hide');
 
-                setTimeout(function(){
+            setTimeout(function(){
 
-                    menuDict.init();
-                    graphDictionary.init();
-                    converterData.init();
-                    converterData.request();
+                menuDict.init();
+                graphDictionary.init();
+                converterData.init();
+                converterData.request();
+                // tourGraphInit();
 
+            }, 650);
 
-                }, 650);
-
-                loadedPage = false;
-            }
-
-            tourGraphInit();
-        });
-
+            loadedPage = false;
+        }
 
 
 
@@ -129,6 +117,7 @@ var main = (function(){
         // I'm using a timeout function because the menu slider
         // has an animation and those animations were overlaping each other.
         // So I decided to wait a little bit and then trigger this function
+
         setTimeout(function(){
             tour = new Tour({
                 steps: [
@@ -209,7 +198,8 @@ var main = (function(){
     return {
         introInit : tourGraphInit,
         hideTour: hideTour,
-        introduceMenu : introduceMenu
+        introduceMenu : introduceMenu,
+        showBodyContent : showBodyContent
     };
 
 }());
