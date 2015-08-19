@@ -8,7 +8,7 @@ var main = (function(){
     $('.navmenu').offcanvas({ autohide: false});
     window.onload = function(){
 
-        if(!parameters.hasViewRequested() ){
+        if(!parameters.hasViewRequested() && !parameters.hasSkipedIntro() ){
             showBodyIntro();
         }else{
 
@@ -23,10 +23,8 @@ var main = (function(){
                 converterData.init();
                 converterData.request();
 
-
             }, 650);
         }
-
 
     }
 

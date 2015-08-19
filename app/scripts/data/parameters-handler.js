@@ -38,6 +38,11 @@ var parameters = (function(){
 
                 }
 
+                if(par.skipIntro != undefined){
+                    console.log('hey');
+                    main.showBodyContent();
+                }
+
                 if(par.s != undefined && par.e != undefined){
 
                     // If I'm passing two arguments is the same as using the "Create your own graph" functionality
@@ -75,6 +80,9 @@ var parameters = (function(){
         },
         hasViewRequested : function(){
             return getJsonFromUrl().view != undefined;
+        },
+        hasSkipedIntro : function(){
+            return getJsonFromUrl().skipIntro != undefined;
         }
     };
 
