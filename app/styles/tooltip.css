@@ -24,6 +24,8 @@
   top: 100%;
   left: 0;
   font-size: 12px !important;
+  line-height: 1.5em;
+  letter-spacing: .05rem;
   font-weight: 300;
   pointer-events: none;
 }
@@ -37,6 +39,8 @@
   border-radius: 6px;
   /*max-width: 250px !important;*/
   font-size: 12px !important;
+  line-height: 1.5em;
+  letter-spacing: .05rem;
   pointer-events: none;
   box-shadow: 0 5px 10px rgba(0, 0, 0, .2) !important;
   -webkit-transition: opacity 300ms ease-in-out;
@@ -47,6 +51,8 @@
   top: 100%;
   left: 0;
   font-size: 16px !important;
+  line-height: 1.5em;
+  letter-spacing: .05rem;
   font-weight: 300 !important;
   pointer-events: none;
   box-shadow: 0 5px 10px rgba(0, 0, 0, .2) !important;
@@ -54,15 +60,19 @@
 
 h4{
     font-weight: 300 !important;
-    font-size: 1.75em !important;
-    line-height: 1.5em !important;
+    font-size: 14px !important;
+    line-height: 1.5em;
+    letter-spacing: .05rem;
     font-weight: bold !important;
 }
 
+
+
 h6{
     font-weight: 300 !important;
-    font-size: 1.25em !important;
-    line-height: 1.5em !important;
+    font-size: 14px !important;
+    line-height: 1.5em;
+    letter-spacing: .05rem;
 }
 
 img.img-node{

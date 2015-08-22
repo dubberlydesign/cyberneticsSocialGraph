@@ -26,6 +26,8 @@ var graph = (function(){
 
     var zoom = d3.behavior.zoom().scaleExtent([min_zoom, max_zoom]);
 
+    var animationOver = true;
+
     var g = svg.append("g").classed('graph-container', true);
     svg.style("cursor", "move");
 
@@ -55,22 +57,6 @@ var graph = (function(){
         var linkedByIndex = {};
         nodeTooltipCounter = [];
 
-        graph.links.forEach(function(d) {
-            linkedByIndex[d.source + "," + d.target] = true;
-        });
-
-        function isConnected(a, b) {
-            return linkedByIndex[a.index + "," + b.index] || linkedByIndex[b.index + "," + a.index] || a.index == b.index;
-        }
-
-        function hasConnections(a) {
-            for (var property in linkedByIndex) {
-                s = property.split(",");
-                if ((s[0] == a.index || s[1] == a.index) && linkedByIndex[property]) return true;
-            }
-            return false;
-        }
-
         force
             .nodes(graph.nodes)
             .links(graph.links)
@@ -96,10 +82,12 @@ var graph = (function(){
             .on('mousedown', seeLinkInfo)
             .on('mouseover', function(d){
 
+                force.stop();
+
                 if(d.tooltip_link != undefined) return;
 
                 if( d.linkInfo != undefined && d.linkInfo != "" ){
-                    d.tooltip = d3.tip().attr('class', 'd3-tip')
+                    d.tooltip = d3.tip().offset([-10,0]).attr('class', 'd3-tip')
                         .html( d.linkInfo );
                         svg.call(d.tooltip);
                         d.tooltip.show();
@@ -130,6 +118,10 @@ var graph = (function(){
 
             })
             .on('mouseout', function(d){
+
+                if(animationOver){
+                    force.resume();
+                }
 
                 if(d.tooltip != undefined) d.tooltip.destroy();
 
@@ -170,8 +162,12 @@ var graph = (function(){
                 if(d.name in openNode){
                     if(parseInt(d.type) == 11)
                       return 450; //for diamonds symbols because they look disproportional when they are opened
-                    return 650; //for circles or squares
+                    return 1200; //for circles or squares
                 }
+
+                if(parseInt(d.type) == 11)
+                  return 200;
+
                 return 300;
             })
             .type(function(d){ return graphDictionary.getSymbol(d.type); }))
@@ -182,16 +178,16 @@ var graph = (function(){
             .classed('node-name', true)
             .attr("dy", function(d){
                 if(d.name in openNode) {
-
-                    if(graphDictionary.getSymbol(d.type) == 'diamond')
-                        return '2.35em';
-                    else
-                        return "2.15em";
+                    return '2.25em';
+                    // if(graphDictionary.getSymbol(d.type) == 'diamond')
+                    //     return '2.35em';
+                    // else
+                    //     return "2.15em";
 
                 } else {
 
                     if(graphDictionary.getSymbol(d.type) == 'diamond')
-                        return '2em';
+                        return '1.9em';
                     else
                         return "1.55em";
                 }
@@ -201,11 +197,17 @@ var graph = (function(){
             .on("mouseover", function(d){
                 // if($(".active").length > 0){ return; } //prevent the graph to disable the filter that is being used (active)
 
+                force.stop();
+
                 if(converterData.checkWikipediaIDExists(d.name))
                     d3.select(this).classed('text-link', true);
             })
             .on("mouseout", function(d){
                 // if($(".active").length > 0){ return; }//prevent the graph to disable the filter that is being used (active)
+
+                if(animationOver){
+                    force.resume();
+                }
 
                 d3.select(this).classed('text-link', false);
             })
@@ -220,6 +222,8 @@ var graph = (function(){
 
         node.on("mouseover", function(d) {
                 var notFaded = {};
+
+                force.stop();
 
                 if($(".active").length > 0){ return ; }
 
@@ -265,13 +269,17 @@ var graph = (function(){
 
             }).on("mouseout", function(d) {
 
+                if(animationOver){
+                    force.resume();
+                }
+
                 if($(".active").length > 0){ return; } //prevent the graph to disable the filter that is being used (active)
 
                 removeFadeOut();
             });
 
         zoom.on("zoom", function() {
-
+            force.resume();
             if(d3.event.scale > min_zoom && d3.event.scale < max_zoom){
                 $('.zoom-btn').prop('disabled', false);
             }else{
@@ -379,6 +387,116 @@ var graph = (function(){
 
     }
 
+    function animationGrid(animationTime, obj){
+
+        animationOver = false;
+
+        node.transition()
+            .duration(animationTime)
+            .attr("transform", function(d) {
+
+
+                if((d.name in openNode)){
+
+                    // Everything is going to be related to the main root
+                    var mainRoot = openNodePositions[converterData.getRoot()];
+                    mainRoot.fixed = true;
+
+                    mainRoot.x = (w/2.1);
+                    mainRoot.y = h/2;
+
+
+
+                    if(grid.getGridPosition(d.name) != undefined){
+
+                        // making the node be fixed and related to the main root (also this is going to be realted to the Start Node)
+
+                        var gridPosTop = grid.getGridPosition(d.name).top;
+
+                        var x = (grid.getGridPosition(d.name).right * 300);
+                        var y = gridPosTop < 2 ? gridPosTop  * (-250) : (-250) - ((gridPosTop-1) * 130);
+
+                        d.x = d.px =  (mainRoot.x + x);
+                        d.y = d.py =  (mainRoot.y + y);
+
+                    }
+
+
+                }else{
+                    d.fixed = false;
+                }
+                // if the node is not opened, so it is going to be related
+                // to its own position, not based into the main root position
+
+                return "translate(" + d.x + "," + d.y + ")";
+
+            });
+
+        link.transition()
+            .duration(animationTime)
+            .selectAll('line').attr("x1", function(d) {
+                return d.source.x;
+            })
+            .attr("y1", function(d) { return d.source.y; })
+            .attr("x2", function(d) { return d.target.x; })
+            .attr("y2", function(d) { return d.target.y; });
+
+        link.transition()
+            .duration(animationTime)
+            .selectAll('path').attr('transform', function(d){
+
+            if(d.tooltip_link != undefined){
+                d.tooltip_link.destroy();
+                d.tooltip_link = undefined;
+            }
+
+            var x = (d.source.x + d.target.x)/2;
+            var y = (d.source.y + d.target.y)/2;
+
+            return "translate(" + x + "," + y+ ')';
+        });
+
+        d3.selectAll("text").transition()
+            .duration(animationTime)
+            .attr("dy", function(d){
+                if(d.name in openNode) {
+                    return '2.25em';
+
+                } else {
+
+                    if(graphDictionary.getSymbol(d.type) == 'diamond')
+                        return '1.9em';
+                    else
+                        return "1.55em";
+                }
+
+            });
+
+        d3.select(obj).transition()
+            .duration(animationTime)
+            .attr("d", d3.svg.symbol()
+                .size(function(d){
+                    if(d.name in openNode){
+                        if(parseInt(d.type) == 11)
+                          return 450; //for diamonds symbols because they look disproportional when they are opened
+                        return 1200; //for circles or squares
+                    }
+
+                    if(parseInt(d.type) == 11)
+                      return 200;
+
+                    return 300;
+                })
+                .type(function(d){ return graphDictionary.getSymbol(d.type); }))
+            .each("end", function(d){
+                if(animationOver)
+                    return;
+
+                formatGraph();
+            });
+
+    }
+
 
     /**/
     function startGraph(graphData){
@@ -402,6 +520,13 @@ var graph = (function(){
     }
 
     function formatGraph(){
+
+        force.resume();
+
+        if(!animationOver){
+            animationOver = true;
+        }
+
         var nodes = cache.nodes;
         var links = cache.links;
 
@@ -484,7 +609,7 @@ var graph = (function(){
             d.tooltip_link = undefined;
         } else if(d.tooltip_link != ''){
             force.stop();
-            d.tooltip_link = d3.tip().offset([10,0]).attr('class', 'd3-tip')
+            d.tooltip_link = d3.tip().offset([-10,0]).attr('class', 'd3-tip')
               .html( d.linkInfo );
 
             svg.call(d.tooltip_link);
@@ -500,11 +625,11 @@ var graph = (function(){
         if(!(converterData.checkWikipediaIDExists(d.name)))
             return;
 
-        if(d.tooltip_node_showed != undefined){
+        if(d.tooltip_node != undefined){
             nodeTooltipCounter.pop();
             if(nodeTooltipCounter.length == 0)
                 force.resume();
-            // d.tooltip_node.destroy(); //removing tooltip
+
             d.tooltip_node = undefined;
 
             d.tooltip_node_showed = undefined;
@@ -619,10 +744,16 @@ var graph = (function(){
 
         }
 
-        formatGraph();
+        var animationTime = 400;
+
+        animationGrid(animationTime, this);
+
+        // formatGraph();
     }
 
     //graph functions
+
+    svg.on("click", clearTooltips);
 
     function clearTooltips( event ){
 

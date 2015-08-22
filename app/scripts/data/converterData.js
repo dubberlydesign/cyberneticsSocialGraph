@@ -25,6 +25,8 @@ var converterData = (function(){
     };
 
     var map = {};
+    
+    var requested = false;
 
 
     function findPosition(name, array){
@@ -140,6 +142,12 @@ var converterData = (function(){
         },
         request : function(){
             var nameAux = "";
+
+            if(requested){
+                return;
+            }else{
+                requested = true;
+            }
 
             $.getJSON( './scripts/data/data.json', function(data){
 

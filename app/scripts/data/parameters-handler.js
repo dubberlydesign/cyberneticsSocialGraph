@@ -39,7 +39,6 @@ var parameters = (function(){
                 }
 
                 if(par.skipIntro != undefined){
-                    console.log('hey');
                     main.showBodyContent();
                 }
 
