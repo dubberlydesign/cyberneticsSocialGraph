@@ -61,9 +61,6 @@ p{
 
 a{
     text-decoration: none !important;
-    -webkit-transition: all .35s ease;
-    -moz-transition: all .35s ease;
-    -o-transition: all .35s ease;
     transition: all .35s ease;
 }
 
@@ -144,9 +141,6 @@ a{
     /*line-height: 1.75em !important;*/
     color: #fff !important;
     background-color: #171616 !important;
-    -webkit-transition: all .35s ease;
-    -moz-transition: all .35s ease;
-    -o-transition: all .35s ease;
     transition: all .35s ease;
 }
 

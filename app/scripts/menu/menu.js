@@ -132,11 +132,13 @@ var menu = (function(){
 
         var valid = converterData.checkNodeNameExists($("#txtStart").val()) && converterData.checkNodeNameExists($("#txtEnd").val());
 
+        console.log(converterData.checkNodeNameExists($("#txtStart").val()), $("#txtEnd").val());
 
-
-        if(valid){
+        if(valid || converterData.checkNodeNameExists($("#txtStart").val())){
 
             $('.typeahead').find('.active').removeClass('active');
+
+
 
             if(openNodeCache == null){
                 openNodeCache = $.extend( {}, graph.getOpenNode());
@@ -144,11 +146,20 @@ var menu = (function(){
                 grid.saveInstance();
             }
 
+            // in case of just the start field is fill it up
 
+            if($("#txtEnd").val().length <=0 || !converterData.checkNodeNameExists($("#txtEnd").val())){
+                graph.setOpenNode({});
+
+                converterData.setRoot($("#txtStart").val());
+                converterData.restartGraph();
+
+                return false;
+            }
+
+            //--------
 
             var map = converterData.getFullMap();
-
-
 
             converterData.setRoot($("#txtStart").val());
 
@@ -162,6 +173,8 @@ var menu = (function(){
             };
 
 
+
+
             graph.setOpenNode(open);
             graph.setOpenNodePositions({});
 
@@ -172,6 +185,8 @@ var menu = (function(){
             graph.format();
 
             return false;
+
+
 
         }
 
@@ -199,17 +214,17 @@ var menu = (function(){
 
     function restore(){
 
-
         if(openNodeCache == null) return; //checking if the app is or  using parameters
 
         if(parameters.hasParameters()){
             parameters.getParameters();
-            return;
+            // return;
         }
 
         resetGraphConfig();
 
         converterData.restartGraph();
+
     };
 
     function resetGraphConfig(){
@@ -221,8 +236,11 @@ var menu = (function(){
         grid.restoreInstance();
 
         openNodeCache = null;
-        converterData.resetRoot();
-        graph.clearFixedNodes();
+
+        if(!parameters.hasParameters()){
+            converterData.resetRoot();
+            graph.clearFixedNodes();
+        }
 
         graph.setGridRestoreFlag(true);
 

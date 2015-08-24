@@ -69,6 +69,8 @@ var graph = (function(){
 
         link.append("line")
             .attr('class', function(d){
+                d.source.fixed = false;
+                d.target.fixed = false;
                 return 'link-' + d.linkType;
             });
 
@@ -520,6 +522,10 @@ var graph = (function(){
     }
 
     function formatGraph(){
+
+        // taking the menu's out
+        $("body").removeClass('.canvas-slid');
+
 
         force.resume();
 

@@ -8,6 +8,8 @@ var main = (function(){
     $('.navmenu').offcanvas({ autohide: false});
     window.onload = function(){
 
+        hideMenu();
+
         if(!parameters.hasViewRequested() && !parameters.hasSkipedIntro() ){
             showBodyIntro();
         }else{
@@ -17,6 +19,7 @@ var main = (function(){
             $('.navmenu').offcanvas('hide');
 
             setTimeout(function(){
+
 
                 menuDict.init();
                 graphDictionary.init();
