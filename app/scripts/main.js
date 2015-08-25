@@ -5,18 +5,11 @@ var main = (function(){
     var tour = null;
     var loadedPage = true; //this is going to be used just when the user loads the page
 
-    $('.navmenu').offcanvas({ autohide: false});
     window.onload = function(){
-
-        hideMenu();
 
         if(!parameters.hasViewRequested() && !parameters.hasSkipedIntro() ){
             showBodyIntro();
         }else{
-
-            $('.navmenu').offcanvas('hide');
-            $('.navmenu').show();
-            $('.navmenu').offcanvas('hide');
 
             setTimeout(function(){
 
@@ -26,14 +19,13 @@ var main = (function(){
                 converterData.init();
                 converterData.request();
 
-            }, 650);
+            }, 1000);
         }
 
     }
 
 
     // Click functions
-    $('#startBtn').click(showBodyContent);
     $('#startBtn').click(showBodyContent);
 
     $('.help-btn').click(showBodyIntro);
@@ -82,7 +74,6 @@ var main = (function(){
                 graphDictionary.init();
                 converterData.init();
                 converterData.request();
-                // tourGraphInit();
 
             }, 650);
 
