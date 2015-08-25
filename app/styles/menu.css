@@ -310,6 +310,11 @@ form{
 .help-btn{
     cursor: pointer !important;
 
+    font-size: 14px !important;
+    line-height: 1.5em;
+    letter-spacing: .05rem;
+    font-weight: bold !important;
+
     -webkit-transition: all .35s ease;
     -moz-transition: all .35s ease;
     -o-transition: all .35s ease;
@@ -317,5 +322,5 @@ form{
 }
 
 .help-btn:hover{
-    text-decoration: underline !important;
+    text-decoration: none !important;
 }

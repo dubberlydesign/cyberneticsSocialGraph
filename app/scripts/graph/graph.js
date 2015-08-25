@@ -336,6 +336,7 @@ var graph = (function(){
             if((d.name in openNodePositions)){
 
                 // Everything is going to be related to the main root
+
                 var mainRoot = openNodePositions[converterData.getRoot()];
                 mainRoot.fixed = true;
 

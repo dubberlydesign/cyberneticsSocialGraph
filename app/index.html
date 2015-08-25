@@ -41,7 +41,7 @@
 
                 <li class='filter-item'>
                     <a href="#" data-toggle="collapse" data-target=".navbar-collapse" id="all">
-                        See All
+                        See the entire graph
                     </a>
                 </li>
 
@@ -78,7 +78,7 @@
                     <a href="#" data-toggle="collapse" data-target=".navbar-collapse" id="computers-pioneer">
                         <img src="./images/menu/computersPioneer.png" class="bullet">
                         <span class="filter computers-pioneer">
-                            Computer Pioneer
+                            Computer Pioneers
                         </span>
                     </a>
                 </li>
@@ -88,7 +88,7 @@
                     <a href="#" data-toggle="collapse" data-target=".navbar-collapse" id="counter-culture">
                         <img src="./images/menu/counterCulture.png" class="bullet">
                         <span class="counter-culture">
-                            Counter-culture Leader
+                            Counterculture Leaders
                         </span>
                     </a>
                 </li>
@@ -128,16 +128,39 @@
                 <li class='filter-item'>
                     <a href="#" data-toggle="collapse" data-target=".navbar-collapse" id="related" class='link-item'>
                         <img src="./images/menu/line-relation.png">
-                        Relations
+                        Connections to events or organizations
                     </a>
                 </li>
 
                 <li>
                     <hr><br>
                 </li>
+
                 <li>
+
+                </li>
                     <p>
                         <span class='menu-info'>Create your own graph</span>
+                    </p>
+                <li>
+
+                <li>
+                    <form id="formOwnGraph">
+                        <div class='col-lg-12 col-md-12 col-xs-12 col-sm-12 form-row'>
+                            <i class="fa fa-search input-icon"></i>
+                            <input type="text" data-provide="typeahead" id='ownStart' placeHolder='Start with...' autocomplete="off" required>
+                            <i class="fa fa-list-ul input-btn txt-start" data-toggle="modal" data-target="#modal"></i>
+                        </div>
+
+                        <div class='col-lg-12 col-md-12 col-xs-12 col-sm-12 form-row'>
+                            <button type="submit" class="btn btn-default menu-btn" id='createOwn'>Create</button>
+                            <button type="reset" class="btn btn-default btn-danger btn-reset menu-btn" id='resetBtn'>Clear</button>
+                        </div>
+
+                    </form>
+                </li>
+                    <p>
+                        <span class='menu-info'>See how people are connected</span>
                     </p>
                 </li>
 
@@ -153,7 +176,7 @@
 
                         <div class='col-lg-12 col-md-12 col-xs-12 col-sm-12 form-row'>
                             <i class="fa fa-search input-icon"></i>
-                            <input type="text" data-provide="typeahead" id='txtEnd' placeHolder='End' autocomplete="off">
+                            <input type="text" data-provide="typeahead" id='txtEnd' placeHolder='End' autocomplete="off" required>
                             <i class="fa fa-list-ul input-btn txt-end" data-toggle="modal" data-target="#modal"></i>
                         </div>
 
@@ -187,7 +210,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">How Cybernetics Connects Computing, Counterculture, and Design</a>
+              <a class="navbar-brand" href="#">How cybernetics connects computing, counterculture, and design</a>
             </div>
 
             <div class="zoom-control zoom-div">
@@ -214,7 +237,7 @@
                       <div class='row'>
                           <div class='col-lg-4 col-sm-4 col-md-4 col-xs-4'>
                               <ul class='modal-menu'>
-                                  <li class='modal-see-all all'>
+                                  <li class='modal-see-all scientists'>
                                       All
                                   </li>
                                   <li class='modal-see-all designers'>
@@ -291,7 +314,7 @@
                 <div class='row'>
                     <div class="col-lg-12 col-sd-12 col-md-12 col-xs-12">
                         <br>
-                        <h1><strong>How cybernetics <br>connects Computing, <br>the Counterculture,<br>and Design.</strong></h1>
+                        <h1><strong>How cybernetics connects<br>computing, the counterculture,<br>and design</strong><br>— [an interactive social graph]</h1>
                     </div>
                 </div>
 
@@ -308,7 +331,7 @@
                         <br>
 
                         <p>
-                            This piece accompanies an article by the same title that appears in the catalog for a Walker Art Center exhibit, titled <a href='http://www.walkerart.org/calendar/2015/hippie-modernism-struggle-utopia' target='_blank'>"Hippie Modernism: The Struggle for Utopia."</a>
+                            This piece accompanies an article by the same title that appears in the catalog for an exhibit at the Walker Art Center exhibit, titled <a href='http://www.walkerart.org/calendar/2015/hippie-modernism-struggle-utopia' target='_blank'>"Hippie Modernism: The Struggle for Utopia"</a>.
                         </p>
 
                         <br>
@@ -320,13 +343,13 @@
                         <br>
 
                         <p>
-                            As a starting point, we select the paper <i>"Behavior, Purpose, and Teleology"</i> authored by a physiologist Arturo Rosenblueth, an engineer Julian Bigelow and a mathematician Norbert Wiener and published in the journal Philosophy of Science.
+                            As a starting point, we select the paper <a href='http://pespmc1.vub.ac.be/books/wiener-teleology.pdf' target='_blank'>"Behavior, Purpose, and Teleology"</a> authored by a physiologist Arturo Rosenblueth, an engineer Julian Bigelow and a mathematician Norbert Wiener and published in the journal <i>Philosophy of Science</i>.
                         </p>
 
                         <br>
 
                         <p>
-                            <i>You can explore the graph by clicking, mousing over or dragging any of the objects. Select a dot to learn more.</i>
+                            <i>You can explore the graph. Click on a node to expand the graph and see more connections; click on a name to see details; mouse over links to learn about the nature of connections; drag nodes to reshape the graph.</i>
                         </p>
 
                         <br>

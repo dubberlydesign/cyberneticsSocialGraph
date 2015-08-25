@@ -38,6 +38,8 @@ var menuModal = (function(){
 
         var filter = $(this).attr('class').split(' ')[1];
 
+        console.log(filter);
+
         createContent(converterData.applyFilter(filter));
 
         $(this).addClass('active');

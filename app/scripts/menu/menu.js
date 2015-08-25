@@ -21,18 +21,20 @@ var menu = (function(){
 
         $("#txtStart").typeahead({ source: source });
         $("#txtEnd").typeahead({ source: source });
+        $("#ownStart").typeahead({ source: source });
+
 
     }
 
     $('.navbar-toggle').on('click', function(){
 
-        if(firstTimeMenu){
-            firstTimeMenu = false;
-
-
-            main.introduceMenu();
-
-        }
+        // if(firstTimeMenu){
+        //     firstTimeMenu = false;
+        //
+        //
+        //     main.introduceMenu();
+        //
+        // }
 
     });
 
@@ -132,9 +134,7 @@ var menu = (function(){
 
         var valid = converterData.checkNodeNameExists($("#txtStart").val()) && converterData.checkNodeNameExists($("#txtEnd").val());
 
-        console.log(converterData.checkNodeNameExists($("#txtStart").val()), $("#txtEnd").val());
-
-        if(valid || converterData.checkNodeNameExists($("#txtStart").val())){
+        if(valid || converterData.checkNodeNameExists($("#txtStart").val()) || converterData.checkNodeNameExists($("#ownStart").val())){
 
             $('.typeahead').find('.active').removeClass('active');
 
@@ -146,10 +146,24 @@ var menu = (function(){
                 grid.saveInstance();
             }
 
+            //create your own graph
+
+            if($("#ownStart").val().length >0 || converterData.checkNodeNameExists($("#ownStart").val())){
+                graph.setOpenNode({});
+                graph.setOpenNodePositions({});
+
+                converterData.setRoot($("#ownStart").val());
+                converterData.restartGraph();
+
+                return false;
+            }
+
+
             // in case of just the start field is fill it up
 
             if($("#txtEnd").val().length <=0 || !converterData.checkNodeNameExists($("#txtEnd").val())){
                 graph.setOpenNode({});
+                graph.setOpenNodePositions({});
 
                 converterData.setRoot($("#txtStart").val());
                 converterData.restartGraph();
@@ -229,6 +243,8 @@ var menu = (function(){
 
     function resetGraphConfig(){
 
+        console.log(openNodeCache, openNodePositionCache);
+
 
         graph.setOpenNode(openNodeCache);
         graph.setOpenNodePositions($.extend( {}, openNodePositionCache));
@@ -237,7 +253,7 @@ var menu = (function(){
 
         openNodeCache = null;
 
-        if(!parameters.hasParameters()){
+        if(!parameters.hasParameters() || $("#ownStart").val().length >0 || $("#txtStart").val().length >0){
             converterData.resetRoot();
             graph.clearFixedNodes();
         }
