@@ -158,19 +158,6 @@ var menu = (function(){
                 return false;
             }
 
-
-            // in case of just the start field is fill it up
-
-            if($("#txtEnd").val().length <=0 || !converterData.checkNodeNameExists($("#txtEnd").val())){
-                graph.setOpenNode({});
-                graph.setOpenNodePositions({});
-
-                converterData.setRoot($("#txtStart").val());
-                converterData.restartGraph();
-
-                return false;
-            }
-
             //--------
 
             var map = converterData.getFullMap();
@@ -186,9 +173,6 @@ var menu = (function(){
                 open[shortPath[i]] = shortPath[i];
             };
 
-
-
-
             graph.setOpenNode(open);
             graph.setOpenNodePositions({});
 
@@ -200,8 +184,6 @@ var menu = (function(){
 
             return false;
 
-
-
         }
 
         return false;
@@ -211,8 +193,10 @@ var menu = (function(){
 
         if($(this).hasClass('txt-start')){
             inputObj = $("#txtStart");
-        }else{
+        }else if($(this).hasClass('txt-end')){
             inputObj = $("#txtEnd");
+        }else{
+            inputObj = $("#ownStart");
         }
 
         menuModal.create();
@@ -242,8 +226,6 @@ var menu = (function(){
     };
 
     function resetGraphConfig(){
-
-        console.log(openNodeCache, openNodePositionCache);
 
 
         graph.setOpenNode(openNodeCache);
