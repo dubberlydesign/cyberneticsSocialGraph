@@ -7,20 +7,31 @@ var main = (function(){
 
     window.onload = function(){
 
-        if(!parameters.hasViewRequested() && !parameters.hasSkipedIntro() ){
-            showBodyIntro();
-        }else{
-
-            setTimeout(function(){
+        showBodyContent();
+        setTimeout(function(){
 
 
-                menuDict.init();
-                graphDictionary.init();
-                converterData.init();
-                converterData.request();
+            menuDict.init();
+            graphDictionary.init();
+            converterData.init();
+            converterData.request();
 
-            }, 1000);
-        }
+        }, 1000);
+
+        // if(!parameters.hasViewRequested() && !parameters.hasSkipedIntro() ){
+        //     showBodyIntro();
+        // }else{
+        //
+        //     setTimeout(function(){
+        //
+        //
+        //         menuDict.init();
+        //         graphDictionary.init();
+        //         converterData.init();
+        //         converterData.request();
+        //
+        //     }, 1000);
+        // }
 
     }
 

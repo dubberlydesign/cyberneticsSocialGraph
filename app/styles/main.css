@@ -173,3 +173,35 @@ a{
 .body-intro, .body-content {
     display: none;
 }
+
+.control-div{
+    width: 190px;
+    height: 600px;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    z-index: 1000;
+    /*display: inline-block;*/
+}
+
+/*Control input*/
+
+.reset-settings {
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+.control-input {
+    padding-left : 0 !important;
+    width: 70px;
+    font-size: 12px !important;
+    line-height: 1.5em;
+    letter-spacing: .05rem;
+    border: 0;
+    color: #171616 !important;
+}
+
+#slider-friction, #slider-gravity, #slider-linkStrength, #slider-linkDistance, #slider-charge {
+    width: 150px !important;
+    margin-left: 25px !important;
+}

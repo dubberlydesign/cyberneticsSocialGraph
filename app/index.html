@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
         <link rel="stylesheet" href="../bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.css">
         <link rel="stylesheet" href="../bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css">
+        <link rel="stylesheet" href="../bower_components/jqueryui/themes/smoothness/jquery-ui.min.css">
         <!-- endbower -->
         <!-- endbuild -->
         <!-- build:css(.tmp) styles/main.css -->
@@ -224,6 +225,45 @@
                 </ul>
             </div>
 
+            <div class="graph-control control-div">
+                <p>
+                    <span class='menu-info'>Friction:</span>
+                    <input type="text" id="amount-friction" readonly class="control-input">
+                </p>
+
+                <div id="slider-friction"></div>
+
+                <p>
+                    <span class='menu-info'>Gravity:</span>
+                    <input type="text" id="amount-gravity" readonly class="control-input">
+                </p>
+
+                <div id="slider-gravity"></div>
+
+                <p>
+                    <span class='menu-info'>linkStrength:</span>
+                    <input type="text" id="amount-linkStrength" readonly class="control-input">
+                </p>
+
+                <div id="slider-linkStrength"></div>
+
+                <p>
+                    <span class='menu-info'>linkDistance:</span>
+                    <input type="text" id="amount-linkDistance" readonly class="control-input">
+                </p>
+
+                <div id="slider-linkDistance"></div>
+
+                <p>
+                    <span class='menu-info'>charge:</span>
+                    <input type="text" id="amount-charge" readonly class="control-input">
+                </p>
+
+                <div id="slider-charge"></div>
+
+                <button type="button" class="btn btn-danger reset-settings">Reset Settings</button>
+            </div>
+
 
             <!-- Modal -->
             <div class="modal fade" id="modal" tabindex="-1" role="dialog">
@@ -354,7 +394,7 @@
 
                         <br>
 
-                        <button type="submit" class="btn btn-default btn-lg" id='startBtn'>Start Exploring</button>
+                        <button class="btn btn-default btn-lg" id='startBtn'>Start Exploring</button>
                     </div>
 
                 </div>
@@ -376,6 +416,8 @@
         <script src="../bower_components/d3-tip/index.js"></script>
         <script src="../bower_components/bootstrap3-typeahead/bootstrap3-typeahead.min.js"></script>
         <script src="../bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js"></script>
+        <script src="../bower_components/jqueryui/jquery-ui.min.js"></script>
+        <script src="../bower_components/jqueryui/ui/slider.js"></script>
         <!-- endbuild -->
 
         <!-- build:js({app,.tmp}) scripts/main.js -->

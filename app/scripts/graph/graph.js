@@ -8,14 +8,20 @@ var graph = (function(){
 
     var nodeTooltipCounter = [];
 
+    var friction = 58;
+    var gravity = 1;
+    var linkStrength = 60;
+    var linkDistance = 150;
+    var charge = -1400;
+
     var force = d3.layout.force()
         .charge(function( d, i ) {
-            return i ? -1400: 0;
+            return i ? charge: 0;
         })
-        .gravity( 0.01 )
-        .friction( .58 )
-        .linkStrength( .6 )
-        .linkDistance( 150 )
+        .gravity( gravity/100 )
+        .friction( friction/100 )
+        .linkStrength( linkStrength/100 )
+        .linkDistance( linkDistance )
         .size( [w, h]);
 
     var spacebar = false;
@@ -928,6 +934,95 @@ var graph = (function(){
         if(link != null) link.remove();
         if(text != null) text.remove();
     }
+
+
+    // ##########
+
+    $( "#slider-friction" ).slider({
+      range: "min",
+      value: friction,
+      min: 0,
+      max: 100,
+      slide: function( event, ui ) {
+        $( "#amount-friction" ).val( (ui.value/100) );
+        force.friction(ui.value/100);
+        formatGraph();
+      }
+    });
+    $( "#amount-friction"  ).val( (friction/100) );
+
+    $( "#slider-gravity" ).slider({
+      range: "min",
+      value: gravity,
+      min: 0,
+      max: 100,
+      slide: function( event, ui ) {
+        $( "#amount-gravity" ).val( (ui.value/100) );
+        force.gravity(ui.value/100);
+        formatGraph();
+      }
+    });
+    $( "#amount-gravity"  ).val( (gravity/100) );
+
+    $( "#slider-linkStrength" ).slider({
+      range: "min",
+      value: linkStrength,
+      min: 0,
+      max: 100,
+      slide: function( event, ui ) {
+        $( "#amount-linkStrength" ).val( (ui.value/100) );
+        force.linkStrength(ui.value/100);
+        formatGraph();
+      }
+    });
+    $( "#amount-linkStrength"  ).val( (linkStrength/100) );
+
+    $( "#slider-linkDistance" ).slider({
+      range: "min",
+      value: linkDistance,
+      min: 0,
+      max: 2000,
+      slide: function( event, ui ) {
+        $( "#amount-linkDistance" ).val( (ui.value) );
+        force.linkDistance(ui.value);
+        formatGraph();
+      }
+    });
+    $( "#amount-linkDistance"  ).val( (linkDistance) );
+
+    $( "#slider-charge" ).slider({
+      range: "min",
+      value: charge,
+      min: -3000,
+      max: 3000,
+      slide: function( event, ui ) {
+        $( "#amount-charge" ).val( (ui.value) );
+        force.charge(function( d, i ) {
+            return i ? ui.value: 0;
+        });
+        formatGraph();
+      }
+    });
+    $( "#amount-charge"  ).val( (charge) );
+
+    $(".reset-settings").on("click", function(){
+        $( "#amount-charge"  ).val( (charge) );
+        $( "#amount-linkDistance"  ).val( (linkDistance) );
+        $( "#amount-linkStrength"  ).val( (linkStrength/100) );
+        $( "#amount-gravity"  ).val( (gravity/100) );
+        $( "#amount-friction"  ).val( (friction/100) );
+
+
+        force.charge(function( d, i ) {
+            return i ? charge: 0;
+        })
+        .linkDistance(linkDistance)
+        .linkStrength(linkStrength/100)
+        .gravity(gravity/100)
+        .friction(friction/100);
+
+        formatGraph();
+    });
 
 
     return {
