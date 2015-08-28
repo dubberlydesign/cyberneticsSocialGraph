@@ -237,6 +237,15 @@ var menu = (function(){
 
     };
 
+    $(".read-article").on("click", function(){
+        var w = window.innerWidth *0.85;
+        var h = window.innerHeight *0.85;
+
+        window.open($(this).attr('href'), '_blank', 'width='+ w +',height='+ h + '');
+
+        return false;
+    })
+
     function resetGraphConfig(){
 
 

@@ -7,31 +7,20 @@ var main = (function(){
 
     window.onload = function(){
 
-        showBodyContent();
-        // setTimeout(function(){
-        //
-        //
-        //     menuDict.init();
-        //     graphDictionary.init();
-        //     // converterData.init();
-        //     converterData.request();
-        //
-        // }, 1000);
+        if(!parameters.hasViewRequested() && !parameters.hasSkipedIntro() ){
+            showBodyIntro();
+        }else{
 
-        // if(!parameters.hasViewRequested() && !parameters.hasSkipedIntro() ){
-        //     showBodyIntro();
-        // }else{
-        //
-        //     setTimeout(function(){
-        //
-        //
-        //         menuDict.init();
-        //         graphDictionary.init();
-        //         converterData.init();
-        //         converterData.request();
-        //
-        //     }, 1000);
-        // }
+            setTimeout(function(){
+
+
+                menuDict.init();
+                graphDictionary.init();
+                converterData.init();
+                converterData.request();
+
+            }, 1000);
+        }
 
     }
 
@@ -39,7 +28,11 @@ var main = (function(){
     // Click functions
     $('#startBtn').click(showBodyContent);
 
-    $('.help-btn').click(showBodyIntro);
+    $('.help-btn').click(function(){
+
+        hideMenu();
+        setTimeout(showBodyIntro, 300);
+    });
 
     // $('svg').click(hideMenu);
 
@@ -163,7 +156,7 @@ var main = (function(){
         }
     }
 
-    // I decided to just leave as a comment this function because
+    // I decided to just leave this function as a comment because
     // it would be useful in some other case. Right now, the menu it's
     // pretty understandable
 
