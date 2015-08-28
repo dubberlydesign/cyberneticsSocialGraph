@@ -174,16 +174,6 @@ a{
     display: none;
 }
 
-.control-div{
-    width: 190px;
-    height: 600px;
-    position: absolute;
-    top: 60px;
-    right: 0;
-    z-index: 1000;
-    /*display: inline-block;*/
-}
-
 /*Control input*/
 
 .reset-settings {
@@ -199,6 +189,7 @@ a{
     letter-spacing: .05rem;
     border: 0;
     color: #171616 !important;
+    background-color: #f8f8f8 !important;
 }
 
 #slider-friction, #slider-gravity, #slider-linkStrength, #slider-linkDistance, #slider-charge {

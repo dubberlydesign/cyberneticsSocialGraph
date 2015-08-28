@@ -8,15 +8,15 @@ var main = (function(){
     window.onload = function(){
 
         showBodyContent();
-        setTimeout(function(){
-
-
-            menuDict.init();
-            graphDictionary.init();
-            converterData.init();
-            converterData.request();
-
-        }, 1000);
+        // setTimeout(function(){
+        //
+        //
+        //     menuDict.init();
+        //     graphDictionary.init();
+        //     // converterData.init();
+        //     converterData.request();
+        //
+        // }, 1000);
 
         // if(!parameters.hasViewRequested() && !parameters.hasSkipedIntro() ){
         //     showBodyIntro();

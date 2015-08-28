@@ -994,7 +994,7 @@ var graph = (function(){
       range: "min",
       value: charge,
       min: -10000,
-      max: 10000,
+      max: 0,
       slide: function( event, ui ) {
         $( "#amount-charge" ).val( (ui.value) );
         force.charge(function( d, i ) {

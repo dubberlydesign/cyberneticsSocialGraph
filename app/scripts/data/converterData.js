@@ -25,7 +25,7 @@ var converterData = (function(){
     };
 
     var map = {};
-    
+
     var requested = false;
 
 
@@ -166,6 +166,7 @@ var converterData = (function(){
                         tagsDict[data[i].name] = data[i].name;
 
                         //filtering
+
                         if(filter[menuDict.getOptionKey(data[i].type)] != undefined)
                             filter[menuDict.getOptionKey(data[i].type)].push(data[i].name);
 
@@ -226,7 +227,6 @@ var converterData = (function(){
                 menu.init(); // making the autocomplete avaliable based on the list
 
                 main.introInit();
-
 
                 graph.start(converted);
 

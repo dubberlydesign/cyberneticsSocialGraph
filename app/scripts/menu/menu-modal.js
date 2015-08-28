@@ -11,6 +11,7 @@ var menuModal = (function(){
         selected = null;
 
         //displaying all at once
+        console.log(converterData.applyFilter('scientists'));
         createContent(converterData.applyFilter('scientists'));
 
 

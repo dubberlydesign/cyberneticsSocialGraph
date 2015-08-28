@@ -87,7 +87,13 @@ p{
 
 .container { max-width: 100%; }
 
-ul.nav.navmenu-nav{ margin-top: 75px; }
+ul.nav.navmenu-nav{ margin-top: 55px; }
+ul.no-top { margin-top: 0 !important;}
+
+.panel-default, .panel-heading {
+    border-color: #f8f8f8 !important;
+    background-color: #f8f8f8 !important;
+}
 
 @media (min-width: 1px) {
   .navbar-toggle { display: block !important; }
@@ -125,7 +131,7 @@ ul.nav.navmenu-nav{ margin-top: 75px; }
 hr { border-top: 1px solid #ccc; }
 
 input{
-    width: 300px;
+    width: 280px;
     height: 30px;
     padding-left: 32px;
     padding-right: 30px;
@@ -138,7 +144,8 @@ input{
 
 .input-btn {
     position: absolute !important;
-    margin-left: -30px;
+    right: 0;
+    top: 0;
     cursor: pointer;
     color: white;
 

@@ -26,20 +26,32 @@ var menu = (function(){
 
     }
 
-    $('.navbar-toggle').on('click', function(){
-
-        // if(firstTimeMenu){
-        //     firstTimeMenu = false;
-        //
-        //
-        //     main.introduceMenu();
-        //
-        // }
-
-    });
+    // $('.navbar-toggle').on('click', function(){
+    //
+    //     if(firstTimeMenu){
+    //         firstTimeMenu = false;
+    //
+    //
+    //         main.introduceMenu();
+    //
+    //     }
+    //
+    // });
 
 
     $('.nav a').on('click', function(){
+
+        if($(this).hasClass('accordion-option') || $(this).hasClass('collapsed-item')){
+
+            $("body").find(".icon-collapse").empty().html('<i class="fa fa-caret-down icon-animation"></i>');
+
+            if(!$(this).find("span").hasClass("opened")){
+                $(this).find("span").empty().html('<i class="fa fa-caret-up icon-animation"></i>');
+                $(this).find("span").addClass("opened");
+            }
+
+            return;
+        }
 
         if($(this).parent().hasClass('active')){
             delete active[$(this).attr('id')]; //removing element from the active list
