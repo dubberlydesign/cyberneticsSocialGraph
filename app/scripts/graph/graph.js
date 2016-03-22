@@ -2,57 +2,55 @@
 
 var graph = (function(){
 
+  function createGraph(graph){
+      var w = window.innerWidth;
+      var h = window.innerHeight;
 
-    var w = window.innerWidth;
-    var h = window.innerHeight;
+      var nodeTooltipCounter = [];
 
-    var nodeTooltipCounter = [];
+      var force = d3.layout.force()
+          .charge(function( d, i ) {
+              return i ? -1400: 0;
+          })
+          .gravity( 0.01 )
+          .friction( .58 )
+          .linkStrength( .6 )
+          .linkDistance( 150 )
+          .size( [w, h]);
 
-    var force = d3.layout.force()
-        .charge(function( d, i ) {
-            return i ? -1400: 0;
-        })
-        .gravity( 0.01 )
-        .friction( .58 )
-        .linkStrength( .6 )
-        .linkDistance( 150 )
-        .size( [w, h]);
-
-    var spacebar = false;
-    var min_zoom = 0.15;
-    var max_zoom = 1.8; //7
-    var svg = d3.select(".body-content").append("svg");
+      var spacebar = false;
+      var min_zoom = 0.15;
+      var max_zoom = 1.8; //7
+      var svg = d3.select(".body-content").append("svg");
 
 
-    var zoom = d3.behavior.zoom().scaleExtent([min_zoom, max_zoom]);
+      var zoom = d3.behavior.zoom().scaleExtent([min_zoom, max_zoom]);
 
-    var animationOver = true;
+      var animationOver = true;
 
-    var g = svg.append("g").classed('graph-container', true);
-    svg.style("cursor", "move");
+      var g = svg.append("g").classed('graph-container', true);
+      svg.style("cursor", "move");
 
-    window.addEventListener('keydown', function(event) {
-        if (event.keyCode === 32) { spacebar = true; }
-    });
+      window.addEventListener('keydown', function(event) {
+          if (event.keyCode === 32) { spacebar = true; }
+      });
 
-    window.addEventListener('keyup', function(event) {
-        if (event.keyCode === 32) { spacebar = false; }
-    });
+      window.addEventListener('keyup', function(event) {
+          if (event.keyCode === 32) { spacebar = false; }
+      });
 
-    // graph's core
+      // graph's core
 
-    var node = null,
-        nodePath = null,
-        link = null,
-        text = null,
-        cache = null,
-        shortPath = [],
-        openNode = {},
-        openNodePositions = {},
-        filterAll = false,
-        gridRestoreFlag = false;  //nodes that are being displayed and opened (showing all it's children)
-
-    function createGraph(graph){
+      var node = null,
+          nodePath = null,
+          link = null,
+          text = null,
+          cache = null,
+          shortPath = [],
+          openNode = {},
+          openNodePositions = {},
+          filterAll = false,
+          gridRestoreFlag = false;  //nodes that are being displayed and opened (showing all it's children)
 
         var linkedByIndex = {};
         nodeTooltipCounter = [];
@@ -296,7 +294,9 @@ var graph = (function(){
             g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
         });
 
+        //graph functions
 
+        svg.on("click", clearTooltips);
         svg.call(zoom);
 
         resize();
@@ -757,10 +757,6 @@ var graph = (function(){
 
         // formatGraph();
     }
-
-    //graph functions
-
-    svg.on("click", clearTooltips);
 
     function clearTooltips( event ){
 

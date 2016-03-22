@@ -25,9 +25,8 @@ var converterData = (function(){
     };
 
     var map = {};
-    
-    var requested = false;
 
+    var requested = false;
 
     function findPosition(name, array){
 
@@ -151,7 +150,7 @@ var converterData = (function(){
 
             $.getJSON( './scripts/data/data.json', function(data){
 
-                graph.setGridRestoreFlag(false);
+                // graph.setGridRestoreFlag(false);
 
                 //creating all nodes
                 for(var i=0; i < data.length; i++){
@@ -177,11 +176,12 @@ var converterData = (function(){
                             "name" :data[i].name,
                             "type" : data[i].type,
                             "symbol": data[i].symbol,
-                            "id" : data[i].name.replace(" ", ""),
+                            "id" : i + 1,
                             'x' : window.innerWidth/2,
                             'y' : window.innerHeight/2,
                             'px' : window.innerWidth/2,
-                            'py' : window.innerHeight/2
+                            'py' : window.innerHeight/2,
+                            'color': graphDictionary.getColor(data[i].type)
                         };
 
                         if (converted['root'].indexOf( node.name ) !== -1) {
@@ -215,8 +215,8 @@ var converterData = (function(){
                     linkInfo = caption[linkAux];
 
                     converted.links.push({
-                        "source" : source,
-                        "target": target,
+                        "source" : converted.nodes[source],
+                        "target": converted.nodes[target],
                         "linkType": data[i].linkType,
                         "linkInfo": linkInfo,
                         "depth": data[i].depth
@@ -227,8 +227,9 @@ var converterData = (function(){
 
                 main.introInit();
 
-
-                graph.start(converted);
+                var graphType = 'bundle';
+                var graphFn = graph[graphType];
+                graphFn.start(converted);
 
                 parameters.getParameters();
 
