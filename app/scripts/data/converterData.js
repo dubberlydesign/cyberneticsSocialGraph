@@ -88,15 +88,7 @@ var converterData = (function(){
         return filter[ftlr];
     }
 
-    function init(){
-        var dict = menuDict.getOptionKeys();
-
-
-        for(var i = 0; i < dict.length; i++){
-            filter[dict[i]] = [];
-        }
-
-    }
+    function init(){}
 
     return {
         filterAll : filterAll,
@@ -160,18 +152,6 @@ var converterData = (function(){
                         nameAux = data[i].name;
                         map[nameAux] = {};
 
-                        //autocomplete into the menu
-                        tags.push(data[i].name);
-                        tagsDict[data[i].name] = data[i].name;
-
-                        //filtering
-                        if(filter[menuDict.getOptionKey(data[i].type)] != undefined)
-                            filter[menuDict.getOptionKey(data[i].type)].push(data[i].name);
-
-                        if(data[i].type != 0)
-                            filter['scientists'].push(data[i].name);
-
-
                         var node = {
                             "name" :data[i].name,
                             "type" : data[i].type,
@@ -223,18 +203,9 @@ var converterData = (function(){
                     });
                 }
 
-                menu.init(); // making the autocomplete avaliable based on the list
-
-                main.introInit();
-
                 var graphType = 'bundle';
                 var graphFn = graph[graphType];
                 graphFn.start(converted);
-
-                parameters.getParameters();
-
-
-
             });
         }
     };

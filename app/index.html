@@ -1,367 +1,71 @@
 <!doctype html>
 <html class="no-js">
-    <head>
-        <meta charset="utf-8">
-        <title>Design Week 2016</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
-
-        <!-- <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.css"> -->
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-
-        <!-- <link rel="shortcut icon" href="/favicon.ico"> -->
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <!-- build:css styles/vendor.css -->
-        <!-- bower:css -->
-        <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
-        <link rel="stylesheet" href="../bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.css">
-        <link rel="stylesheet" href="../bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css">
-        <!-- endbower -->
-        <!-- endbuild -->
-        <!-- build:css(.tmp) styles/main.css -->
-        <link rel="stylesheet" href="styles/main.css">
-        <link rel="stylesheet" href="styles/graph.css">
-        <link rel="stylesheet" href="styles/zoom.css">
-        <link rel="stylesheet" href="styles/menu.css">
-        <link rel="stylesheet" href="styles/style.css">
-        <link rel="stylesheet" href="styles/tooltip.css">
-        <!-- endbuild -->
-    </head>
-    <body>
-
-        <section class='body-content'>
-            <div id='menu' class="navmenu navmenu-default navmenu-fixed-left offcanvas">
-              <ul class="nav navmenu-nav">
-
-                <li>
-                    <p>
-                        <span class='menu-info'>Filters</span>
-                    </p>
-                </li>
-
-                <li class='filter-item'>
-                    <a href="#" data-toggle="collapse" data-target=".navbar-collapse" id="all">
-                        View all nodes and connections
-                    </a>
-                </li>
-
-                <li class='filter-item'>
-                    <a href="#" data-toggle="collapse" data-target=".navbar-collapse" id="scientists">
-                        <img src="./images/menu/scientists.png" class="bullet">
-                        <span class="filter">
-                            Scientists
-                        </span>
-                  </a>
-                </li>
-
-                <li class='filter-item'>
-                    <a href="#" data-toggle="collapse" data-target=".navbar-collapse" id="designers">
-                        <img src="./images/menu/designers.png" class="bullet">
-                        <span class="filter designers">
-                            Designers and Architects
-                        </span>
-                  </a>
-                </li>
-
-
-                <li class='filter-item'>
-                    <a href="#" data-toggle="collapse" data-target=".navbar-collapse" id="design-theorists">
-                        <img src="./images/menu/designersTheorists.png" class="bullet">
-                        <span class="filter designers-theorists">
-                            Design Theorists and Critics
-                        </span>
-                    </a>
-                </li>
-
-
-                <li class='filter-item'>
-                    <a href="#" data-toggle="collapse" data-target=".navbar-collapse" id="computers-pioneer">
-                        <img src="./images/menu/computersPioneer.png" class="bullet">
-                        <span class="filter computers-pioneer">
-                            Computer Pioneers
-                        </span>
-                    </a>
-                </li>
-
-
-                <li class='filter-item'>
-                    <a href="#" data-toggle="collapse" data-target=".navbar-collapse" id="counter-culture">
-                        <img src="./images/menu/counterCulture.png" class="bullet">
-                        <span class="counter-culture">
-                            Counterculture Leaders
-                        </span>
-                    </a>
-                </li>
-
-                <li class='filter-item'>
-                    <a href="#" data-toggle="collapse" data-target=".navbar-collapse" id="publication">
-                        <img src="./images/menu/publication.png" class="bullet">
-                        Publications
-                    </a>
-                </li>
-
-                <li class='filter-item'>
-                    <a href="#" data-toggle="collapse" data-target=".navbar-collapse" id="institution">
-                        <img src="./images/menu/institution.png" class="bullet">
-                        Institutions or Conferences
-                    </a>
-                </li>
-
-                <li class='filter-item'>
-
-                    <a href="#" data-toggle="collapse" data-target=".navbar-collapse" id="personal" class='link-item'>
-                        <img src="./images/menu/line-personal.png">
-                        Personal connections, usually collaborations
-                    </a>
-
-                </li>
-
-                <li class='filter-item'>
-
-                    <a href="#" data-toggle="collapse" data-target=".navbar-collapse" id="influence" class='link-item'>
-                        <img src="./images/menu/line-influence.png">
-                        Influence, usually based on publications
-                    </a>
-
-                </li>
-
-                <li class='filter-item'>
-                    <a href="#" data-toggle="collapse" data-target=".navbar-collapse" id="related" class='link-item'>
-                        <img src="./images/menu/line-relation.png">
-                        Connections to events or organizations
-                    </a>
-                </li>
-
-                <li>
-                    <hr><br>
-                </li>
-
-                <li>
-
-                </li>
-                    <p>
-                        <span class='menu-info'>Start a graph around a designer</span>
-                    </p>
-                <li>
-
-                <li>
-                    <form id="formOwnGraph">
-                        <div class='col-lg-12 col-md-12 col-xs-12 col-sm-12 form-row'>
-                            <i class="fa fa-search input-icon"></i>
-                            <input type="text" data-provide="typeahead" id='ownStart' placeHolder='Start with...' autocomplete="off" required>
-                            <i class="fa fa-list-ul input-btn" data-toggle="modal" data-target="#modal"></i>
-                        </div>
-
-                        <div class='col-lg-12 col-md-12 col-xs-12 col-sm-12 form-row'>
-                            <button type="submit" class="btn btn-default menu-btn" id='createOwn'>OK</button>
-                            <button type="reset" class="btn btn-default btn-danger btn-reset menu-btn" id='resetBtn'>Clear</button>
-                        </div>
-
-                    </form>
-                </li>
-                    <p>
-                        <span class='menu-info'>Start with a connection between two designers</span>
-                    </p>
-                </li>
-
-
-                <li>
-
-                    <form id='form'>
-                        <div class='col-lg-12 col-md-12 col-xs-12 col-sm-12 form-row'>
-                            <i class="fa fa-search input-icon"></i>
-                            <input type="text" data-provide="typeahead" id='txtStart' placeHolder='Start' autocomplete="off" required>
-                            <i class="fa fa-list-ul input-btn txt-start" data-toggle="modal" data-target="#modal"></i>
-                        </div>
-
-                        <div class='col-lg-12 col-md-12 col-xs-12 col-sm-12 form-row'>
-                            <i class="fa fa-search input-icon"></i>
-                            <input type="text" data-provide="typeahead" id='txtEnd' placeHolder='End' autocomplete="off" required>
-                            <i class="fa fa-list-ul input-btn txt-end" data-toggle="modal" data-target="#modal"></i>
-                        </div>
-
-                        <div class='col-lg-12 col-md-12 col-xs-12 col-sm-12 form-row'>
-                            <button type="submit" class="btn btn-default menu-btn" id='seeBtn'>OK</button>
-                            <button type="reset" class="btn btn-default btn-danger btn-reset menu-btn" id='resetBtn'>Clear</button>
-                        </div>
-
-                    </form>
-                </li>
-              </ul>
-
-              <p>
-                  <span class='help-btn menu-info'>Read the introduction</span>
-              </p>
-
-              <!-- <p>
-
-              </p> -->
-            </div>
-
-            <div class="navbar navbar-default navbar-fixed-top">
-              <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target=".navmenu">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="#">Design Week 2016 Social Graph</a>
-            </div>
-
-            <div class="zoom-control zoom-div">
-                <ul class="zoom-control list-unstyled">
-                  <li>
-                    <button type="button" class="btn btn-default zoom-btn zoom-in">+</button>
-                  </li>
-                  <li>
-                    <button type="button" class="btn btn-default zoom-btn zoom-out">–</button>
-                  </li>
-                </ul>
-            </div>
-
-
-            <!-- Modal -->
-            <div class="modal fade" id="modal" tabindex="-1" role="dialog">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close modal-btn" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">List of all people</h4>
-                  </div>
-                  <div class="modal-body">
-                      <div class='row'>
-                          <div class='col-lg-4 col-sm-4 col-md-4 col-xs-4'>
-                              <ul class='modal-menu'>
-                                  <li class='modal-see-all scientists'>
-                                      All
-                                  </li>
-                                  <li class='modal-see-all designers'>
-                                      <!-- <a href="#" class='modal-see-all designers'> -->
-                                          <img src="./images/menu/designers.png">
-                                          <span class="filter designers">
-                                              Designers and Architects
-                                          </span>
-                                      <!-- </a> -->
-                                  </li>
-
-
-                                  <li class='modal-see-all design-theorists'>
-                                      <!-- <a href="#" class='modal-see-all designers-theorists'> -->
-                                          <img src="./images/menu/designersTheorists.png">
-                                          <span class="filter designers-theorists">
-                                              Design Theorists and Critics
-                                          </span>
-                                      <!-- </a> -->
-                                  </li>
-
-
-                                  <li class='modal-see-all computers-pioneer'>
-                                      <!-- <a href="#" class='modal-see-all computers-pioneer'> -->
-                                          <img src="./images/menu/computersPioneer.png">
-                                          <span class="filter computers-pioneer">
-                                              Computer Pioneer
-                                          </span>
-                                      <!-- </a> -->
-                                  </li>
-
-
-                                  <li class='modal-see-all counter-culture'>
-                                      <!-- <a href="#" class='modal-see-all counter-culture'> -->
-                                          <img src="./images/menu/counterCulture.png">
-                                          <span class="counter-culture">
-                                              Counter-culture Leader
-                                          </span>
-                                      <!-- </a> -->
-                                  </li>
-
-                                  <li class='modal-see-all publication'>
-                                      <!-- <a href="#" class='modal-see-all publications'> -->
-                                          <img src="./images/menu/publication.png">
-                                          Publications
-                                      <!-- </a> -->
-                                  </li>
-
-                                  <li class='modal-see-all institution'>
-                                      <!-- <a href="#" class='modal-see-all institutions-conferences'> -->
-                                          <img src="./images/menu/institution.png">
-                                          Institutions or Conferences
-                                      <!-- </a> -->
-                                  </li>
-                              </ul>
-                          </div>
-
-                          <div id='modalContent' class='col-lg-8 col-sm-8 col-md-8 col-xs-8'>
-
-                          </div>
-                      </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default modal-btn" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary modal-btn select-btn" data-dismiss="modal">OK</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-        </section>
-
-        <section class='body-intro'>
-            <div class='container'>
-                <div class='row'>
-                    <div class="col-lg-12 col-sd-12 col-md-12 col-xs-12">
-                        <br>
-                        <h1><strong>Design Week 2016—<br>an interactive social graph</strong></h1>
-                    </div>
-                </div>
-
-                <div class='row'>
-                    <br>
-
-                    <div class="col-lg-12 col-sd-12 col-md-12 col-xs-12 intro-text-block">
-
-
-                        <p>
-                            The San Francisco Bay Area design community has a rich history. This interactive social graph captures these important figures and their connections.
-                        </p>
-
-                        <br>
-
-                        <button type="submit" class="btn btn-default btn-lg" id='startBtn'>Explore the graph</button>
-                    </div>
-
-                </div>
-
-            </div>
-        </section>
-
-
-        <!-- build:js scripts/vendor.js -->
-        <!-- bower:js -->
-        <script src="../bower_components/jquery/dist/jquery.js"></script>
-        <!-- endbower -->
-        <!-- endbuild -->
-
-        <!-- build:js scripts/plugins.js -->
-        <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="../bower_components/jasny-bootstrap/dist/js/jasny-bootstrap.js"></script>
-        <script src="../bower_components/d3/d3.min.js"></script>
-        <script src="../bower_components/d3-tip/index.js"></script>
-        <script src="../bower_components/bootstrap3-typeahead/bootstrap3-typeahead.min.js"></script>
-        <script src="../bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js"></script>
-        <!-- endbuild -->
-
-        <!-- build:js({app,.tmp}) scripts/main.js -->
-        <script src="scripts/zoom-control.js"></script>
-        <script src="scripts/graph/dijkstra.js"></script>
-        <script src="scripts/graph/grid.js"></script>
-        <script src="scripts/graph/graph.js"></script>
-        <script src="scripts/graph/graph-bundle.js"></script>
-        <script src="scripts/graph/graph-dict.js"></script>
-        <script src="scripts/data/converterData.js"></script>
-        <script src="scripts/data/parameters-handler.js"></script>
-        <script src="scripts/menu/menu-dict.js"></script>
-        <script src="scripts/menu/menu.js"></script>
-        <script src="scripts/menu/menu-modal.js"></script>
-        <script src="scripts/main.js"></script>
-
-        <!-- endbuild -->
-</body>
+  <head>
+    <meta charset="utf-8">
+    <title>Design Week 2016</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <!-- <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.css"> -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+    <!-- <link rel="shortcut icon" href="/favicon.ico"> -->
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.css">
+    <link rel="stylesheet" href="../bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css">
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/graph.css">
+    <link rel="stylesheet" href="styles/zoom.css">
+    <link rel="stylesheet" href="styles/menu.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/tooltip.css">
+    <!-- endbuild -->
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <h1>Design Week 2016&mdash;<br>an interactive social graph</h1>
+        </div>
+
+        <div class="col-lg-6 col-md-8">
+          <p>The San Francisco Bay Area design community has a rich history. This interactive social graph captures these important figures and their connections.</p>
+        </div>
+      </div>
+      <div class="body-content"></div>
+    </div>
+
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js scripts/plugins.js -->
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../bower_components/jasny-bootstrap/dist/js/jasny-bootstrap.js"></script>
+    <script src="../bower_components/d3/d3.min.js"></script>
+    <script src="../bower_components/d3-tip/index.js"></script>
+    <script src="../bower_components/bootstrap3-typeahead/bootstrap3-typeahead.min.js"></script>
+    <script src="../bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js({app,.tmp}) scripts/main.js -->
+    <script src="scripts/graph/dijkstra.js"></script>
+    <script src="scripts/graph/grid.js"></script>
+    <script src="scripts/graph/graph.js"></script>
+    <script src="scripts/graph/graph-bundle.js"></script>
+    <script src="scripts/graph/graph-dict.js"></script>
+    <script src="scripts/data/converterData.js"></script>
+    <script src="scripts/main.js"></script>
+
+    <!-- endbuild -->
+  </body>
 </html>

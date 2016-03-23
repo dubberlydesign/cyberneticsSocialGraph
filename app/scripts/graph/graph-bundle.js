@@ -20,6 +20,8 @@ var graph = (function(graph) {
   var svg = d3.select(".body-content").append("svg")
     .attr("width", '100%')
     .attr("height", '100%')
+    .style('max-width', w)
+    .style('max-height', h)
     .attr('viewBox', [0, 0, w, h].join(', '))
   .append("g")
     .attr("transform", "translate(" + w/2 + "," + h/2 + ")");
@@ -28,7 +30,7 @@ var graph = (function(graph) {
 
   function startGraph(data) {
     var nest = d3.nest().key(function(d) { return d.type; }).entries(data.nodes);
-    var test = { parent: null, children: nest.map(function(d,i) { return { name: menuDict.getOptionValue(d.key), children: d.values }; }) };
+    var test = { parent: null, children: nest.map(function(d,i) { return { name: d.key, children: d.values }; }) };
     var nodeData = cluster(test);
     var linkData = bundle(data.links);
     var nodes = svg.selectAll('.node').data(nodeData.filter(function(n){ return !n.children; }));

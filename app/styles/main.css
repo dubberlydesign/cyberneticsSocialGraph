@@ -170,6 +170,19 @@ a{
     padding-left: 4.5em !important;
 }
 
-.body-intro, .body-content {
-    display: none;
+.body-content {
+  position: relative;
+}
+
+.body-content:before {
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+
+.body-content svg {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
