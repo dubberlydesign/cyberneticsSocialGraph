@@ -1,171 +1,27 @@
 [
   {
-    "name": "Reed College",
-    "wikipediaID": "Reed_College",
+    "name": "Adobe",
+    "wikipediaID": "Adobe_Systems",
     "type": 11,
-    "linkTo": "Lloyd Reynolds",
-    "linkType": "related",
-    "linkInfo": 0
-  },
-  {
-    "name": "Reed College",
-    "wikipediaID": 0,
-    "type": 11,
-    "linkTo": "Robert Palladino",
-    "linkType": "related",
-    "linkInfo": 0
-  },
-  {
-    "name": "Reed College",
-    "wikipediaID": 0,
-    "type": 11,
-    "linkTo": "Steve Jobs",
+    "linkTo": "Cleo Huggins",
     "linkType": "influence",
-    "linkInfo": "Jobs was a student at Reed."
+    "linkInfo": "Huggins worked at Adobe."
   },
   {
-    "name": "Reed College",
-    "wikipediaID": 0,
+    "name": "Adobe",
+    "wikipediaID": "Adobe_Systems",
     "type": 11,
-    "linkTo": "Sumner Stone",
+    "linkTo": "Dan Mills",
     "linkType": "influence",
-    "linkInfo": "Stone was a student at Reed."
+    "linkInfo": "Mills worked at Adobe."
   },
   {
-    "name": "Reed College",
-    "wikipediaID": 0,
+    "name": "Adobe",
+    "wikipediaID": "Adobe_Systems",
     "type": 11,
-    "linkTo": "Chuck Bigelow",
-    "linkType": "related",
-    "linkInfo": 0
-  },
-  {
-    "name": "Reed College",
-    "wikipediaID": 0,
-    "type": 11,
-    "linkTo": "Kris Holmes",
-    "linkType": "related",
-    "linkInfo": 0
-  },
-  {
-    "name": "UC Santa Cruz",
-    "wikipediaID": "University_of_California,_Santa_Cruz",
-    "type": 11,
-    "linkTo": "Jack Stauffacher",
-    "linkType": "related",
-    "linkInfo": 0
-  },
-  {
-    "name": "Apple",
-    "wikipediaID": "Apple_Inc.",
-    "type": 11,
-    "linkTo": "Steve Jobs",
+    "linkTo": "Robert Slimbach",
     "linkType": "influence",
-    "linkInfo": "Jobs founded Apple."
-  },
-  {
-    "name": "Apple",
-    "wikipediaID": 0,
-    "type": 11,
-    "linkTo": "Harry Sadler",
-    "linkType": "influence",
-    "linkInfo": "Sadler worked at Apple."
-  },
-  {
-    "name": "Apple",
-    "wikipediaID": 0,
-    "type": 11,
-    "linkTo": "Hugh Dubberly",
-    "linkType": "influence",
-    "linkInfo": "Dubberly worked at Apple."
-  },
-  {
-    "name": "Apple",
-    "wikipediaID": 0,
-    "type": 11,
-    "linkTo": "Clement Mok",
-    "linkType": "influence",
-    "linkInfo": "Mok worked at Apple."
-  },
-  {
-    "name": "Apple",
-    "wikipediaID": 0,
-    "type": 11,
-    "linkTo": "Susan Kare",
-    "linkType": "influence",
-    "linkInfo": "Kare worked at Apple."
-  },
-  {
-    "name": "Apple",
-    "wikipediaID": 0,
-    "type": 11,
-    "linkTo": "John Casado",
-    "linkType": "influence",
-    "linkInfo": "Casado worked at Apple."
-  },
-  {
-    "name": "Apple",
-    "wikipediaID": 0,
-    "type": 11,
-    "linkTo": "Tom Hughes",
-    "linkType": "influence",
-    "linkInfo": "Hughes worked at Apple."
-  },
-  {
-    "name": "Apple",
-    "wikipediaID": 0,
-    "type": 11,
-    "linkTo": "Tom Suiter",
-    "linkType": "influence",
-    "linkInfo": "Suiter worked at Apple."
-  },
-  {
-    "name": "Stanford",
-    "wikipediaID": "Stanford_University",
-    "type": 11,
-    "linkTo": "Don Knuth",
-    "linkType": "related",
-    "linkInfo": 0
-  },
-  {
-    "name": "Stanford",
-    "wikipediaID": 0,
-    "type": 11,
-    "linkTo": "John Arnold",
-    "linkType": "related",
-    "linkInfo": 0
-  },
-  {
-    "name": "Stanford",
-    "wikipediaID": 0,
-    "type": 11,
-    "linkTo": "Bob McKim",
-    "linkType": "related",
-    "linkInfo": 0
-  },
-  {
-    "name": "Stanford",
-    "wikipediaID": 0,
-    "type": 11,
-    "linkTo": "Rolf Faste",
-    "linkType": "related",
-    "linkInfo": 0
-  },
-  {
-    "name": "Stanford",
-    "wikipediaID": 0,
-    "type": 11,
-    "linkTo": "David Kelley",
-    "linkType": "related",
-    "linkInfo": 0
-  },
-  {
-    "name": "Stanford",
-    "wikipediaID": 0,
-    "type": 11,
-    "linkTo": "Matt Kahn",
-    "linkType": "related",
-    "linkInfo": 0
+    "linkInfo": "Slimbach worked at Adobe."
   },
   {
     "name": "Adobe",
@@ -177,15 +33,7 @@
   },
   {
     "name": "Adobe",
-    "wikipediaID": 0,
-    "type": 11,
-    "linkTo": "Dan Mills",
-    "linkType": "influence",
-    "linkInfo": "Mills worked at Adobe."
-  },
-  {
-    "name": "Adobe",
-    "wikipediaID": 0,
+    "wikipediaID": "Adobe_Systems",
     "type": 11,
     "linkTo": "Carol Twombly",
     "linkType": "influence",
@@ -193,123 +41,83 @@
   },
   {
     "name": "Adobe",
-    "wikipediaID": 0,
-    "type": 11,
-    "linkTo": "Robert Slimbach",
-    "linkType": "influence",
-    "linkInfo": "Slimbach worked at Adobe."
-  },
-  {
-    "name": "Adobe",
-    "wikipediaID": 0,
-    "type": 11,
-    "linkTo": "Cleo Huggins",
-    "linkType": "influence",
-    "linkInfo": "Huggins worked at Adobe."
-  },
-  {
-    "name": "Adobe",
-    "wikipediaID": 0,
+    "wikipediaID": "Adobe_Systems",
     "type": 11,
     "linkTo": "Min Wang",
     "linkType": "influence",
     "linkInfo": "Wang worked at Adobe."
   },
   {
-    "name": "San Jose State University",
-    "wikipediaID": "San_Jose_State_University",
+    "name": "Apple",
+    "wikipediaID": "Apple_Inc.",
     "type": 11,
-    "linkTo": "Sam Smidt",
+    "linkTo": "John Casado",
     "linkType": "influence",
-    "linkInfo": "Smidt started the graphic design program at San Jose State University."
+    "linkInfo": "Casado worked at Apple."
   },
   {
-    "name": "San Jose State University",
-    "wikipediaID": 0,
+    "name": "Apple",
+    "wikipediaID": "Apple_Inc.",
     "type": 11,
-    "linkTo": "Lanning Stern",
+    "linkTo": "Hugh Dubberly",
     "linkType": "influence",
-    "linkInfo": "Stern taught at San Jose State University."
+    "linkInfo": "Dubberly worked at Apple."
   },
   {
-    "name": "San Jose State University",
-    "wikipediaID": 0,
+    "name": "Apple",
+    "wikipediaID": "Apple_Inc.",
     "type": 11,
-    "linkTo": "Randall Sexton",
+    "linkTo": "Tom Hughes",
     "linkType": "influence",
-    "linkInfo": "Sexton taught at San Jose State University."
+    "linkInfo": "Hughes worked at Apple."
   },
   {
-    "name": "San Jose State University",
-    "wikipediaID": 0,
+    "name": "Apple",
+    "wikipediaID": "Apple_Inc.",
     "type": 11,
-    "linkTo": "Joe Miller",
+    "linkTo": "Steve Jobs",
     "linkType": "influence",
-    "linkInfo": "Miller teaches at San Jose State University."
+    "linkInfo": "Jobs founded Apple."
   },
   {
-    "name": "San Jose State University",
-    "wikipediaID": 0,
+    "name": "Apple",
+    "wikipediaID": "Apple_Inc.",
     "type": 11,
-    "linkTo": "Chang Kim",
+    "linkTo": "Susan Kare",
     "linkType": "influence",
-    "linkInfo": "Kim teaches at San Jose State University."
+    "linkInfo": "Kare worked at Apple."
   },
   {
-    "name": "San Jose State University",
-    "wikipediaID": 0,
+    "name": "Apple",
+    "wikipediaID": "Apple_Inc.",
     "type": 11,
-    "linkTo": "Chuck Byrne",
+    "linkTo": "Clement Mok",
     "linkType": "influence",
-    "linkInfo": "Byrne taught at San Jose State University."
+    "linkInfo": "Mok worked at Apple."
   },
   {
-    "name": "San Jose State University",
-    "wikipediaID": 0,
+    "name": "Apple",
+    "wikipediaID": "Apple_Inc.",
     "type": 11,
-    "linkTo": "Connie Hwang",
+    "linkTo": "Harry Sadler",
     "linkType": "influence",
-    "linkInfo": "Hwang teaches at San Jose State University."
+    "linkInfo": "Sadler worked at Apple."
   },
   {
-    "name": "MetaDesign",
-    "wikipediaID": "MetaDesign",
+    "name": "Apple",
+    "wikipediaID": "Apple_Inc.",
     "type": 11,
-    "linkTo": "Erik Spiekermann",
+    "linkTo": "Tom Suiter",
     "linkType": "influence",
-    "linkInfo": "Spiekermann founded MetaDesign."
+    "linkInfo": "Suiter worked at Apple."
   },
   {
-    "name": "MetaDesign",
-    "wikipediaID": 0,
+    "name": "Art Center",
+    "wikipediaID": "Art_Center_College_of_Design",
     "type": 11,
-    "linkTo": "Terry Irwin",
+    "linkTo": "John Casado",
     "linkType": "influence",
-    "linkInfo": "Irwin ran the San Francisco office of MetaDesign."
-  },
-  {
-    "name": "MetaDesign",
-    "wikipediaID": 0,
-    "type": 11,
-    "linkTo": "Bill Hill",
-    "linkType": "influence",
-    "linkInfo": "Hill ran the San Francisco office of MetaDesign."
-  },
-  {
-    "name": "Google",
-    "wikipediaID": "Google",
-    "type": 11,
-    "linkTo": "Irene Au",
-    "linkType": "influence",
-    "linkInfo": "Au was head of design at Google."
-  },
-  {
-    "name": "Google",
-    "wikipediaID": 0,
-    "type": 11,
-    "linkTo": "Matias Duarte",
-    "linkType": "influence",
-    "linkInfo": "Duarte is Vice President of design at Google."
+    "linkInfo": "Casado went to school at Art Center."
   },
   {
     "name": "Art Center",
@@ -321,7 +129,7 @@
   },
   {
     "name": "Art Center",
-    "wikipediaID": 0,
+    "wikipediaID": "Art_Center_College_of_Design",
     "type": 11,
     "linkTo": "Clement Mok",
     "linkType": "influence",
@@ -329,35 +137,227 @@
   },
   {
     "name": "Art Center",
-    "wikipediaID": 0,
-    "type": 11,
-    "linkTo": "John Casado",
-    "linkType": "influence",
-    "linkInfo": "Casado went to school at Art Center."
-  },
-  {
-    "name": "Art Center",
-    "wikipediaID": 0,
+    "wikipediaID": "Art_Center_College_of_Design",
     "type": 11,
     "linkTo": "Tom Suiter",
     "linkType": "influence",
     "linkInfo": "Suiter went to school at Art Center."
   },
   {
+    "name": "Google",
+    "wikipediaID": "Google",
+    "type": 11,
+    "linkTo": "Irene Au",
+    "linkType": "influence",
+    "linkInfo": "Au was head of design at Google."
+  },
+  {
+    "name": "Google",
+    "wikipediaID": "Google",
+    "type": 11,
+    "linkTo": "Matias Duarte",
+    "linkType": "influence",
+    "linkInfo": "Duarte is Vice President of design at Google."
+  },
+  {
+    "name": "MetaDesign",
+    "wikipediaID": "MetaDesign",
+    "type": 11,
+    "linkTo": "Bill Hill",
+    "linkType": "influence",
+    "linkInfo": "Hill ran the San Francisco office of MetaDesign."
+  },
+  {
+    "name": "MetaDesign",
+    "wikipediaID": "MetaDesign",
+    "type": 11,
+    "linkTo": "Terry Irwin",
+    "linkType": "influence",
+    "linkInfo": "Irwin ran the San Francisco office of MetaDesign."
+  },
+  {
+    "name": "MetaDesign",
+    "wikipediaID": "MetaDesign",
+    "type": 11,
+    "linkTo": "Erik Spiekermann",
+    "linkType": "influence",
+    "linkInfo": "Spiekermann founded MetaDesign."
+  },
+  {
+    "name": "Reed College",
+    "wikipediaID": "Reed_College",
+    "type": 11,
+    "linkTo": "Chuck Bigelow",
+    "linkType": "influence",
+    "linkInfo": "Bigelow taught at Reed."
+  },
+  {
+    "name": "Reed College",
+    "wikipediaID": "Reed_College",
+    "type": 11,
+    "linkTo": "Kris Holmes",
+    "linkType": "influence",
+    "linkInfo": "Holmes taught at Reed."
+  },
+  {
+    "name": "Reed College",
+    "wikipediaID": "Reed_College",
+    "type": 11,
+    "linkTo": "Steve Jobs",
+    "linkType": "influence",
+    "linkInfo": "Jobs was a student at Reed."
+  },
+  {
+    "name": "Reed College",
+    "wikipediaID": "Reed_College",
+    "type": 11,
+    "linkTo": "Robert Palladino",
+    "linkType": "influence",
+    "linkInfo": "Palladino taught calligraphy at Reed."
+  },
+  {
+    "name": "Reed College",
+    "wikipediaID": "Reed_College",
+    "type": 11,
+    "linkTo": "Lloyd Reynolds",
+    "linkType": "influence",
+    "linkInfo": "Reynolds taught calligraphy at Reed."
+  },
+  {
+    "name": "Reed College",
+    "wikipediaID": "Reed_College",
+    "type": 11,
+    "linkTo": "Sumner Stone",
+    "linkType": "influence",
+    "linkInfo": "Stone was a student at Reed."
+  },
+  {
+    "name": "San Jose State University",
+    "wikipediaID": "San_Jose_State_University",
+    "type": 11,
+    "linkTo": "Chuck Byrne",
+    "linkType": "influence",
+    "linkInfo": "Byrne taught at San Jose State University."
+  },
+  {
+    "name": "San Jose State University",
+    "wikipediaID": "San_Jose_State_University",
+    "type": 11,
+    "linkTo": "Connie Hwang",
+    "linkType": "influence",
+    "linkInfo": "Hwang teaches at San Jose State University."
+  },
+  {
+    "name": "San Jose State University",
+    "wikipediaID": "San_Jose_State_University",
+    "type": 11,
+    "linkTo": "Chang Kim",
+    "linkType": "influence",
+    "linkInfo": "Kim teaches at San Jose State University."
+  },
+  {
+    "name": "San Jose State University",
+    "wikipediaID": "San_Jose_State_University",
+    "type": 11,
+    "linkTo": "Joe Miller",
+    "linkType": "influence",
+    "linkInfo": "Miller teaches at San Jose State University."
+  },
+  {
+    "name": "San Jose State University",
+    "wikipediaID": "San_Jose_State_University",
+    "type": 11,
+    "linkTo": "Randall Sexton",
+    "linkType": "influence",
+    "linkInfo": "Sexton taught at San Jose State University."
+  },
+  {
+    "name": "San Jose State University",
+    "wikipediaID": "San_Jose_State_University",
+    "type": 11,
+    "linkTo": "Sam Smidt",
+    "linkType": "influence",
+    "linkInfo": "Smidt started the graphic design program at San Jose State University."
+  },
+  {
+    "name": "San Jose State University",
+    "wikipediaID": "San_Jose_State_University",
+    "type": 11,
+    "linkTo": "Lanning Stern",
+    "linkType": "influence",
+    "linkInfo": "Stern taught at San Jose State University."
+  },
+  {
+    "name": "Stanford",
+    "wikipediaID": "Stanford_University",
+    "type": 11,
+    "linkTo": "John Arnold",
+    "linkType": "influence",
+    "linkInfo": "Arnold taught at Stanford."
+  },
+  {
+    "name": "Stanford",
+    "wikipediaID": "Stanford_University",
+    "type": 11,
+    "linkTo": "Rolf Faste",
+    "linkType": "influence",
+    "linkInfo": "Faste taught at Stanford."
+  },
+  {
+    "name": "Stanford",
+    "wikipediaID": "Stanford_University",
+    "type": 11,
+    "linkTo": "Matt Kahn",
+    "linkType": "influence",
+    "linkInfo": "Kahn taught at Stanford."
+  },
+  {
+    "name": "Stanford",
+    "wikipediaID": "Stanford_University",
+    "type": 11,
+    "linkTo": "David Kelley",
+    "linkType": "influence",
+    "linkInfo": "Kelley taught at Stanford."
+  },
+  {
+    "name": "Stanford",
+    "wikipediaID": "Stanford_University",
+    "type": 11,
+    "linkTo": "Don Knuth",
+    "linkType": "influence",
+    "linkInfo": "Knuth taught at Stanford."
+  },
+  {
+    "name": "Stanford",
+    "wikipediaID": "Stanford_University",
+    "type": 11,
+    "linkTo": "Bob McKim",
+    "linkType": "influence",
+    "linkInfo": "McKim taught at Stanford."
+  },
+  {
+    "name": "UC Santa Cruz",
+    "wikipediaID": "University_of_California,_Santa_Cruz",
+    "type": 11,
+    "linkTo": "Jack Stauffacher",
+    "linkType": "influence",
+    "linkInfo": "Stauffacher taught at UC Santa Cruz."
+  },
+  {
     "name": "Irene Au",
     "wikipediaID": 0,
     "type": 1,
-    "linkTo": 0,
-    "linkType": 0,
-    "linkInfo": 0
+    "linkTo": "Google",
+    "linkType": "influence",
+    "linkInfo": "Au was head of design at Google."
   },
   {
     "name": "John Arnold",
     "wikipediaID": 0,
     "type": 1,
-    "linkTo": 0,
-    "linkType": 0,
-    "linkInfo": 0
+    "linkTo": "Stanford",
+    "linkType": "influence",
+    "linkInfo": "Arnold taught at Stanford."
   },
   {
     "name": "Lauralee Alben",
@@ -379,13 +379,13 @@
     "name": "Chuck Bigelow",
     "wikipediaID": "Charles_Bigelow_(type_designer)",
     "type": 1,
-    "linkTo": "Don Knuth",
-    "linkType": "related",
-    "linkInfo": 0
+    "linkTo": "Hugh Dubberly",
+    "linkType": "influence",
+    "linkInfo": "Bigelow taught Dubberly."
   },
   {
     "name": "Chuck Bigelow",
-    "wikipediaID": 0,
+    "wikipediaID": "Charles_Bigelow_(type_designer)",
     "type": 1,
     "linkTo": "Kris Holmes",
     "linkType": "related",
@@ -393,23 +393,7 @@
   },
   {
     "name": "Chuck Bigelow",
-    "wikipediaID": 0,
-    "type": 1,
-    "linkTo": "Dan Mills",
-    "linkType": "related",
-    "linkInfo": 0
-  },
-  {
-    "name": "Chuck Bigelow",
-    "wikipediaID": 0,
-    "type": 1,
-    "linkTo": "Carol Twombly",
-    "linkType": "related",
-    "linkInfo": 0
-  },
-  {
-    "name": "Chuck Bigelow",
-    "wikipediaID": 0,
+    "wikipediaID": "Charles_Bigelow_(type_designer)",
     "type": 1,
     "linkTo": "Cleo Huggins",
     "linkType": "related",
@@ -417,27 +401,43 @@
   },
   {
     "name": "Chuck Bigelow",
-    "wikipediaID": 0,
+    "wikipediaID": "Charles_Bigelow_(type_designer)",
     "type": 1,
-    "linkTo": "Hugh Dubberly",
-    "linkType": "influence",
-    "linkInfo": "Bigelow taught Dubberly."
+    "linkTo": "Don Knuth",
+    "linkType": "related",
+    "linkInfo": 0
   },
   {
     "name": "Chuck Bigelow",
-    "wikipediaID": 0,
+    "wikipediaID": "Charles_Bigelow_(type_designer)",
+    "type": 1,
+    "linkTo": "Dan Mills",
+    "linkType": "related",
+    "linkInfo": 0
+  },
+  {
+    "name": "Chuck Bigelow",
+    "wikipediaID": "Charles_Bigelow_(type_designer)",
+    "type": 1,
+    "linkTo": "Reed College",
+    "linkType": "influence",
+    "linkInfo": "Bigelow taught at Reed."
+  },
+  {
+    "name": "Chuck Bigelow",
+    "wikipediaID": "Charles_Bigelow_(type_designer)",
     "type": 1,
     "linkTo": "Jack Stauffacher",
     "linkType": "related",
     "linkInfo": 0
   },
   {
-    "name": "Chuck Byrne",
-    "wikipediaID": 0,
+    "name": "Chuck Bigelow",
+    "wikipediaID": "Charles_Bigelow_(type_designer)",
     "type": 1,
-    "linkTo": "Jack Stauffacher",
-    "linkType": "personal",
-    "linkInfo": "Byrne and Stauffacher are friends."
+    "linkTo": "Carol Twombly",
+    "linkType": "related",
+    "linkInfo": 0
   },
   {
     "name": "Chuck Byrne",
@@ -459,14 +459,6 @@
     "name": "Chuck Byrne",
     "wikipediaID": 0,
     "type": 1,
-    "linkTo": "Rudy VanderLans",
-    "linkType": "personal",
-    "linkInfo": "Byrne and VanderLans are friends."
-  },
-  {
-    "name": "Chuck Byrne",
-    "wikipediaID": 0,
-    "type": 1,
     "linkTo": "Zuzana Licko",
     "linkType": "personal",
     "linkInfo": "Byrne and Licko are friends."
@@ -480,12 +472,44 @@
     "linkInfo": "Byrne and Mok are friends."
   },
   {
-    "name": "Edward Catich",
+    "name": "Chuck Byrne",
     "wikipediaID": 0,
     "type": 1,
-    "linkTo": "Robert Palladino",
-    "linkType": "related",
-    "linkInfo": 0
+    "linkTo": "San Jose State University",
+    "linkType": "influence",
+    "linkInfo": "Byrne taught at San Jose State University."
+  },
+  {
+    "name": "Chuck Byrne",
+    "wikipediaID": 0,
+    "type": 1,
+    "linkTo": "Jack Stauffacher",
+    "linkType": "personal",
+    "linkInfo": "Byrne and Stauffacher are friends."
+  },
+  {
+    "name": "Chuck Byrne",
+    "wikipediaID": 0,
+    "type": 1,
+    "linkTo": "Rudy VanderLans",
+    "linkType": "personal",
+    "linkInfo": "Byrne and VanderLans are friends."
+  },
+  {
+    "name": "John Casado",
+    "wikipediaID": "John_Casado",
+    "type": 1,
+    "linkTo": "Apple",
+    "linkType": "influence",
+    "linkInfo": "Casado worked at Apple."
+  },
+  {
+    "name": "John Casado",
+    "wikipediaID": "John_Casado",
+    "type": 1,
+    "linkTo": "Art Center",
+    "linkType": "influence",
+    "linkInfo": "Casado went to school at Art Center."
   },
   {
     "name": "Edward Catich",
@@ -496,12 +520,20 @@
     "linkInfo": 0
   },
   {
-    "name": "John Casado",
-    "wikipediaID": "John_Casado",
+    "name": "Edward Catich",
+    "wikipediaID": 0,
     "type": 1,
-    "linkTo": 0,
-    "linkType": 0,
+    "linkTo": "Robert Palladino",
+    "linkType": "related",
     "linkInfo": 0
+  },
+  {
+    "name": "Lou Danzinger",
+    "wikipediaID": 0,
+    "type": 1,
+    "linkTo": "Art Center",
+    "linkType": "influence",
+    "linkInfo": "Danzinger taught at Art Center."
   },
   {
     "name": "Lou Danzinger",
@@ -528,12 +560,52 @@
     "linkInfo": 0
   },
   {
+    "name": "Matias Duarte",
+    "wikipediaID": "Mat%C3%ADas_Duarte",
+    "type": 1,
+    "linkTo": "Google",
+    "linkType": "influence",
+    "linkInfo": "Duarte is Vice President of design at Google."
+  },
+  {
+    "name": "Hugh Dubberly",
+    "wikipediaID": 0,
+    "type": 1,
+    "linkTo": "Apple",
+    "linkType": "influence",
+    "linkInfo": "Dubberly worked at Apple."
+  },
+  {
+    "name": "Hugh Dubberly",
+    "wikipediaID": 0,
+    "type": 1,
+    "linkTo": "Chuck Bigelow",
+    "linkType": "influence",
+    "linkInfo": "Dubberly was taught by Bigelow."
+  },
+  {
+    "name": "Hugh Dubberly",
+    "wikipediaID": 0,
+    "type": 1,
+    "linkTo": "Chuck Byrne",
+    "linkType": "personal",
+    "linkInfo": "Dubberly and Byrne are friends."
+  },
+  {
+    "name": "Hugh Dubberly",
+    "wikipediaID": 0,
+    "type": 1,
+    "linkTo": "Lou Danzinger",
+    "linkType": "influence",
+    "linkInfo": "Dubberly was taught by Danzinger at Art Center."
+  },
+  {
     "name": "Hugh Dubberly",
     "wikipediaID": 0,
     "type": 1,
     "linkTo": "Jim Faris",
     "linkType": "related",
-    "linkInfo": 0
+    "linkInfo": "Dubberly and Faris are friends."
   },
   {
     "name": "Hugh Dubberly",
@@ -542,6 +614,38 @@
     "linkTo": "Randall Sexton",
     "linkType": "influence",
     "linkInfo": "Dubberly taught at San Jose State University, where Sexton teaches."
+  },
+  {
+    "name": "Jim Faris",
+    "wikipediaID": 0,
+    "type": 1,
+    "linkTo": "Lauralee Alben",
+    "linkType": "related",
+    "linkInfo": 0
+  },
+  {
+    "name": "Jim Faris",
+    "wikipediaID": 0,
+    "type": 1,
+    "linkTo": "Chuck Byrne",
+    "linkType": "related",
+    "linkInfo": "Faris and Byrne are friends."
+  },
+  {
+    "name": "Jim Faris",
+    "wikipediaID": 0,
+    "type": 1,
+    "linkTo": "Matias Duarte",
+    "linkType": "related",
+    "linkInfo": 0
+  },
+  {
+    "name": "Jim Faris",
+    "wikipediaID": 0,
+    "type": 1,
+    "linkTo": "Hugh Dubberly",
+    "linkType": "related",
+    "linkInfo": "Faris and Dubberly are friends."
   },
   {
     "name": "Jim Faris",
@@ -563,8 +667,24 @@
     "name": "Rolfe Faste",
     "wikipediaID": "Rolf_Faste",
     "type": 1,
-    "linkTo": 0,
-    "linkType": 0,
+    "linkTo": "Stanford",
+    "linkType": "influence",
+    "linkInfo": "Faste taught at Stanford."
+  },
+  {
+    "name": "Bill Hill",
+    "wikipediaID": 0,
+    "type": 1,
+    "linkTo": "MetaDesign",
+    "linkType": "influence",
+    "linkInfo": "Hill ran the San Francisco office of MetaDesign."
+  },
+  {
+    "name": "Bill Hill",
+    "wikipediaID": 0,
+    "type": 1,
+    "linkTo": "David Kelley",
+    "linkType": "related",
     "linkInfo": 0
   },
   {
@@ -576,10 +696,18 @@
     "linkInfo": 0
   },
   {
-    "name": "Bill Hill",
-    "wikipediaID": 0,
+    "name": "Kris Holmes",
+    "wikipediaID": "Kris_Holmes",
     "type": 1,
-    "linkTo": "David Kelley",
+    "linkTo": "Chuck Bigelow",
+    "linkType": "related",
+    "linkInfo": 0
+  },
+  {
+    "name": "Kris Holmes",
+    "wikipediaID": "Kris_Holmes",
+    "type": 1,
+    "linkTo": "Edward Catich",
     "linkType": "related",
     "linkInfo": 0
   },
@@ -593,7 +721,31 @@
   },
   {
     "name": "Kris Holmes",
-    "wikipediaID": 0,
+    "wikipediaID": "Kris_Holmes",
+    "type": 1,
+    "linkTo": "Robert Palladino",
+    "linkType": "related",
+    "linkInfo": 0
+  },
+  {
+    "name": "Kris Holmes",
+    "wikipediaID": "Kris_Holmes",
+    "type": 1,
+    "linkTo": "Reed College",
+    "linkType": "influence",
+    "linkInfo": "Holmes taught at Reed."
+  },
+  {
+    "name": "Kris Holmes",
+    "wikipediaID": "Kris_Holmes",
+    "type": 1,
+    "linkTo": "Lloyd Reynolds",
+    "linkType": "related",
+    "linkInfo": 0
+  },
+  {
+    "name": "Kris Holmes",
+    "wikipediaID": "Kris_Holmes",
     "type": 1,
     "linkTo": "Carol Twombly",
     "linkType": "related",
@@ -603,33 +755,49 @@
     "name": "Cleo Huggins",
     "wikipediaID": 0,
     "type": 1,
-    "linkTo": 0,
-    "linkType": 0,
+    "linkTo": "Adobe",
+    "linkType": "influence",
+    "linkInfo": "Huggins worked at Adobe."
+  },
+  {
+    "name": "Cleo Huggins",
+    "wikipediaID": 0,
+    "type": 1,
+    "linkTo": "Chuck Bigelow",
+    "linkType": "related",
     "linkInfo": 0
   },
   {
     "name": "Tom Hughes",
     "wikipediaID": 0,
     "type": 1,
-    "linkTo": 0,
-    "linkType": 0,
-    "linkInfo": 0
+    "linkTo": "Apple",
+    "linkType": "influence",
+    "linkInfo": "Hughes worked at Apple."
   },
   {
     "name": "Connie Hwang",
     "wikipediaID": 0,
     "type": 1,
-    "linkTo": 0,
-    "linkType": 0,
-    "linkInfo": 0
+    "linkTo": "San Jose State University",
+    "linkType": "influence",
+    "linkInfo": "Hwang teaches at San Jose State University."
   },
   {
     "name": "Terry Irwin",
     "wikipediaID": 0,
     "type": 1,
-    "linkTo": 0,
-    "linkType": 0,
-    "linkInfo": 0
+    "linkTo": "MetaDesign",
+    "linkType": "influence",
+    "linkInfo": "Irwin ran the San Francisco office of MetaDesign."
+  },
+  {
+    "name": "Steve Jobs",
+    "wikipediaID": "Steve_Jobs",
+    "type": 1,
+    "linkTo": "Apple",
+    "linkType": "influence",
+    "linkInfo": "Jobs founded Apple."
   },
   {
     "name": "Steve Jobs",
@@ -640,35 +808,75 @@
     "linkInfo": 0
   },
   {
+    "name": "Steve Jobs",
+    "wikipediaID": "Steve_Jobs",
+    "type": 1,
+    "linkTo": "Robert Palladino",
+    "linkType": "influence",
+    "linkInfo": "Jobs took a calligraphy course taught by Palladino at Reed College."
+  },
+  {
+    "name": "Steve Jobs",
+    "wikipediaID": "Steve_Jobs",
+    "type": 1,
+    "linkTo": "Reed College",
+    "linkType": "influence",
+    "linkInfo": "Jobs attended Reed College."
+  },
+  {
     "name": "Matt Kahn",
     "wikipediaID": 0,
     "type": 1,
-    "linkTo": 0,
-    "linkType": 0,
-    "linkInfo": 0
+    "linkTo": "Stanford",
+    "linkType": "influence",
+    "linkInfo": "Kahn taught at Stanford."
   },
   {
     "name": "Susan Kare",
     "wikipediaID": "Susan_Kare",
     "type": 1,
-    "linkTo": 0,
-    "linkType": 0,
+    "linkTo": "Apple",
+    "linkType": "influence",
+    "linkInfo": "Kare worked at Apple."
+  },
+  {
+    "name": "David Kelley",
+    "wikipediaID": "David_M._Kelley",
+    "type": 1,
+    "linkTo": "Bill Hill",
+    "linkType": "related",
     "linkInfo": 0
   },
   {
     "name": "David Kelley",
     "wikipediaID": "David_M._Kelley",
     "type": 1,
-    "linkTo": 0,
-    "linkType": 0,
+    "linkTo": "Stanford",
+    "linkType": "influence",
+    "linkInfo": "Kelley taught at Stanford."
+  },
+  {
+    "name": "David Kelley",
+    "wikipediaID": "David_M._Kelley",
+    "type": 1,
+    "linkTo": "Steve Jobs",
+    "linkType": "related",
     "linkInfo": 0
   },
   {
     "name": "Chang Kim",
     "wikipediaID": 0,
     "type": 1,
-    "linkTo": 0,
-    "linkType": 0,
+    "linkTo": "San Jose State University",
+    "linkType": "influence",
+    "linkInfo": "Kim teaches at San Jose State University."
+  },
+  {
+    "name": "Don Knuth",
+    "wikipediaID": "Donald_Knuth",
+    "type": 1,
+    "linkTo": "Chuck Bigelow",
+    "linkType": "related",
     "linkInfo": 0
   },
   {
@@ -681,11 +889,27 @@
   },
   {
     "name": "Don Knuth",
-    "wikipediaID": 0,
+    "wikipediaID": "Donald_Knuth",
+    "type": 1,
+    "linkTo": "Stanford",
+    "linkType": "influence",
+    "linkInfo": "Knuth taught at Stanford."
+  },
+  {
+    "name": "Don Knuth",
+    "wikipediaID": "Donald_Knuth",
     "type": 1,
     "linkTo": "Carol Twombly",
     "linkType": "related",
     "linkInfo": 0
+  },
+  {
+    "name": "Zuzana Licko",
+    "wikipediaID": "Zuzana_Licko",
+    "type": 1,
+    "linkTo": "Chuck Byrne",
+    "linkType": "personal",
+    "linkInfo": "Licko and Byrne are friends."
   },
   {
     "name": "Zuzana Licko",
@@ -699,17 +923,73 @@
     "name": "Bob McKim",
     "wikipediaID": 0,
     "type": 1,
-    "linkTo": 0,
-    "linkType": 0,
+    "linkTo": "Stanford",
+    "linkType": "influence",
+    "linkInfo": "McKim taught at Stanford."
+  },
+  {
+    "name": "Joe Miller",
+    "wikipediaID": 0,
+    "type": 1,
+    "linkTo": "San Jose State University",
+    "linkType": "influence",
+    "linkInfo": "Miller taught at San Jose State University."
+  },
+  {
+    "name": "Dan Mills",
+    "wikipediaID": 0,
+    "type": 1,
+    "linkTo": "Adobe",
+    "linkType": "influence",
+    "linkInfo": "Mills worked at Adobe."
+  },
+  {
+    "name": "Dan Mills",
+    "wikipediaID": 0,
+    "type": 1,
+    "linkTo": "Chuck Bigelow",
+    "linkType": "related",
     "linkInfo": 0
   },
   {
     "name": "Dan Mills",
     "wikipediaID": 0,
     "type": 1,
-    "linkTo": 0,
-    "linkType": 0,
+    "linkTo": "Kris Holmes",
+    "linkType": "related",
     "linkInfo": 0
+  },
+  {
+    "name": "Dan Mills",
+    "wikipediaID": 0,
+    "type": 1,
+    "linkTo": "Don Knuth",
+    "linkType": "related",
+    "linkInfo": 0
+  },
+  {
+    "name": "Clement Mok",
+    "wikipediaID": "Clement_Mok",
+    "type": 1,
+    "linkTo": "Apple",
+    "linkType": "influence",
+    "linkInfo": "Mok worked at Apple."
+  },
+  {
+    "name": "Clement Mok",
+    "wikipediaID": "Clement_Mok",
+    "type": 1,
+    "linkTo": "Art Center",
+    "linkType": "influence",
+    "linkInfo": "Mok went to school at Art Center."
+  },
+  {
+    "name": "Clement Mok",
+    "wikipediaID": "Clement_Mok",
+    "type": 1,
+    "linkTo": "Chuck Byrne",
+    "linkType": "personal",
+    "linkInfo": "Mok and Byrne are friends."
   },
   {
     "name": "Clement Mok",
@@ -717,15 +997,23 @@
     "type": 1,
     "linkTo": "Rudy VanderLans",
     "linkType": "related",
+    "linkInfo": "Mok and VanderLans are friends."
+  },
+  {
+    "name": "Robert Palladino",
+    "wikipediaID": 0,
+    "type": 1,
+    "linkTo": "Edward Catich",
+    "linkType": "related",
     "linkInfo": 0
   },
   {
-    "name": "Joe Miller",
+    "name": "Robert Palladino",
     "wikipediaID": 0,
     "type": 1,
-    "linkTo": 0,
-    "linkType": 0,
-    "linkInfo": 0
+    "linkTo": "Kris Holmes",
+    "linkType": "influence",
+    "linkInfo": "Palladino taught calligraphy to Holmes at Reed College."
   },
   {
     "name": "Robert Palladino",
@@ -739,9 +1027,41 @@
     "name": "Robert Palladino",
     "wikipediaID": 0,
     "type": 1,
+    "linkTo": "Reed College",
+    "linkType": "influence",
+    "linkInfo": "Palladino taught calligraphy at Reed."
+  },
+  {
+    "name": "Lloyd Reynolds",
+    "wikipediaID": "Lloyd_J._Reynolds",
+    "type": 1,
+    "linkTo": "Chuck Bigelow",
+    "linkType": "influence",
+    "linkInfo": "Reynolds taught calligraphy to Bigelow at Reed College."
+  },
+  {
+    "name": "Lloyd Reynolds",
+    "wikipediaID": "Lloyd_J._Reynolds",
+    "type": 1,
     "linkTo": "Kris Holmes",
     "linkType": "influence",
-    "linkInfo": "Palladino taught calligraphy to Holmes at Reed College."
+    "linkInfo": "Reynolds taught calligraphy to Holmes at Reed College."
+  },
+  {
+    "name": "Lloyd Reynolds",
+    "wikipediaID": "Lloyd_J._Reynolds",
+    "type": 1,
+    "linkTo": "Robert Palladino",
+    "linkType": "related",
+    "linkInfo": "Reynolds and Palladino both taught calligraphy at Reed."
+  },
+  {
+    "name": "Lloyd Reynolds",
+    "wikipediaID": "Lloyd_J._Reynolds",
+    "type": 1,
+    "linkTo": "Reed College",
+    "linkType": "influence",
+    "linkInfo": "Reynolds taught calligraphy at Reed."
   },
   {
     "name": "Lloyd Reynolds",
@@ -752,115 +1072,227 @@
     "linkInfo": "Reynolds taught calligraphy to Stone at Reed College."
   },
   {
-    "name": "Lloyd Reynolds",
+    "name": "Harry Sadler",
     "wikipediaID": 0,
     "type": 1,
-    "linkTo": "Chuck Bigelow",
-    "linkType": "influence",
-    "linkInfo": "Reynolds taught calligraphy to Bigelow at Reed College."
-  },
-  {
-    "name": "Lloyd Reynolds",
-    "wikipediaID": 0,
-    "type": 1,
-    "linkTo": "Kris Holmes",
-    "linkType": "influence",
-    "linkInfo": "Reynolds taught calligraphy to Holmes at Reed College."
+    "linkTo": "Lauralee Alben",
+    "linkType": "related",
+    "linkInfo": 0
   },
   {
     "name": "Harry Sadler",
     "wikipediaID": 0,
     "type": 1,
-    "linkTo": 0,
-    "linkType": 0,
+    "linkTo": "Apple",
+    "linkType": "influence",
+    "linkInfo": "Sadler worked at Apple."
+  },
+  {
+    "name": "Harry Sadler",
+    "wikipediaID": 0,
+    "type": 1,
+    "linkTo": "Jim Faris",
+    "linkType": "related",
     "linkInfo": 0
   },
   {
-    "name": "Robert Slimbach",
-    "wikipediaID": "Robert_Slimbach",
+    "name": "Harry Sadler",
+    "wikipediaID": 0,
     "type": 1,
-    "linkTo": 0,
-    "linkType": 0,
+    "linkTo": "Bill Hill",
+    "linkType": "related",
     "linkInfo": 0
   },
   {
     "name": "Randall Sexton",
     "wikipediaID": 0,
     "type": 1,
-    "linkTo": 0,
-    "linkType": 0,
+    "linkTo": "Hugh Dubberly",
+    "linkType": "related",
+    "linkInfo": "Sexton invited Dubberly to teach at San Jose State University."
+  },
+  {
+    "name": "Randall Sexton",
+    "wikipediaID": 0,
+    "type": 1,
+    "linkTo": "San Jose State University",
+    "linkType": "influence",
+    "linkInfo": "Sexton teaches at San Jose State University."
+  },
+  {
+    "name": "Robert Slimbach",
+    "wikipediaID": "Robert_Slimbach",
+    "type": 1,
+    "linkTo": "Adobe",
+    "linkType": "influence",
+    "linkInfo": "Slimbach worked at Adobe."
+  },
+  {
+    "name": "Sam Smidt",
+    "wikipediaID": 0,
+    "type": 1,
+    "linkTo": "Lou Danzinger",
+    "linkType": "related",
     "linkInfo": 0
   },
   {
     "name": "Sam Smidt",
     "wikipediaID": 0,
     "type": 1,
-    "linkTo": 0,
-    "linkType": 0,
-    "linkInfo": 0
+    "linkTo": "San Jose State University",
+    "linkType": "influence",
+    "linkInfo": "Smidt started the graphic design program at San Jose State University."
   },
   {
     "name": "Erik Spiekermann",
     "wikipediaID": "Erik_Spiekermann",
     "type": 1,
-    "linkTo": 0,
-    "linkType": 0,
+    "linkTo": "MetaDesign",
+    "linkType": "influence",
+    "linkInfo": "Spiekermann founded MetaDesign."
+  },
+  {
+    "name": "Jack Stauffacher",
+    "wikipediaID": "Jack_Stauffacher",
+    "type": 1,
+    "linkTo": "Chuck Bigelow",
+    "linkType": "related",
     "linkInfo": 0
   },
   {
     "name": "Jack Stauffacher",
     "wikipediaID": "Jack_Stauffacher",
     "type": 1,
-    "linkTo": 0,
-    "linkType": 0,
-    "linkInfo": 0
+    "linkTo": "Chuck Byrne",
+    "linkType": "personal",
+    "linkInfo": "Stauffacher and Byrne are friends."
+  },
+  {
+    "name": "Jack Stauffacher",
+    "wikipediaID": "Jack_Stauffacher",
+    "type": 1,
+    "linkTo": "Jim Faris",
+    "linkType": "influence",
+    "linkInfo": "Stauffacher worked with Faris to typeset the Phaedrus project."
+  },
+  {
+    "name": "Jack Stauffacher",
+    "wikipediaID": "Jack_Stauffacher",
+    "type": 1,
+    "linkTo": "UC Santa Cruz",
+    "linkType": "influence",
+    "linkInfo": "Stauffacher taught at UC Santa Cruz."
   },
   {
     "name": "Lanning Stern",
     "wikipediaID": 0,
     "type": 1,
-    "linkTo": 0,
-    "linkType": 0,
-    "linkInfo": 0
+    "linkTo": "San Jose State University",
+    "linkType": "influence",
+    "linkInfo": "Stern taught at San Jose State University."
   },
   {
     "name": "Sumner Stone",
     "wikipediaID": "Sumner_Stone",
     "type": 1,
-    "linkTo": 0,
-    "linkType": 0,
-    "linkInfo": 0
+    "linkTo": "Adobe",
+    "linkType": "influence",
+    "linkInfo": "Stone worked at Adobe."
+  },
+  {
+    "name": "Sumner Stone",
+    "wikipediaID": "Sumner_Stone",
+    "type": 1,
+    "linkTo": "Reed College",
+    "linkType": "influence",
+    "linkInfo": "Stone was a student at Reed."
+  },
+  {
+    "name": "Sumner Stone",
+    "wikipediaID": "Sumner_Stone",
+    "type": 1,
+    "linkTo": "Lloyd Reynolds",
+    "linkType": "influence",
+    "linkInfo": "Stone studied calligraphy taught by Reynolds at Reed College."
   },
   {
     "name": "Tom Suiter",
     "wikipediaID": 0,
     "type": 1,
-    "linkTo": 0,
-    "linkType": 0,
+    "linkTo": "Apple",
+    "linkType": "influence",
+    "linkInfo": "Suiter worked at Apple."
+  },
+  {
+    "name": "Tom Suiter",
+    "wikipediaID": 0,
+    "type": 1,
+    "linkTo": "Art Center",
+    "linkType": "influence",
+    "linkInfo": "Suiter went to school at Art Center."
+  },
+  {
+    "name": "Carol Twombly",
+    "wikipediaID": "Carol_Twombly",
+    "type": 1,
+    "linkTo": "Adobe",
+    "linkType": "influence",
+    "linkInfo": "Twombly worked at Adobe."
+  },
+  {
+    "name": "Carol Twombly",
+    "wikipediaID": "Carol_Twombly",
+    "type": 1,
+    "linkTo": "Chuck Bigelow",
+    "linkType": "related",
     "linkInfo": 0
   },
   {
     "name": "Carol Twombly",
     "wikipediaID": "Carol_Twombly",
     "type": 1,
-    "linkTo": 0,
-    "linkType": 0,
+    "linkTo": "Kris Holmes",
+    "linkType": "related",
+    "linkInfo": 0
+  },
+  {
+    "name": "Carol Twombly",
+    "wikipediaID": "Carol_Twombly",
+    "type": 1,
+    "linkTo": "Don Knuth",
+    "linkType": "related",
     "linkInfo": 0
   },
   {
     "name": "Rudy VanderLans",
     "wikipediaID": "Rudy_VanderLans",
     "type": 1,
-    "linkTo": 0,
-    "linkType": 0,
-    "linkInfo": 0
+    "linkTo": "Chuck Byrne",
+    "linkType": "related",
+    "linkInfo": "VanderLans and Byrne are friends."
+  },
+  {
+    "name": "Rudy VanderLans",
+    "wikipediaID": "Rudy_VanderLans",
+    "type": 1,
+    "linkTo": "Zuzana Licko",
+    "linkType": "personal",
+    "linkInfo": "VanderLans and Licko are married."
+  },
+  {
+    "name": "Rudy VanderLans",
+    "wikipediaID": "Rudy_VanderLans",
+    "type": 1,
+    "linkTo": "Clement Mok",
+    "linkType": "related",
+    "linkInfo": "Mok and VanderLans are friends."
   },
   {
     "name": "Min Wang",
     "wikipediaID": 0,
     "type": 1,
-    "linkTo": 0,
-    "linkType": 0,
-    "linkInfo": 0
+    "linkTo": "Adobe",
+    "linkType": "influence",
+    "linkInfo": "Wang worked at Adobe."
   }
 ]
