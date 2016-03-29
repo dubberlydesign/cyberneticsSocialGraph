@@ -161,7 +161,8 @@ var converterData = (function(){
                             'y' : window.innerHeight/2,
                             'px' : window.innerWidth/2,
                             'py' : window.innerHeight/2,
-                            'color': graphDictionary.getColor(data[i].type)
+                            'color': graphDictionary.getColor(data[i].type),
+                            'locked': false
                         };
 
                         if (converted['root'].indexOf( node.name ) !== -1) {

@@ -22,29 +22,55 @@
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/graph.css">
     <link rel="stylesheet" href="styles/zoom.css">
-    <link rel="stylesheet" href="styles/menu.css">
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/tooltip.css">
     <!-- endbuild -->
   </head>
 
   <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12">
-          <h1>Design Week 2016&mdash;<br>an interactive social graph</h1>
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sf-design-info" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">SF Bay Area Designers</a>
         </div>
 
-        <div class="col-lg-6 col-md-8">
+        <div class="collapse navbar-collapse" id="sf-design-info">
           <p>The San Francisco Bay Area design community has a rich history. This interactive social graph captures these important figures and their connections.</p>
         </div>
       </div>
-      <div class="body-content"></div>
+    </nav>
+
+    <div id="main">
+      <div id="chart">
+        <div class="container-fluid" id="description">
+          <div class="row">
+            <div class="col-xs-12">
+              <h1>SF Bay Area Designers&mdash;<br>an interactive social graph</h1>
+            </div>
+
+            <div class="col-lg-6 col-md-8">
+              <p>The San Francisco Bay Area design community has a rich history. This interactive social graph captures these important figures and their connections.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="body-content"></div>
+      </div>
+      <div id="details"></div>
     </div>
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/marked/lib/marked.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 

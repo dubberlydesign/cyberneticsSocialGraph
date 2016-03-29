@@ -10,12 +10,12 @@
   font-size: 1em !important;
   line-height: 1.5em !important;
   padding: 14px;
-  background: rgba(23, 22, 22, 1);
-  color: #fff;
+  background: #eee;
+  color: #000;
   border-radius: 6px;
   max-width: 250px !important;
   /*width: 350px !important;*/
-  pointer-events: none;
+  pointer-events: none !important;
   -webkit-transition: opacity 300ms ease-in-out;
 }
 
@@ -76,13 +76,8 @@ h6{
 }
 
 img.img-node{
-  height: 200px !important;
-  width: 200px !important;
-  padding-right: 10px;
-  margin: 0 auto;
-  display: inline-block !important;
-  background-color: #171616;
-  top: 9px;
+  height: auto;
+  width: 100%;
   object-fit: cover;
 }
 
@@ -114,12 +109,6 @@ img.img-node{
 
     h6, h4{
         font-size: 1.2em !important;
-    }
-
-    img.img-node{
-      max-width: 200px !important;
-      min-width: 200px !important;
-
     }
 
     .node-info-box{
