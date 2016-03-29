@@ -105,10 +105,8 @@ var graph = (function(graph) {
       .on('mouseout', reset);
   }
 
-  graph.bundle = {
+  return {
     create: createGraph,
     start: startGraph
   }
-
-  return graph;
-}(graph || {}));
+}());

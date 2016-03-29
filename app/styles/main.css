@@ -7,7 +7,7 @@
 
 /* Space out content a bit */
 body {
-    padding-top: 20px;
+    padding-top: 70px;
     /*padding-bottom: 20px;*/
     overflow: scroll !important;
 }
@@ -36,6 +36,12 @@ body {
     padding-top: 19px;
     color: #777;
     border-top: 1px solid #e5e5e5;
+}
+
+.navbar .navbar-brand-active,
+.navbar .navbar-brand-active:hover {
+  background-color: #e7e7e7;
+  color: #555;
 }
 
 .container-narrow > hr {

@@ -10,15 +10,11 @@ var converterData = (function(){
     var tags = [];
     var filter = {};
 
-    var root = '\"Behavior, Purpose, and Teleology\"';
+    var root;
 
     var converted = {
-        'root' : [
-            '\"Behavior, Purpose, and Teleology\"'
-        ],
-        'rootCache' : [
-            '\"Behavior, Purpose, and Teleology\"'
-        ],
+        'root' : [],
+        'rootCache' : [],
         'nodes' : [],
         'links' : []
 
@@ -203,9 +199,10 @@ var converterData = (function(){
                     });
                 }
 
-                var graphType = 'bundle';
-                var graphFn = graph[graphType];
-                graphFn.start(converted);
+                root = converted.nodes[0].name;
+                converted.root = [converted.nodes[0].name];
+                converted.rootCache = [converted.nodes[0].name];
+                graph.start(converted);
             });
         }
     };
