@@ -257,10 +257,8 @@ var graph = (function(graph) {
 		document.addEventListener('click', reset, false);
   }
 
-  graph.bundle = {
+  return {
     create: createGraph,
     start: startGraph
   }
-
-  return graph;
-}(graph || {}));
+}());

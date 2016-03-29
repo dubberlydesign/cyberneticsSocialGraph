@@ -283,9 +283,10 @@ module.exports = function (grunt) {
                         '*.{ico,png,txt}',
                         '.htaccess',
                         'images/{,*/}*.webp',
-                        '{,*/}*.html',
+                        '{,*/}*.{html,pdf}',
                         'styles/fonts/{,*/}*.*',
-                        'scripts/data/data.json'
+                        'scripts/data/data.json',
+                        'scripts/graph/graph-*.js',
                     ]
                 }, {
                     expand: true,

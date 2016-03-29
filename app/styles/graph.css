@@ -48,3 +48,11 @@ svg {
 .link.inactive {
   stroke: #F9F9F9;
 }
+
+#force .link path {
+  fill: #ccc;
+}
+
+#force .node-name {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif, 'FontAwesome';
+}

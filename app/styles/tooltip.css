@@ -89,11 +89,17 @@ img.img-node{
 }
 
 .box-img{
-    display : inline !important;
+    display : block !important;
     top: 0;
     width: 100% !important;
     height: 100% !important;
     vertical-align: top !important;
+}
+
+#force .box-img img {
+  background-color: white;
+  max-width: 300px;
+  max-height: 300px;
 }
 
 .box-info{

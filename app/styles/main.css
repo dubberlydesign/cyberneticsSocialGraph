@@ -7,11 +7,11 @@
 
 /* Space out content a bit */
 body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-    padding-top: 0px;
-    /*padding-bottom: 20px;*/
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
+  box-sizing: border-box;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+  padding-top: 51px;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
 }
 
 /*.container-fluid,
@@ -43,6 +43,12 @@ body {
     padding-top: 19px;
     color: #777;
     border-top: 1px solid #e5e5e5;
+}
+
+.navbar .navbar-brand-active,
+.navbar .navbar-brand-active:hover {
+  background-color: #e7e7e7;
+  color: #555;
 }
 
 .container-narrow > hr {
@@ -193,7 +199,7 @@ a{
 #details {
   background-color: #eee;
   font-size: 14px;
-  padding: 20px;
+  padding: 0 20px;
 }
 
 #details p {
@@ -213,6 +219,7 @@ a{
 
 #main {
   display: flex;
+  min-height: 100%;
   min-width: 100%;
 }
 
@@ -235,49 +242,40 @@ a{
   overflow: hidden;
 }
 
+#force .body-content {
+  height: 100%;
+}
+
 /*
  * "Mobile" devices
  */
 @media (max-width: 991px) {
-  body {
+  #bundle body {
     box-sizing: border-box;
     min-height: 100%;
     padding-top: 50px;
   }
 
-  #main {
+  #bundle #main {
     flex-direction: column;
     min-height: 100%;
   }
 
-  #chart {
+  #bundle #chart {
     flex: 0 0 auto;
   }
 
-  #details {
+  #bundle #details {
     box-sizing: border-box;
     display: none;
     flex: 1 1 auto;
   }
 
-  #description,
-  .navbar-collapse.collapse {
+  #bundle #description {
     display: none !important;
   }
 
-  .navbar-toggle {
-    display: block;
-  }
-
-  .navbar-collapse.collapse.in {
-    display: block !important;
-  }
-
-  .navbar-header {
-    float: none;
-  }
-
-  #details img.img-node {
+  #bundle #details img.img-node {
     float: left;
     height: 160px;
     margin: 5px 10px 0 0;
@@ -286,7 +284,7 @@ a{
 
 
 
-  #details.details-active {
+  #bundle #details.details-active {
     display: block;
   }
 }
@@ -295,18 +293,14 @@ a{
  * "Desktop" devices
  */
 @media (min-width: 992px) {
-  .navbar {
-    display: none !important;
-  }
-
-  #details {
+  #bundle #details {
     flex: 0 0 320px;
     transition: transform 250ms ease-in-out;
     transform: translateX(100%);
     min-height: 100%;
   }
 
-  #details.details-active {
+  #bundle #details.details-active {
     transform: translateX(0%);
   }
 }
